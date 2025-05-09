@@ -72,3 +72,38 @@ footer {
     background: #333;
     color: #fff;
 }
+
+/* Button style */
+#darkModeToggle {
+    background: none;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+
+#darkModeToggle:hover {
+    background: #fff;
+    color: #333;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background: #121212;
+    color: #eee;
+}
+
+body.dark-mode header {
+    background: #1f1f1f;
+}
+
+body.dark-mode section {
+    background: #1f1f1f;
+    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+}
+
+body.dark-mode footer {
+    background: #1f1f1f;
+}
