@@ -1,7 +1,7 @@
 /* General Reset */
 * {
     margin: 0;
-    padding: 0;
+    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -41,7 +41,7 @@ header {
 }
 
 .nav-links li {
-    margin-left: 20px;
+    margin-left: 5px;
 }
 
 .nav-links a {
@@ -55,7 +55,7 @@ header {
 }
 
 main {
-    padding: 40px 20px;
+    padding: 50px 30px;
 }
 
 section {
@@ -106,4 +106,34 @@ body.dark-mode section {
 
 body.dark-mode footer {
     background: #1f1f1f;
+}
+.project-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    width: 250px;  /* control the width of the card */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.card img {
+    width: 100%;      /* make image fit the card width */
+    height: auto;     /* maintain aspect ratio */
+    max-height: 150px; /* LIMIT the height */
+    object-fit: cover; /* crop if needed */
+    border-radius: 5px;
+}
+.card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+.card p {
+    font-size: 14px;
+    color: #666;
 }
