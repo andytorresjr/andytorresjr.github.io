@@ -13,14 +13,16 @@
     <header>
         <button id="darkModeToggle">Toggle Dark Mode</button>
         <div class="container">
-            <h1 class="logo">Andres Torres Jr.</h1>
+            <!-- <h1 class="logo">Andres Torres Jr.</h1> -->
+            <h1 class="logo">Andy Torres <span class="nowrap">Jr.</span></h1> <!-- is the one that's supposed to 
+                                                                             fix the issue with the text wrapping-->
             <nav>
                 <ul class="nav-links">
                     <li><a href="#home">HOME</a></li>
-                    <li><a href="#resume">RESUME</a></li>
                     <li><a href="#projects">PROJECTS</a></li>
-                    <li><a href="#about">ABOUT ME</a></li>
-                    <li><a href="#resources">RESOURCES</a></li>
+                    <li><a href="#about" class="nowrap">ABOUT ME</a></li>
+                    <li><a href="attachments/RESUME-S2025.pdf">RESUME</a></li>
+                    <li><a href="resources.html">RESOURCES</a></li>
                 </ul>
             </nav>
         </div>
@@ -34,10 +36,10 @@
                 section where I talk about some of the resources I have used and continue to use throughout my engineering journey. </p>
         </section>
 
-        <section id="resume">
+        <!-- <section id="resume">
             <h2>Resume</h2>
             <p>You can view or download my resume<a href="attachments/RESUME-S2025.pdf" target="_blank">here</a>.</p>
-        </section>
+        </section> -->
 
         <section id="projects">
             <h2>Projects</h2>
@@ -50,13 +52,17 @@
                 </div>
         
                 <div class="card">
-                    <img src="images/project2-thumbnail.jpg" alt="Project 2">
-                    <h3>Project 2 Title</h3>
+                    <img src="attachments/proj2-thumbnail.png" alt="Project 2">
+                    <h3>FSM Traffic Light</h3>
+                    <p>Intro to Embedded Systems</p>
+                    <a href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_reflecting-on-one-of-my-favorite-projects-activity-7326713346961932288-Mnkl?utm_source=share&utm_medium=member_desktop&rcm=ACoAAET12AYBE-u0uyDUsWOD2MA5lfwSLmSZuR8" target="_blank">See More</a>
+                </div>
+                <!-- <div class="card">
+                    <img src="images/project3-thumbnail.jpg" alt="Project 3">
+                    <h3>Project 3 Title</h3>
                     <p>Short description of the project.</p>
                     <a href="https://www.linkedin.com/posts/your-link-here" target="_blank">View on LinkedIn</a>
-                </div> -->
-                <!-- Add more cards as needed
-            </div>
+            </div> -->
         </section>
         
 
@@ -86,16 +92,7 @@
             </p>
         </section>
 
-        <section id="resources">
-            <h2>Resources</h2>
-            <p><a href="https://tutorial.math.lamar.edu/">Paul's Online Math Notes</a>- I like to think of Paul's notes as the closest thing
-                to perfect as far as notetaking goes. I have entire sections on my notebooks of his online notes that I like to use as introductory
-                material<br>
-            <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/hmat.html#hmath">HyperMath</a>- HyperMath is another cool math resource that I used as introductory
-            material, however, I probably didn't use HyperMath half as much as I use Paul's notes simply because of how straightforward Paul's notes are.<br>
-            <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/hframe.html">HyperPhysics</a>- This site CARRIED me during physics (both mechanical and quantum/EM/semiconductor).
-            Everything you need to know about physics is definitely here along with conceptual explanations with their derived equations.</p>
-        </section>
+        
     </main>
 
     <footer>

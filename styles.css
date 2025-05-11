@@ -7,7 +7,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    /* background: radial-gradient(circle at 50.00% 50.00%, hsla(32.5, 100%, 42.35294117647059%, 0.5), hsla(32.5, 100%, 42.35294117647059%, 0.5) 0%, transparent 41%),radial-gradient(circle at 48.00% 50.00%, hsla(35.05882352941177, 100%, 50%, 0.48), hsla(35.05882352941177, 100%, 50%, 0.48) 33.6%, transparent 70%),linear-gradient(#ffd8b3, #ffd8b3);    #FEDFB0 - creamy orange color; #C17603 - burnt orange? */
+    background: radial-gradient(circle at 50% 50%, #C1440E 0%, #FFFFFF 100%);  
     color: #333;
     line-height: 1.6;
 }
@@ -91,7 +92,8 @@ footer {
 
 /* Dark mode styles */
 body.dark-mode {
-    background: #121212;
+    /* background: radial-gradient(circle at 48.00% 50.00%, hsla(32.5, 100%, 42.35294117647059%, 0.5), hsla(32.5, 100%, 42.35294117647059%, 0.5) 0%, transparent 70%),radial-gradient(circle at 48.00% 50.00%, hsla(0, 0%, 100%, 0.48), hsla(0, 0%, 100%, 0.48) 22.56%, transparent 47%),linear-gradient(#885c1a, #885c1a); */
+    background: radial-gradient(circle at 50.00% 50.00%, hsla(32.5, 100%, 42.35294117647059%, 0.5), hsla(32.5, 100%, 42.35294117647059%, 0.5) 0%, transparent 41%),radial-gradient(circle at 48.00% 50.00%, hsla(35.05882352941177, 100%, 50%, 0.48), hsla(35.05882352941177, 100%, 50%, 0.48) 33.6%, transparent 70%),linear-gradient(#1f1f1f, #1f1f1f);
     color: #eee;
 }
 
@@ -136,4 +138,19 @@ body.dark-mode footer {
 .card p {
     font-size: 14px;
     color: #666;
+}
+.nowrap {
+    white-space: nowrap;
+}
+a {
+    text-decoration: underline;
+    color: inherit;
+    word-spacing: normal;  /* remove extra spaces */
+}
+
+p a {
+    display: inline;  /* keep it flowing inside the paragraph */
+}
+a:hover {
+    text-decoration: none;
 }
