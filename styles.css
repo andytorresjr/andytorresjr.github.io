@@ -1,156 +1,198 @@
-/* General Reset */
+/* ========== Reset ========== */
 * {
     margin: 0;
-    padding: 20px;
+    padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    /* background: radial-gradient(circle at 50.00% 50.00%, hsla(32.5, 100%, 42.35294117647059%, 0.5), hsla(32.5, 100%, 42.35294117647059%, 0.5) 0%, transparent 41%),radial-gradient(circle at 48.00% 50.00%, hsla(35.05882352941177, 100%, 50%, 0.48), hsla(35.05882352941177, 100%, 50%, 0.48) 33.6%, transparent 70%),linear-gradient(#ffd8b3, #ffd8b3);    #FEDFB0 - creamy orange color; #C17603 - burnt orange? */
-    background: radial-gradient(circle at 50% 50%, #C1440E 0%, #FFFFFF 100%);  
-    color: #333;
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-header {
-    background: #333;
+  }
+  
+  /* ========== Body ========== */
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #444;
     color: #fff;
-    padding: 20px 0;
+    line-height: 1.6;
+  }
+  
+  /* ========== Header/Nav ========== */
+  header {
+    background: #333;
     position: sticky;
     top: 0;
     z-index: 1000;
-}
-
-.logo {
-    font-size: 24px;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+  }
+  
+  .logo {
     font-weight: bold;
-}
-
-.nav-links {
+    font-size: 1.5em;
+    white-space: nowrap;
+  }
+  
+  .nav-links {
     list-style: none;
     display: flex;
-}
-
-.nav-links li {
-    margin-left: 5px;
-}
-
-.nav-links a {
-    color: #fff;
+    gap: 15px;
+  }
+  
+  .nav-links li a {
+    background-color: #b45e28;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
     text-decoration: none;
-    font-weight: 500;
-}
-
-.nav-links a:hover {
-    text-decoration: underline;
-}
-
-main {
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .nav-links li a:hover {
+    background-color: #91491f;
+  }
+  
+  /* ========== Toggle Button ========== */
+  #darkModeToggle {
+    background: none;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  #darkModeToggle:hover {
+    background: #fff;
+    color: #333;
+  }
+  
+  /* ========== Main Layout ========== */
+  main {
     padding: 50px 30px;
-}
-
-section {
+  }
+  
+  .home-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+  
+  .profile-pic img {
+    max-width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .intro-text {
+    max-width: 600px;
+  }
+  
+  .intro-text h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+  
+  .intro-text p {
+    font-size: 1.2em;
+    line-height: 1.5;
+  }
+  
+  /* ========== Sections ========== */
+  section {
     margin-bottom: 50px;
     background: #fff;
-    padding: 20px;
+    color: #222;
+    padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-footer {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ========== Project Cards ========== */
+  .project-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .card h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .card a {
+    display: inline-block;
+    background-color: #b45e28;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .card a:hover {
+    background-color: #91491f;
+  }
+  
+  /* ========== Footer ========== */
+  footer {
     text-align: center;
     padding: 20px;
     background: #333;
     color: #fff;
-}
-
-/* Button style */
-#darkModeToggle {
-    background: none;
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 20px;
-}
-
-#darkModeToggle:hover {
-    background: #fff;
-    color: #333;
-}
-
-/* Dark mode styles */
-body.dark-mode {
-    /* background: radial-gradient(circle at 48.00% 50.00%, hsla(32.5, 100%, 42.35294117647059%, 0.5), hsla(32.5, 100%, 42.35294117647059%, 0.5) 0%, transparent 70%),radial-gradient(circle at 48.00% 50.00%, hsla(0, 0%, 100%, 0.48), hsla(0, 0%, 100%, 0.48) 22.56%, transparent 47%),linear-gradient(#885c1a, #885c1a); */
-    background: radial-gradient(circle at 50.00% 50.00%, hsla(32.5, 100%, 42.35294117647059%, 0.5), hsla(32.5, 100%, 42.35294117647059%, 0.5) 0%, transparent 41%),radial-gradient(circle at 48.00% 50.00%, hsla(35.05882352941177, 100%, 50%, 0.48), hsla(35.05882352941177, 100%, 50%, 0.48) 33.6%, transparent 70%),linear-gradient(#1f1f1f, #1f1f1f);
+  }
+  
+  /* ========== Dark Mode ========== */
+  body.dark-mode {
+    background: #1f1f1f;
     color: #eee;
-}
-
-body.dark-mode header {
+  }
+  
+  body.dark-mode header,
+  body.dark-mode footer {
     background: #1f1f1f;
-}
-
-body.dark-mode section {
-    background: #1f1f1f;
-    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-}
-
-body.dark-mode footer {
-    background: #1f1f1f;
-}
-.project-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.card {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    width: 250px;  /* control the width of the card */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.card img {
-    width: 100%;      /* make image fit the card width */
-    height: auto;     /* maintain aspect ratio */
-    max-height: 150px; /* LIMIT the height */
-    object-fit: cover; /* crop if needed */
-    border-radius: 5px;
-}
-.card h3 {
-    margin: 10px 0;
-    font-size: 18px;
-}
-.card p {
-    font-size: 14px;
-    color: #666;
-}
-.nowrap {
+  }
+  
+  body.dark-mode section {
+    background: #2a2a2a;
+    color: #eee;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* ========== Utilities ========== */
+  .nowrap {
     white-space: nowrap;
-}
-a {
-    text-decoration: underline;
-    color: inherit;
-    word-spacing: normal;  /* remove extra spaces */
-}
-
-p a {
-    display: inline;  /* keep it flowing inside the paragraph */
-}
-a:hover {
-    text-decoration: none;
-}
+  }
+  

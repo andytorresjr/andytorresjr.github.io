@@ -1,20 +1,19 @@
-// Example: Smooth scroll behavior (optional)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+// Smooth scroll for anchor links
+const anchors = document.querySelectorAll('a[href^="#"]');
+anchors.forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
     });
+  });
 });
 
+// Dark mode toggle with button label switch
 const toggleButton = document.getElementById('darkModeToggle');
-
 toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-        toggleButton.textContent = 'Toggle Light Mode';
-    } else {
-        toggleButton.textContent = 'Toggle Dark Mode';
-    }
+  document.body.classList.toggle('dark-mode');
+  toggleButton.textContent = document.body.classList.contains('dark-mode')
+    ? 'Toggle Light Mode'
+    : 'Toggle Dark Mode';
 });
