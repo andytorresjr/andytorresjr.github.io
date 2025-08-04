@@ -14,6 +14,27 @@
   }
   
   /* ========== Header/Nav ========== */
+  /*@media (max-width: 760px) {*/
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      width: 100%;
+      gap: 10px;
+    }
+    .nav-links li {
+      margin: 5px 0;
+    }
+   
+  /*}*/
   header {
     background: #333;
     position: sticky;
@@ -21,23 +42,10 @@
     z-index: 1000;
   }
   
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-  }
-  
   .logo {
     font-weight: bold;
     font-size: 1.5em;
     white-space: nowrap;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
   }
   
   .nav-links li a {
@@ -64,6 +72,8 @@
     border-radius: 5px;
     margin-left: 20px;
     transition: all 0.3s ease;
+    align-self: flex-end;
+    margin-top: 10px;
   }
   
   #darkModeToggle:hover {
