@@ -259,3 +259,20 @@
     display: flex;
   }
 }
+
+.nav-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 769px) {
+  .nav-controls {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
