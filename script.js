@@ -17,3 +17,12 @@ toggleButton.addEventListener('click', () => {
     ? 'Toggle Light Mode'
     : 'Toggle Dark Mode';
 });
+
+// Mobile navbar toggle
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
+
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+

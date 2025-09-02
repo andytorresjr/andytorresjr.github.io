@@ -206,3 +206,56 @@
     white-space: nowrap;
   }
   
+
+  /* === ADD THESE STYLES at the BOTTOM of your styles.css === */
+
+/* Hide menu toggle button on desktop */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .menu-toggle {
+    display: block;
+    align-self: flex-end;
+    margin-bottom: 10px;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .nav-links li a {
+    display: block;
+    width: 100%;
+    background-color: #f97316;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
