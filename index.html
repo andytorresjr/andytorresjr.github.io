@@ -5,101 +5,212 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Andres Torres Jr</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
   <meta name="description" content="Portfolio website of Andy Torres Jr., ECE student passionate about technology and innovation." />
   <meta name="keywords" content="Andres Torres Jr, Andy Torres Jr., portfolio, electrical and computer engineering, projects" />
 </head>
 <body>
-  <header>
-    <div class="navbar">
-      <!-- <h1 class="logo nowrap">Andres Torres Jr.</h1> -->
-      <nav>
-        <div class="nav-controls">
-        <button class="menu-toggle" id="menu-toggle">&#9776;</button>
-        </div>
-        <ul class="nav-links" id="nav-links">
-          <li><a href="#home">HOME</a></li>
-          <li><a href="#projects">PROJECTS</a></li>
-          <li><a href="#about" class="nowrap">ABOUT ME</a></li>
-          <li><a href="attachments/RESUME-FALL2025.pdf" target="_blank">RESUME</a></li>
-          <li><a href="resources.html">RESOURCES</a></li>
-        </ul>
-      </nav>
-      <button id="darkModeToggle">Toggle Dark Mode</button>
-    </div>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="logo" href="#home">AT</a>
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links">
+        <span class="sr-only">Toggle navigation</span>
+        &#9776;
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="attachments/RESUME-FALL2025.pdf" target="_blank" rel="noopener">Resume</a></li>
+        <li><a href="resources.html">Resources</a></li>
+      </ul>
+      <button id="darkModeToggle" class="button button--ghost">Dark Mode</button>
+    </nav>
   </header>
 
-  <main class="home-layout">
-    <div class="profile-pic">
-      <img src="images/profile.jpg" alt="Andres Torres Jr." />
-    </div>
-    <div class="intro-text">
-      <h1>Andres Torres Jr.</h1>
-      <p>
-        Electrical and Computer Engineering Student<br />
-        at The University of Texas in Austin
-      </p>
-    </div>
-
-    <section id="home">
-      <h2>Welcome</h2>
-      <p>
-        This is my personal website. Everything is hand-coded in HTML, CSS, and JS.
-        Explore some of my favorite experiences, and check out my resources section
-        for tools I use in my engineering journey.
-      </p>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="project-cards">
-        <div class="card">
-          <img src="attachments/319k-final-project-thumbnail.jpg" alt="Space Invaders" />
-          <h3>Space Invaders</h3>
-          <p>Intro to Embedded Systems</p>
-          <a href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_embeddedsystems-programming-microcontrollers-activity-7284749293800800256-m4ea" target="_blank">See More</a>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero__content">
+        <span class="hero__eyebrow">Electrical &amp; Computer Engineering Student</span>
+        <h1 class="hero__title">Hi, I'm Andres Torres Jr.</h1>
+        <p class="hero__subtitle">
+          I build embedded systems and digital solutions that bring ideas from schematic to shipped product.
+          I'm currently studying at The University of Texas at Austin while leading hands-on engineering projects.
+        </p>
+        <div class="hero__actions">
+          <a class="button" href="attachments/RESUME-FALL2025.pdf" target="_blank" rel="noopener">View Resume</a>
+          <a class="button button--ghost" href="#projects">Browse Projects</a>
         </div>
-
-        <div class="card">
-          <img src="attachments/proj2-thumbnail.png" alt="FSM Traffic Light" />
-          <h3>FSM Traffic Light</h3>
-          <p>Intro to Embedded Systems</p>
-          <a href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_reflecting-on-one-of-my-favorite-projects-activity-7326713346961932288-Mnkl" target="_blank">See More</a>
+        <dl class="hero__highlights">
+          <div>
+            <dt>Focus Areas</dt>
+            <dd>Embedded Systems • Digital Logic • Signal Processing</dd>
+          </div>
+          <div>
+            <dt>Current Roles</dt>
+            <dd>UT Austin ECE Student • IEEE Member • Maker &amp; Mentor</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="hero__media">
+        <div class="profile-card">
+          <img src="images/profile.svg" alt="Stylized portrait of Andres Torres Jr." loading="lazy" />
+          <p>Based in Austin, TX — passionate about building inclusive technology.</p>
         </div>
       </div>
     </section>
 
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        I am currently an electrical and computer engineering(ECE) student at the University of Texas at Austin. I was born and raised in 
-        Laredo, Texas where I attended Sanchez Ochoa Elementary school before transferring to Matias de Llano Elementary School for grades 
-        1st through 5th. For middle school, I attended Trautmann Middle School for grades 6th through 8th. After middle school, I chose to 
-        attend United High School for their engineering magnet program as well as the various amount of good math teachers.
-      </p><br>
+    <section id="projects" class="section">
+      <div class="section__header">
+        <h2>Selected Projects</h2>
+        <p>Hands-on builds that showcase my approach to hardware, firmware, and user-focused engineering.</p>
+      </div>
+      <div class="project-grid">
+        <article class="card">
+          <img src="attachments/319k-final-project-thumbnail.jpg" alt="Space Invaders project demo" loading="lazy" />
+          <div class="card__content">
+            <h3>Space Invaders on the TM4C</h3>
+            <p>Designed and implemented a full game loop on the TM4C123 LaunchPad with custom graphics and audio drivers.</p>
+            <ul class="tag-list">
+              <li>ARM Cortex-M4</li>
+              <li>C</li>
+              <li>Real-Time Systems</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_embeddedsystems-programming-microcontrollers-activity-7284749293800800256-m4ea" target="_blank" rel="noopener">See more</a>
+        </article>
 
-      <h3>Roots</h3>
-      <p>
-        My mother, Patricia Torres, was born in a small town named El Salto del Agua located in San Luis. She lived there for most of her 
-        life where she attended school and relocated to San Luis Potosi for high school. She graduated from high high school and moved to the 
-        United States where she searched for a job to settle herself in. While job searching, she ran into my father in Austin, Texas and they 
-        kicked it off well before they fell in love and moved in together at my father's hometown house with his mother. Once my mom began to 
-        live there, she was able to find sustainable jobs where made a name for herself in the accounting industry. After several years, my 
-        mother and father had my oldest sister in 1997, my younger sister in 2002 and then finally having me in 2004.
-      </p><br>
+        <article class="card">
+          <img src="attachments/proj2-thumbnail.png" alt="Finite state machine traffic light" loading="lazy" />
+          <div class="card__content">
+            <h3>FSM Traffic Light Controller</h3>
+            <p>Created a traffic management system using finite state machines and simulated sensors to optimize traffic flow.</p>
+            <ul class="tag-list">
+              <li>Digital Logic</li>
+              <li>Finite State Machines</li>
+              <li>Systems Design</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_reflecting-on-one-of-my-favorite-projects-activity-7326713346961932288-Mnkl" target="_blank" rel="noopener">See more</a>
+        </article>
 
-      <h3>Hobbies and Interests</h3>
-      <p>
-        Throughout my life, I have always enjoyed watching and participating in sports of all sorts. All throughout grade school, I played 
-        soccer, basketball and baseball. It wasn't until my seventh grade when I first played tackle football. Since then, my favorite 
-        hobby/sport to watch and play has been football. Recently, I have been watching college football the most as I have been keeping up 
-        with my Longhorns in the SEC. I enjoy debating with my friends and challenging each other's takes from the NBA, NFL all the way to 
-        the UFC and soccer.
-      </p>
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span>Prototype</span>
+          </div>
+          <div class="card__content">
+            <h3>Sensor Dashboard Prototype</h3>
+            <p>Built a rapid prototype that streams sensor data into a responsive dashboard for real-time decision making.</p>
+            <ul class="tag-list">
+              <li>PCB Design</li>
+              <li>Python</li>
+              <li>Data Visualization</li>
+            </ul>
+          </div>
+          <span class="card__link card__link--disabled" aria-disabled="true">Case study coming soon</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience" class="section section--alt">
+      <div class="section__header">
+        <h2>Experience</h2>
+        <p>Each opportunity below has sharpened my technical foundation and leadership in collaborative engineering settings.</p>
+      </div>
+      <ol class="timeline">
+        <li>
+          <div class="timeline__date">2024 — Present</div>
+          <div class="timeline__content">
+            <h3>Undergraduate Research Assistant · UT Austin</h3>
+            <p>Assisting with a lab focused on edge computing and IoT, contributing to firmware development and system validation.</p>
+          </div>
+        </li>
+        <li>
+          <div class="timeline__date">2023 — 2024</div>
+          <div class="timeline__content">
+            <h3>Embedded Systems Course Projects</h3>
+            <p>Led project teams through design reviews, testing, and documentation, ensuring the hardware-software stack delivered reliable performance.</p>
+          </div>
+        </li>
+        <li>
+          <div class="timeline__date">2022</div>
+          <div class="timeline__content">
+            <h3>STEM Mentor · Laredo ISD</h3>
+            <p>Mentored high school students in robotics and programming, inspiring future engineers while reinforcing my own fundamentals.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section__header">
+        <h2>About Me</h2>
+        <p>Grounded in community, inspired by curiosity, and driven to build technology that elevates others.</p>
+      </div>
+      <div class="about-grid">
+        <div>
+          <h3>My Story</h3>
+          <p>
+            I'm an electrical and computer engineering student raised in Laredo, Texas. From early robotics clubs to UT Austin's rigorous
+            curriculum, I've found purpose in solving complex problems with thoughtful hardware and software design.
+          </p>
+          <p>
+            My academic path includes magnet programs and mentorship that shaped my passion for engineering. Today, I continue to blend
+            technical depth with mentorship, ensuring that the next generation of students feel empowered to pursue STEM.
+          </p>
+        </div>
+        <div>
+          <h3>Beyond the Lab</h3>
+          <p>
+            When I'm not in the lab or classroom, you'll find me watching sports—especially football—and debating the latest NBA and NFL
+            storylines with friends. I believe that teamwork, whether on the field or in an engineering sprint, is rooted in communication
+            and mutual respect.
+          </p>
+          <p>
+            I'm also energized by building inclusive communities. From IEEE meetups to mentoring sessions, I look for opportunities to connect
+            people with resources that help them thrive.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="section__header">
+        <h2>Core Skills</h2>
+        <p>A blend of hardware intuition, software craftsmanship, and communication.</p>
+      </div>
+      <ul class="skill-list">
+        <li>Embedded C &amp; ARM Assembly</li>
+        <li>Digital Logic &amp; FPGA Prototyping</li>
+        <li>Python for Data &amp; Automation</li>
+        <li>PCB Design (KiCad)</li>
+        <li>Signal Processing Fundamentals</li>
+        <li>Technical Writing &amp; Presentations</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="section__header">
+        <h2>Let's Connect</h2>
+        <p>Have an opportunity, collaboration idea, or just want to talk shop? I'd love to hear from you.</p>
+      </div>
+      <div class="contact-card">
+        <p>Email: <a href="mailto:andytorresjr@utexas.edu">andytorresjr@utexas.edu</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/andres-torres-jr" target="_blank" rel="noopener">linkedin.com/in/andres-torres-jr</a></p>
+        <p>GitHub: <a href="https://github.com/andytorresjr" target="_blank" rel="noopener">github.com/andytorresjr</a></p>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Andres Torres Jr. All rights reserved.</p>
+  <footer class="site-footer">
+    <p>&copy; <span id="current-year"></span> Andres Torres Jr. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
