@@ -5,10 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "msedge",
+            "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "c:\\Users\\Andyt\\andytorresjr.github.io\\index.html"
+            "file": "c:\\Users\\Andyt\\andytorresjr.github.io\\index.html",
+            "webRoot": "c:\\Users\\Andyt\\andytorresjr.github.io",
+            "runtimeExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
         }
     ]
 }
