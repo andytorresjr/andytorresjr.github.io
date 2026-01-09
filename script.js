@@ -1,20 +1,3 @@
-<<<<<<< ours
-// Example: Smooth scroll behavior (optional)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-const toggleButton = document.getElementById('darkModeToggle');
-
-toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-});
-=======
 const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 const storedTheme = localStorage.getItem('theme');
 const body = document.body;
@@ -74,4 +57,3 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
->>>>>>> theirs

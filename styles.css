@@ -1,143 +1,3 @@
-<<<<<<< ours
-/* General Reset */
-* {
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-header {
-    background: #333;
-    color: #fff;
-    padding: 20px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-}
-
-.nav-links li {
-    margin-left: 5px;
-}
-
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.nav-links a:hover {
-    text-decoration: underline;
-}
-
-main {
-    padding: 50px 30px;
-}
-
-section {
-    margin-bottom: 50px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #333;
-    color: #fff;
-}
-
-/* Button style */
-#darkModeToggle {
-    background: none;
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 20px;
-}
-
-#darkModeToggle:hover {
-    background: #fff;
-    color: #333;
-}
-
-/* Dark mode styles */
-body.dark-mode {
-    background: #121212;
-    color: #eee;
-}
-
-body.dark-mode header {
-    background: #1f1f1f;
-}
-
-body.dark-mode section {
-    background: #1f1f1f;
-    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-}
-
-body.dark-mode footer {
-    background: #1f1f1f;
-}
-.project-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.card {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    width: 250px;  /* control the width of the card */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.card img {
-    width: 100%;      /* make image fit the card width */
-    height: auto;     /* maintain aspect ratio */
-    max-height: 150px; /* LIMIT the height */
-    object-fit: cover; /* crop if needed */
-    border-radius: 5px;
-}
-.card h3 {
-    margin: 10px 0;
-    font-size: 18px;
-}
-.card p {
-    font-size: 14px;
-    color: #666;
-=======
 /* ========== Reset & Variables ========== */
 :root {
   --color-bg: #f3f4f6;
@@ -455,13 +315,44 @@ main {
 }
 
 .card__media--placeholder {
+  position: relative;
   display: grid;
   place-items: center;
   background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(59, 130, 246, 0.15));
-  color: var(--color-accent);
+  border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+  overflow: hidden;
+}
+
+.card__placeholder-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(17, 24, 39, 0.68);
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+
+.card__placeholder-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.75);
+  color: rgba(17, 24, 39, 0.55);
   font-weight: 700;
   font-size: 1.1rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  filter: blur(4px);
+  user-select: none;
+  pointer-events: none;
 }
 
 .card__content {
@@ -590,21 +481,54 @@ main {
   border-radius: 24px;
   padding: 2rem;
   display: grid;
-  gap: 0.75rem;
-  font-weight: 600;
+  gap: 1.5rem;
+  justify-items: center;
   border: 1px solid rgba(249, 115, 22, 0.18);
 }
 
-.contact-card a {
-  color: var(--color-text);
-  text-decoration: underline;
-  text-decoration-color: rgba(249, 115, 22, 0.5);
-  text-decoration-thickness: 2px;
+.contact-card__note {
+  color: var(--color-muted);
+  text-align: center;
+  margin: 0;
 }
 
-.contact-card a:hover,
-.contact-card a:focus-visible {
-  color: var(--color-accent);
+.contact-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(249, 115, 22, 0.22);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-link img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+  box-shadow: 0 16px 36px rgba(249, 115, 22, 0.3);
+}
+
+.contact-link:focus-visible {
+  outline: 2px solid rgba(249, 115, 22, 0.45);
+  outline-offset: 4px;
 }
 
 /* ========== Footer ========== */
@@ -640,6 +564,21 @@ body.dark-mode .section--alt {
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.45);
 }
 
+body.dark-mode .card__media--placeholder {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.25), rgba(79, 70, 229, 0.22));
+  border-color: rgba(148, 163, 184, 0.18);
+}
+
+body.dark-mode .card__placeholder-badge {
+  background: rgba(249, 115, 22, 0.85);
+  color: #0f172a;
+}
+
+body.dark-mode .card__placeholder-title {
+  background: rgba(17, 24, 39, 0.85);
+  color: rgba(226, 232, 240, 0.6);
+}
+
 body.dark-mode .site-header {
   background: rgba(15, 23, 42, 0.92);
 }
@@ -656,6 +595,12 @@ body.dark-mode .skill-list li {
 
 body.dark-mode .contact-card {
   border-color: rgba(249, 115, 22, 0.35);
+}
+
+body.dark-mode .contact-link {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(249, 115, 22, 0.35);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.45);
 }
 
 body.dark-mode .button--ghost {
@@ -716,5 +661,4 @@ body.dark-mode .button--ghost {
   .section {
     padding: 2.5rem 1.75rem;
   }
->>>>>>> theirs
 }
