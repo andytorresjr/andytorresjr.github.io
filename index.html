@@ -1,106 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andres Torres Jr</title>
-    <link rel="stylesheet" href="styles.css">
-    <meta name="description" content="Portfolio website of Andy Torres Jr., ECE student passionate about technology and innovation.">
-    <meta name="keywords" content="Andres Torres Jr,Andy Torres Jr., portfolio, electrical and computer engineering, projects">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andres Torres Jr</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Portfolio website of Andy Torres Jr., ECE student passionate about technology and innovation." />
+  <meta name="keywords" content="Andres Torres Jr, Andy Torres Jr., portfolio, electrical and computer engineering, projects" />
 </head>
 <body>
-    <header>
-        <button id="darkModeToggle">Toggle Dark Mode</button>
-        <div class="container">
-            <h1 class="logo">Andres Torres Jr.</h1>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#home">HOME</a></li>
-                    <li><a href="#resume">RESUME</a></li>
-                    <li><a href="#projects">PROJECTS</a></li>
-                    <li><a href="#about">ABOUT ME</a></li>
-                    <li><a href="#resources">RESOURCES</a></li>
-                </ul>
-            </nav>
+  <header>
+    <div class="navbar">
+      <!-- <h1 class="logo nowrap">Andres Torres Jr.</h1> -->
+      <nav>
+        <div class="nav-controls">
+        <button class="menu-toggle" id="menu-toggle">&#9776;</button>
         </div>
-    </header>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#home">HOME</a></li>
+          <li><a href="#projects">PROJECTS</a></li>
+          <li><a href="#about" class="nowrap">ABOUT ME</a></li>
+          <li><a href="attachments/RESUME-FALL2025.pdf" target="_blank">RESUME</a></li>
+          <li><a href="resources.html">RESOURCES</a></li>
+        </ul>
+      </nav>
+      <button id="darkModeToggle">Toggle Dark Mode</button>
+    </div>
+  </header>
 
-    <main>
-        <section id="home">
-            <h2>Welcome</h2>
-            <p>This is my personal website. This entire site has been typed in HTML, CSS, and Js. Feel free to stick around
-                and explore some of my favorite experiences growing up. If you're here to learn a thing or two, check out my resources
-                section where I talk about some of the resources I have used and continue to use throughout my engineering journey. </p>
-        </section>
+  <main class="home-layout">
+    <div class="profile-pic">
+      <img src="images/profile.jpg" alt="Andres Torres Jr." />
+    </div>
+    <div class="intro-text">
+      <h1>Andres Torres Jr.</h1>
+      <p>
+        Electrical and Computer Engineering Student<br />
+        at The University of Texas in Austin
+      </p>
+    </div>
 
-        <section id="resume">
-            <h2>Resume</h2>
-            <p>You can view or download my resume<a href="attachments/RESUME-S2025.pdf" target="_blank">here</a>.</p>
-        </section>
+    <section id="home">
+      <h2>Welcome</h2>
+      <p>
+        This is my personal website. Everything is hand-coded in HTML, CSS, and JS.
+        Explore some of my favorite experiences, and check out my resources section
+        for tools I use in my engineering journey.
+      </p>
+    </section>
 
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="project-cards">
-                <div class="card">
-                    <img src="attachments/319k-final-project-thumbnail.jpg" alt="Project 1">
-                    <h3>Space Invaders</h3>
-                    <p>Intro to Embedded Systems</p>
-                    <a href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_embeddedsystems-programming-microcontrollers-activity-7284749293800800256-m4ea?utm_source=share&utm_medium=member_desktop&rcm=ACoAAET12AYBE-u0uyDUsWOD2MA5lfwSLmSZuR8" target="_blank">See More</a>
-                </div>
-        
-                <div class="card">
-                    <img src="images/project2-thumbnail.jpg" alt="Project 2">
-                    <h3>Project 2 Title</h3>
-                    <p>Short description of the project.</p>
-                    <a href="https://www.linkedin.com/posts/your-link-here" target="_blank">View on LinkedIn</a>
-                </div> -->
-                <!-- Add more cards as needed
-            </div>
-        </section>
-        
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project-cards">
+        <div class="card">
+          <img src="attachments/319k-final-project-thumbnail.jpg" alt="Space Invaders" />
+          <h3>Space Invaders</h3>
+          <p>Intro to Embedded Systems</p>
+          <a href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_embeddedsystems-programming-microcontrollers-activity-7284749293800800256-m4ea" target="_blank">See More</a>
+        </div>
 
-        <section id="about">
-            <h2>About Me</h2>
-            <p>I am currently an electrical and computer engineering(ECE) student at the University of Texas at Austin. 
-                I was born and raised in Laredo, Texas where I attended Sanchez Ochoa Elementary school before transferring
-                to Matias de Llano Elementary School for grades 1st through 5th. For middle school, I attended Trautmann Middle 
-                School for grades 6th through 8th. After middle school, I chose to attend United High School for their engineering
-                magnet program as well as the various amount of good math teachers.</p>
-            <h3>Roots</h3>
-            <p>My mother, Patricia Torres, was born in a small town named El Salto del Agua located in San Luis. She lived there for 
-                most of her life where she attended school and relocated to San Luis Potosi for high school. She graduated from high
-                high school and moved to the United States where she searched for a job to settle herself in. While job searching, 
-                she ran into my father in Austin, Texas and they kicked it off well before they fell in love and moved in together at
-                my father's hometown house with his mother. Once my mom began to live there, she was able to find sustainable jobs where 
-                made a name for herself in the accounting industry. <br>
-                After several years, my mother and father had my oldest sister in 1997, my younger sister in 2002 and then finally having
-                me in 2004.</p> 
-            
-            <h3>Hobbies and Interests</h3>
-            <p>Throughout my life, I have always anjoyed watching and participating in sports of all sorts. All throughout grade school,
-                I played soccer, basketball and baseball. It wasn't until my seventh grade when I first played tackle football. Since then, 
-                my favorite hobby/sport to watch and play has been football. Recently, I have been watching college football the most as I 
-                have been keeping up with my Longhorns in the SEC. I enjoy debating with my friends and challenging each other's takes from
-                the NBA, NFL all the way to the UFC and soccer. 
-            </p>
-        </section>
+        <div class="card">
+          <img src="attachments/proj2-thumbnail.png" alt="FSM Traffic Light" />
+          <h3>FSM Traffic Light</h3>
+          <p>Intro to Embedded Systems</p>
+          <a href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_reflecting-on-one-of-my-favorite-projects-activity-7326713346961932288-Mnkl" target="_blank">See More</a>
+        </div>
+      </div>
+    </section>
 
-        <section id="resources">
-            <h2>Resources</h2>
-            <p><a href="https://tutorial.math.lamar.edu/">Paul's Online Math Notes</a>- I like to think of Paul's notes as the closest thing
-                to perfect as far as notetaking goes. I have entire sections on my notebooks of his online notes that I like to use as introductory
-                material<br>
-            <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/hmat.html#hmath">HyperMath</a>- HyperMath is another cool math resource that I used as introductory
-            material, however, I probably didn't use HyperMath half as much as I use Paul's notes simply because of how straightforward Paul's notes are.<br>
-            <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/hframe.html">HyperPhysics</a>- This site CARRIED me during physics (both mechanical and quantum/EM/semiconductor).
-            Everything you need to know about physics is definitely here along with conceptual explanations with their derived equations.</p>
-        </section>
-    </main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        I am currently an electrical and computer engineering(ECE) student at the University of Texas at Austin. I was born and raised in 
+        Laredo, Texas where I attended Sanchez Ochoa Elementary school before transferring to Matias de Llano Elementary School for grades 
+        1st through 5th. For middle school, I attended Trautmann Middle School for grades 6th through 8th. After middle school, I chose to 
+        attend United High School for their engineering magnet program as well as the various amount of good math teachers.
+      </p><br>
 
-    <footer>
-        <p>&copy; 2025 Andres Torres Jr. All rights reserved.</p>
-    </footer>
+      <h3>Roots</h3>
+      <p>
+        My mother, Patricia Torres, was born in a small town named El Salto del Agua located in San Luis. She lived there for most of her 
+        life where she attended school and relocated to San Luis Potosi for high school. She graduated from high high school and moved to the 
+        United States where she searched for a job to settle herself in. While job searching, she ran into my father in Austin, Texas and they 
+        kicked it off well before they fell in love and moved in together at my father's hometown house with his mother. Once my mom began to 
+        live there, she was able to find sustainable jobs where made a name for herself in the accounting industry. After several years, my 
+        mother and father had my oldest sister in 1997, my younger sister in 2002 and then finally having me in 2004.
+      </p><br>
+
+      <h3>Hobbies and Interests</h3>
+      <p>
+        Throughout my life, I have always enjoyed watching and participating in sports of all sorts. All throughout grade school, I played 
+        soccer, basketball and baseball. It wasn't until my seventh grade when I first played tackle football. Since then, my favorite 
+        hobby/sport to watch and play has been football. Recently, I have been watching college football the most as I have been keeping up 
+        with my Longhorns in the SEC. I enjoy debating with my friends and challenging each other's takes from the NBA, NFL all the way to 
+        the UFC and soccer.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Andres Torres Jr. All rights reserved.</p>
+  </footer>
 
     <script src="script.js"></script>
 </body>
