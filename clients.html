@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Portal — Andres Torres Jr.</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <meta name="description" content="Client portal for invoices and payments — Andres Torres Jr." />
+  <style>
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .service-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .service-card__label {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .service-card p {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+      flex: 1;
+    }
+
+    .service-card__price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-text);
+    }
+
+    .service-card__price span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-muted);
+    }
+
+    .how-it-works {
+      display: grid;
+      gap: 1.25rem;
+      counter-reset: steps;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      counter-increment: steps;
+    }
+
+    .step__number {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: var(--color-accent);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step__text h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .step__text p {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+    }
+
+    .portal-cta {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.12), rgba(59, 130, 246, 0.1));
+      border: 1px solid rgba(249, 115, 22, 0.22);
+      border-radius: 24px;
+      padding: 3rem clamp(1.5rem, 4vw, 3rem);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .portal-cta h2 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 800;
+    }
+
+    .portal-cta p {
+      color: var(--color-muted);
+      max-width: 52ch;
+    }
+
+    body.dark-mode .service-card,
+    body.dark-mode .step {
+      background: rgba(15, 23, 42, 0.8);
+      border-color: rgba(148, 163, 184, 0.18);
+    }
+
+    body.dark-mode .portal-cta {
+      border-color: rgba(249, 115, 22, 0.35);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="logo" href="index.html">AT</a>
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links">
+        <span class="sr-only">Toggle navigation</span>
+        &#9776;
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="attachments/RESUME-FALL2025.pdf" target="_blank" rel="noopener">Resume</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="clients.html">Clients</a></li>
+      </ul>
+      <button id="darkModeToggle" class="button button--ghost">Dark Mode</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section__header">
+        <span class="hero__eyebrow">Client Portal</span>
+        <h2>Invoices &amp; Payments</h2>
+        <p>Access your invoices and pay securely through Stripe. No account needed — just use the email your invoice was sent to.</p>
+      </div>
+
+      <div class="portal-cta">
+        <h2>View Your Invoice</h2>
+        <p>Click below to open the secure payment portal. You'll be able to view your invoice and pay by card or bank transfer.</p>
+        <a class="button" href="https://buy.stripe.com/4gMdR85aQ01R5xU7DK9Ve00" target="_blank" rel="noopener">
+          Open Payment Portal
+        </a>
+        <p style="font-size: 0.85rem;">Payments are processed securely by Stripe. Andres never sees your card details.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__header">
+        <h2>Services Offered</h2>
+        <p>Current services available for booking. Reach out to get started — I'll send your invoice once we agree on scope.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-card__label">Tutoring</span>
+          <h3>1-on-1 Tutoring Session</h3>
+          <p>Personalized tutoring in ECE, embedded systems, digital logic, or computer architecture. Virtual or in-person at UT Austin.</p>
+          <div class="service-card__price">$45 <span>/ hour</span></div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-card__label">Tutoring</span>
+          <h3>Tutoring Package (4 Sessions)</h3>
+          <p>Four 1-hour sessions bundled at a discount. Best for ongoing support through a course or project.</p>
+          <div class="service-card__price">$160 <span>/ 4 sessions</span></div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-card__label">Web Development</span>
+          <h3>Starter Site</h3>
+          <p>A clean, responsive personal or portfolio website. Up to 3 pages, contact section, and basic SEO. Delivered within 2 weeks.</p>
+          <div class="service-card__price">$350 <span>flat rate</span></div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-card__label">Web Development</span>
+          <h3>Custom Project</h3>
+          <p>Custom scope project with pricing determined after a free 30-minute consultation. Invoiced in milestones.</p>
+          <div class="service-card__price">Custom <span>quote</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="section__header">
+        <h2>How It Works</h2>
+        <p>A simple, transparent process from start to payment.</p>
+      </div>
+      <div class="how-it-works">
+        <div class="step">
+          <div class="step__number">1</div>
+          <div class="step__text">
+            <h3>Reach Out</h3>
+            <p>Contact me via email or LinkedIn to discuss your needs. For custom web projects, we'll schedule a free 30-minute consultation.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">2</div>
+          <div class="step__text">
+            <h3>Receive Your Invoice</h3>
+            <p>Once we agree on scope, I'll send a Stripe invoice directly to your email with a clear breakdown of services and pricing.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">3</div>
+          <div class="step__text">
+            <h3>Pay Securely</h3>
+            <p>Pay via the link in your email or through the portal above. Stripe accepts major credit cards and bank transfers.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">4</div>
+          <div class="step__text">
+            <h3>We Get to Work</h3>
+            <p>Once payment is confirmed, we kick off the session or project. Simple as that.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__header">
+        <h2>Questions?</h2>
+        <p>If you have questions about an invoice or want to book a service, get in touch.</p>
+      </div>
+      <div class="contact-card">
+        <p class="contact-card__note">Reach out and I'll get back to you within 24 hours.</p>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:andytorresjr@utexas.edu">
+            <img src="attachments/email-logo.png" alt="" loading="lazy" />
+            <span class="sr-only">Email Andres</span>
+          </a>
+          <a class="contact-link" href="https://www.linkedin.com/in/andres-torres-jr" target="_blank" rel="noopener">
+            <img src="attachments/linkedIn_PNG8.png" alt="" loading="lazy" />
+            <span class="sr-only">Visit Andres on LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="current-year"></span> Andres Torres Jr. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
