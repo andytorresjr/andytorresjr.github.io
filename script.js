@@ -57,3 +57,13 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
+
+// Highlight active nav link based on current page
+const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('.nav-links a').forEach((link) => {
+  const linkPath = link.getAttribute('href').split('/').pop();
+  if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+    link.style.color = 'var(--color-accent)';
+    link.setAttribute('aria-current', 'page');
+  }
+});

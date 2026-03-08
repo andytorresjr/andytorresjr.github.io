@@ -661,4 +661,22 @@ body.dark-mode .button--ghost {
   .section {
     padding: 2.5rem 1.75rem;
   }
+
+  .portal-cta {
+    padding: 2rem 1.5rem;
+  }
+
+  .portal-cta .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .service-card__price {
+    font-size: 1.25rem;
+  }
 }
