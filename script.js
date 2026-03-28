@@ -95,7 +95,7 @@ if (siteHeader) {
 }
 
 /* ========== Intersection Observer — Section Reveals ========== */
-const revealEls = document.querySelectorAll('.reveal');
+const revealEls = document.querySelectorAll('.reveal, .reveal--stagger');
 if (revealEls.length) {
   const observer = new IntersectionObserver(
     (entries) => {
