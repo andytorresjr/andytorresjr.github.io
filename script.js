@@ -263,3 +263,81 @@ document.querySelectorAll('.button:not(.button--ghost)').forEach((btn) => {
     }, 220);
   });
 })();
+
+/* ========== Text Scramble Effect ========== */
+(function () {
+  const el = document.getElementById('scramble-text');
+  if (!el) return;
+
+  const CHARS = '!<>-_\\/[]{}=+*^?#@$%&~';
+  const PHRASES = [
+    'Embedded Systems',
+    'Web Development',
+    'ECE Tutoring',
+    'Custom Firmware',
+    'Portfolio Websites',
+    'Digital Logic',
+    'Microcontroller Builds',
+  ];
+
+  let queue = [];
+  let frame = 0;
+  let frameReq;
+  let resolvePromise;
+
+  function randomChar() {
+    return CHARS[Math.floor(Math.random() * CHARS.length)];
+  }
+
+  function setText(newText) {
+    const old = el.innerText;
+    const len = Math.max(old.length, newText.length);
+    queue = [];
+    for (let i = 0; i < len; i++) {
+      queue.push({
+        from:  old[i]    || '',
+        to:    newText[i] || '',
+        start: Math.floor(Math.random() * 18),
+        end:   Math.floor(Math.random() * 18) + 18,
+        char:  '',
+      });
+    }
+    cancelAnimationFrame(frameReq);
+    frame = 0;
+    return new Promise(r => { resolvePromise = r; tick(); });
+  }
+
+  function tick() {
+    let out = '';
+    let done = 0;
+    for (const q of queue) {
+      if (frame >= q.end) {
+        done++;
+        out += q.to;
+      } else if (frame >= q.start) {
+        if (!q.char || Math.random() < 0.28) q.char = randomChar();
+        out += `<span class="scramble__char">${q.char}</span>`;
+      } else {
+        out += q.from;
+      }
+    }
+    el.innerHTML = out;
+    if (done === queue.length) {
+      resolvePromise();
+    } else {
+      frame++;
+      frameReq = requestAnimationFrame(tick);
+    }
+  }
+
+  let idx = 0;
+  function cycle() {
+    setText(PHRASES[idx]).then(() => {
+      setTimeout(cycle, 2200);
+    });
+    idx = (idx + 1) % PHRASES.length;
+  }
+
+  // Small delay so the page settles before starting
+  setTimeout(cycle, 400);
+})();
