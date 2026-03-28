@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects &mdash; Andres Torres Jr.</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <meta name="description" content="All projects by Andres Torres Jr. — embedded systems, systems programming, and software builds." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</head>
+<body>
+
+  <!-- Ambient background -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="site-header-sticky">
+    <header class="site-header" id="site-header">
+      <div class="scroll-progress" id="scroll-progress"></div>
+      <nav class="navbar" aria-label="Main navigation">
+        <a class="logo" href="index.html">AT</a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">Toggle navigation</span>
+          &#9776;
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="projects.html" class="nav-active">Projects</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="attachments/RESUME_2026.pdf" target="_blank" rel="noopener">Resume</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="clients.html">Clients</a></li>
+        </ul>
+        <button id="darkModeToggle" class="button button--ghost">Light Mode</button>
+      </nav>
+    </header>
+  </div>
+
+  <main>
+
+    <!-- ===== Page Header ===== -->
+    <section class="section reveal" style="padding-bottom: 0;">
+      <div class="section__header">
+        <span class="hero__eyebrow">GitHub &amp; Course Work</span>
+        <h2>All Projects</h2>
+        <p>A full catalogue of what I've built — from embedded hardware to systems software and web apps.</p>
+      </div>
+    </section>
+
+    <!-- ===== Hardware & Embedded ===== -->
+    <section class="section reveal" style="padding-top: 2rem;">
+      <div class="section__header" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-family: var(--font-mono); color: var(--accent); letter-spacing: 0.05em;">Hardware &amp; Embedded Systems</h3>
+      </div>
+      <div class="project-grid reveal--stagger">
+
+        <article class="card">
+          <img src="attachments/319k-final-project-thumbnail.jpg" alt="Space Invaders project demo" loading="lazy" />
+          <div class="card__content">
+            <h3>Space Invaders on the TM4C</h3>
+            <p>Designed and implemented a full game loop on the MSPM0 LaunchPad with custom graphics and audio drivers.</p>
+            <ul class="tag-list">
+              <li>ARM Cortex-M4</li>
+              <li>C</li>
+              <li>Real-Time Systems</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_embeddedsystems-programming-microcontrollers-activity-7284749293800800256-m4ea" target="_blank" rel="noopener">See more</a>
+        </article>
+
+        <article class="card">
+          <img src="attachments/proj2-thumbnail.png" alt="Finite state machine traffic light" loading="lazy" />
+          <div class="card__content">
+            <h3>FSM Traffic Light Controller</h3>
+            <p>Created a traffic management system using finite state machines and simulated sensors to optimize traffic flow.</p>
+            <ul class="tag-list">
+              <li>Digital Logic</li>
+              <li>Finite State Machines</li>
+              <li>Systems Design</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://www.linkedin.com/posts/andres-torres-jr-45a56a283_reflecting-on-one-of-my-favorite-projects-activity-7326713346961932288-Mnkl" target="_blank" rel="noopener">See more</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">CHIP-8</span>
+          </div>
+          <div class="card__content">
+            <h3>PyChip8 — CHIP-8 Emulator</h3>
+            <p>A complete CHIP-8 emulator implementing all 35 opcodes, 64&times;32 display, two timers, hex keypad, and a disassembler.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Emulation</li>
+              <li>Computer Architecture</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pychip8" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== Systems Programming ===== -->
+    <section class="section reveal" style="padding-top: 1.5rem;">
+      <div class="section__header" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-family: var(--font-mono); color: var(--accent); letter-spacing: 0.05em;">Systems Programming</h3>
+      </div>
+      <div class="project-grid reveal--stagger">
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">{ blockchain }</span>
+          </div>
+          <div class="card__content">
+            <h3>PyChain — Blockchain from Scratch</h3>
+            <p>A proof-of-work blockchain with Merkle trees, REST API, tamper detection, and distributed consensus across nodes.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Distributed Systems</li>
+              <li>Cryptography</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pychain" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">malloc()</span>
+          </div>
+          <div class="card__content">
+            <h3>PyMalloc — Memory Allocator</h3>
+            <p>A malloc/free/realloc replacement in C with explicit free lists, boundary tags, immediate coalescing, and a heap checker.</p>
+            <ul class="tag-list">
+              <li>C</li>
+              <li>Memory Management</li>
+              <li>Systems</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pymalloc" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">git commit</span>
+          </div>
+          <div class="card__content">
+            <h3>PyGit — Git from Scratch</h3>
+            <p>A Git subset built from scratch — blob/tree/commit objects, SHA-1 content addressing, index, log, and checkout.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Version Control</li>
+              <li>File Systems</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pygit" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">$ shell</span>
+          </div>
+          <div class="card__content">
+            <h3>PySh — Unix Shell</h3>
+            <p>A fully functional Unix shell built from scratch — pipes, I/O redirection, glob expansion, history, and 10 built-ins.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>OS / Processes</li>
+              <li>Unix</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pysh" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">HTTP/1.1</span>
+          </div>
+          <div class="card__content">
+            <h3>PyServe — HTTP Web Server</h3>
+            <p>An HTTP/1.1 web server built from raw TCP sockets — multi-threaded, request parsing, router, and static file serving.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Networking</li>
+              <li>Concurrency</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pyserve" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== Algorithms & Language Internals ===== -->
+    <section class="section reveal" style="padding-top: 1.5rem;">
+      <div class="section__header" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-family: var(--font-mono); color: var(--accent); letter-spacing: 0.05em;">Algorithms &amp; Language Internals</h3>
+      </div>
+      <div class="project-grid reveal--stagger">
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">/regex/</span>
+          </div>
+          <div class="card__content">
+            <h3>PyRegex — NFA Regex Engine</h3>
+            <p>An NFA-based regex engine using Thompson's construction — match, search, findall, sub, and compile.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Automata Theory</li>
+              <li>Parsing</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pyregex" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">BM25 search</span>
+          </div>
+          <div class="card__content">
+            <h3>PySearch — Full-Text Search Engine</h3>
+            <p>A full-text search engine with inverted index, BM25/TF-IDF scoring, Porter stemmer, and boolean/phrase/wildcard queries.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Information Retrieval</li>
+              <li>NLP</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pysearch" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">neural net</span>
+          </div>
+          <div class="card__content">
+            <h3>PyNet — Neural Network from Scratch</h3>
+            <p>A fully-connected MLP built using only NumPy — backpropagation, Adam optimizer, dropout, and L2 regularization.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Machine Learning</li>
+              <li>NumPy</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pynet" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">&#123;&#123; template &#125;&#125;</span>
+          </div>
+          <div class="card__content">
+            <h3>PyTpl — Template Engine</h3>
+            <p>A Jinja2-inspired template engine with a lexer, recursive descent parser, template inheritance, filters, and auto-escaping.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Compilers</li>
+              <li>Parsing</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pytpl" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== Apps & Tools ===== -->
+    <section class="section reveal" style="padding-top: 1.5rem;">
+      <div class="section__header" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-family: var(--font-mono); color: var(--accent); letter-spacing: 0.05em;">Apps &amp; Tools</h3>
+      </div>
+      <div class="project-grid reveal--stagger">
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">&lt;vdom /&gt;</span>
+          </div>
+          <div class="card__content">
+            <h3>PyVDOM — Virtual DOM</h3>
+            <p>A React-inspired Virtual DOM — h(), diff(), patch(), typed patch records, and a stateful Component class.</p>
+            <ul class="tag-list">
+              <li>JavaScript</li>
+              <li>React Internals</li>
+              <li>DOM</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pyvdom" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">task add</span>
+          </div>
+          <div class="card__content">
+            <h3>PyTask — CLI Task Manager</h3>
+            <p>A feature-rich task manager CLI with a custom arg parser, ANSI table renderer, 9 subcommands, and JSON persistence.</p>
+            <ul class="tag-list">
+              <li>JavaScript</li>
+              <li>CLI</li>
+              <li>Developer Tools</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/pytask" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">realeyez</span>
+          </div>
+          <div class="card__content">
+            <h3>RealEyez — Anti-Deepfake Social App</h3>
+            <p>A social media concept that prevents prerecorded media uploads to combat AI-generated and fake content in real-time feeds.</p>
+            <ul class="tag-list">
+              <li>TypeScript</li>
+              <li>AI Safety</li>
+              <li>Social Media</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/realeyez" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+        <article class="card">
+          <div class="card__media card__media--placeholder" aria-hidden="true">
+            <span class="card__placeholder-title">laredo lifeline</span>
+          </div>
+          <div class="card__content">
+            <h3>Laredo Lifeline</h3>
+            <p>A TypeScript web application serving the Laredo community — built to connect local resources and services.</p>
+            <ul class="tag-list">
+              <li>TypeScript</li>
+              <li>Web App</li>
+              <li>Community</li>
+            </ul>
+          </div>
+          <a class="card__link" href="https://github.com/andytorresjr/laredo-lifeline" target="_blank" rel="noopener">View on GitHub</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== GitHub CTA ===== -->
+    <section class="section reveal" style="padding-top: 1rem; padding-bottom: 3rem;">
+      <div style="text-align: center;">
+        <p style="color: var(--text-2); margin-bottom: 1.25rem;">Want to see the source code for any of these?</p>
+        <a class="button" href="https://github.com/andytorresjr" target="_blank" rel="noopener">View All on GitHub &rarr;</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="current-year"></span> Andres Torres Jr. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
