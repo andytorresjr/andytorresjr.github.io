@@ -3,53 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resources | Andres Torres Jr.</title>
+  <title>Resources &mdash; Andres Torres Jr.</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <meta name="description" content="Engineering and math resources curated by Andres Torres Jr." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 </head>
 <body>
-  <header>
-    <div class="navbar">
-      <a class="logo" href="index.html">AT</a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="index.html#projects">PROJECTS</a></li>
-          <li><a href="index.html#about" class="nowrap">ABOUT ME</a></li>
-          <li><a href="attachments/RESUME-S2025.pdf" target="_blank">RESUME</a></li>
-          <li><a href="resources.html">RESOURCES</a></li>
+
+  <!-- Ambient background -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="site-header-sticky">
+    <header class="site-header" id="site-header">
+      <div class="scroll-progress" id="scroll-progress"></div>
+      <nav class="navbar" aria-label="Main navigation">
+        <a class="logo" href="index.html">AT</a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">Toggle navigation</span>
+          &#9776;
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="attachments/RESUME_2026.pdf" target="_blank" rel="noopener">Resume</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="clients.html">Clients</a></li>
         </ul>
+        <button id="darkModeToggle" class="button button--ghost">Light Mode</button>
       </nav>
-      <button id="darkModeToggle">Toggle Dark Mode</button>
-    </div>
-  </header>
+    </header>
+  </div>
 
   <main>
-    <section id="resources">
-      <h2>Resources</h2>
-      <ul>
-        <li>
-          <a href="https://tutorial.math.lamar.edu/" target="_blank">Paul's Online Math Notes</a> —
-          The closest thing to perfect notetaking. I’ve filled entire notebooks with his explanations.
+
+    <section id="resources" class="section reveal">
+      <div class="section__header">
+        <span class="hero__eyebrow">Curated Links</span>
+        <h2>Resources</h2>
+        <p>Sites and tools I've actually used and continue to rely on throughout my engineering journey.</p>
+      </div>
+
+      <ul class="resources-list reveal--stagger">
+        <li class="resource-item">
+          <a href="https://tutorial.math.lamar.edu/" target="_blank" rel="noopener">
+            Paul's Online Math Notes
+          </a>
+          <p>The closest thing to perfect notetaking. I've filled entire notebooks with his explanations.</p>
         </li>
-        <li>
-          <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/hmat.html#hmath" target="_blank">HyperMath</a> —
-          Another solid math resource I used early on. It’s less extensive but good for introductory material.
+
+        <li class="resource-item">
+          <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/hmat.html#hmath" target="_blank" rel="noopener">
+            HyperMath
+          </a>
+          <p>Another solid math resource I used early on. It's less extensive but good for introductory material.</p>
         </li>
-        <li>
-          <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/hframe.html" target="_blank">HyperPhysics</a> —
-          This site CARRIED me through physics. Great conceptual breakdowns and visual aids for EM, mechanics, and semiconductors.
+
+        <li class="resource-item">
+          <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/hframe.html" target="_blank" rel="noopener">
+            HyperPhysics
+          </a>
+          <p>This site CARRIED me through physics. Great conceptual breakdowns and visual aids for EM, mechanics, and semiconductors.</p>
         </li>
       </ul>
-      <p>
-        These are just a few of the resources I’ve used and continue to rely on during my engineering journey.
-        I’ll keep adding more as I find new favorites.
+
+      <p class="resources-note" style="margin-top: 1.5rem;">
+        These are just a few of the resources I've used and continue to rely on during my engineering journey.
+        I'll keep adding more as I find new favorites.
       </p>
     </section>
+
   </main>
 
-  <!-- <footer>
-    <p>&copy; 2025 Andres Torres Jr. All rights reserved.</p>
-  </footer> -->
+  <footer class="site-footer">
+    <p>&copy; <span id="current-year"></span> Andres Torres Jr. All rights reserved.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>

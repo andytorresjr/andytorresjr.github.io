@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andres Torres Jr</title>
+  <title>Andres Torres Jr. — ECE Student &amp; Engineer</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet"
   />
   <meta name="description" content="Portfolio website of Andy Torres Jr., ECE student passionate about technology and innovation." />
@@ -17,40 +17,56 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://andrestorresjr.com/" />
-  <meta property="og:title" content="Andres Torres Jr. — ECE Student & Engineer" />
+  <meta property="og:title" content="Andres Torres Jr. — ECE Student &amp; Engineer" />
   <meta property="og:description" content="Portfolio of Andres Torres Jr., ECE student at UT Austin building embedded systems, digital logic, and web solutions." />
   <meta property="og:image" content="https://andrestorresjr.com/images/profile.svg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Andres Torres Jr. — ECE Student & Engineer" />
+  <meta name="twitter:title" content="Andres Torres Jr. — ECE Student &amp; Engineer" />
   <meta name="twitter:description" content="Portfolio of Andres Torres Jr., ECE student at UT Austin building embedded systems, digital logic, and web solutions." />
   <meta name="twitter:image" content="https://andrestorresjr.com/images/profile.svg" />
 </head>
 <body>
-  <header class="site-header">
-    <nav class="navbar" aria-label="Main navigation">
-      <a class="logo" href="#home">AT</a>
-      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links">
-        <span class="sr-only">Toggle navigation</span>
-        &#9776;
-      </button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="attachments/RESUME_2026.pdf" target="_blank" rel="noopener">Resume</a></li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="clients.html">Clients</a></li>
-      </ul>
-      <button id="darkModeToggle" class="button button--ghost">Dark Mode</button>
-    </nav>
-  </header>
+
+  <!-- Ambient background layers -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="site-header-sticky">
+    <header class="site-header" id="site-header">
+      <div class="scroll-progress" id="scroll-progress"></div>
+      <nav class="navbar" aria-label="Main navigation">
+        <a class="logo" href="#home">AT</a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">Toggle navigation</span>
+          &#9776;
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="attachments/RESUME_2026.pdf" target="_blank" rel="noopener">Resume</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="clients.html">Clients</a></li>
+        </ul>
+        <button id="darkModeToggle" class="button button--ghost">Light Mode</button>
+      </nav>
+    </header>
+  </div>
 
   <main>
+
+    <!-- ===== Hero ===== -->
     <section id="home" class="hero">
-      <div class="hero__content">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+      <div class="hero__content reveal">
         <span class="hero__eyebrow">Electrical &amp; Computer Engineering Student</span>
-        <h1 class="hero__title">Hi, I'm Andres Torres Jr.</h1>
+        <h1 class="hero__title">Hi, I'm <span class="name-highlight">Andres Torres Jr.</span></h1>
         <p class="hero__subtitle">
           I build embedded systems and digital solutions that bring ideas from schematic to shipped product.
           I'm currently studying at The University of Texas at Austin while leading hands-on engineering projects.
@@ -62,28 +78,30 @@
         <dl class="hero__highlights">
           <div>
             <dt>Focus Areas</dt>
-            <dd>Embedded Systems • Computer Architecture • Digital Logic</dd>
+            <dd>Embedded Systems &bull; Computer Architecture &bull; Digital Logic</dd>
           </div>
           <div>
             <dt>Current Roles</dt>
-            <dd>UT Austin ECE Student • IEEE Member • Mentor</dd>
+            <dd>UT Austin ECE Student &bull; IEEE Member &bull; Mentor</dd>
           </div>
         </dl>
       </div>
-      <div class="hero__media">
+
+      <div class="hero__media reveal reveal--delay-2">
         <div class="profile-card">
           <img src="attachments/headshot.png" alt="Portrait of Andres Torres Jr." loading="lazy" />
-          <p>Based in Austin, TX — passionate about building inclusive technology.</p>
+          <p>Based in Austin, TX &mdash; passionate about building inclusive technology.</p>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section">
+    <!-- ===== Projects ===== -->
+    <section id="projects" class="section reveal">
       <div class="section__header">
         <h2>Selected Projects</h2>
         <p>Hands-on builds that showcase my approach to hardware, firmware, and user-focused engineering.</p>
       </div>
-      <div class="project-grid">
+      <div class="project-grid reveal--stagger">
         <article class="card">
           <img src="attachments/319k-final-project-thumbnail.jpg" alt="Space Invaders project demo" loading="lazy" />
           <div class="card__content">
@@ -131,7 +149,8 @@
       </div>
     </section>
 
-    <section id="about" class="section">
+    <!-- ===== About ===== -->
+    <section id="about" class="section reveal">
       <div class="section__header">
         <h2>About Me</h2>
         <p>Grounded in community, inspired by curiosity, and driven to build technology that elevates others.</p>
@@ -163,12 +182,13 @@
       </div>
     </section>
 
-    <section class="section section--alt">
+    <!-- ===== Core Skills ===== -->
+    <section class="section section--alt reveal">
       <div class="section__header">
         <h2>Core Skills</h2>
         <p>A blend of hardware intuition, software craftsmanship, and communication.</p>
       </div>
-      <ul class="skill-list">
+      <ul class="skill-list reveal--stagger">
         <li>Embedded C &amp; ARM Assembly</li>
         <li>Digital Logic &amp; FPGA Prototyping</li>
         <li>Python for Data &amp; Automation</li>
@@ -178,7 +198,8 @@
       </ul>
     </section>
 
-    <section id="contact" class="section">
+    <!-- ===== Contact ===== -->
+    <section id="contact" class="section reveal">
       <div class="section__header">
         <h2>Let's Connect</h2>
         <p>Have an opportunity, collaboration idea, or just want to talk shop? I'd love to hear from you.</p>
@@ -201,6 +222,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
@@ -210,4 +232,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
