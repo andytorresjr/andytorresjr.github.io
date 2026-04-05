@@ -1,11 +1,87 @@
 'use client'
-import { useRef } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { motion, Reorder, useMotionValue, useDragControls, animate } from 'framer-motion'
 import TextAnimation from '@/components/ui/scroll-text'
 import { AnimatedBeam, Circle } from '@/components/ui/animated-beam'
+import { LiquidGlassCard } from '@/components/ui/liquid-glass'
 import { cn } from '@/lib/utils'
 
-// Animated beam tech diagram — nodes connected to center "AT" node
+// ── Drag-to-reorder priorities (from UILayouts DragItems) ─────────────────────
+
+const inactiveShadow = '0px 0px 0px rgba(0,0,0,0.8)'
+
+function useRaisedShadow(value: ReturnType<typeof useMotionValue<number>>) {
+  const boxShadow = useMotionValue(inactiveShadow)
+  useEffect(() => {
+    const unsub = value.on('change', (latest: number) => {
+      if (latest !== 0) {
+        animate(boxShadow, '3px 3px 8px rgba(0,0,0,0.4)')
+      } else {
+        animate(boxShadow, inactiveShadow)
+      }
+    })
+    return unsub
+  }, [value, boxShadow])
+  return boxShadow
+}
+
+const initialPriorities = [
+  { id: 1, label: 'Hardware–Software Integration' },
+  { id: 2, label: 'Real-Time System Design' },
+  { id: 3, label: 'PCB Layout & Verification' },
+  { id: 4, label: 'FPGA Implementation' },
+  { id: 5, label: 'Technical Documentation' },
+]
+
+function DragItem({ item }: { item: (typeof initialPriorities)[0] }) {
+  const y = useMotionValue(0)
+  const boxShadow = useRaisedShadow(y)
+  const dragControls = useDragControls()
+
+  return (
+    <Reorder.Item
+      value={item}
+      style={{ boxShadow, y }}
+      dragListener={false}
+      dragControls={dragControls}
+      className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg border border-border/60 bg-surface/60 text-text-muted text-sm font-inter select-none"
+    >
+      <span>{item.label}</span>
+      <motion.button
+        type="button"
+        aria-label="Drag to reorder"
+        onPointerDown={(e) => { e.preventDefault(); dragControls.start(e) }}
+        className="cursor-grab active:cursor-grabbing pl-3 text-text-muted/40 hover:text-text-muted/80 transition-colors shrink-0"
+        style={{ touchAction: 'none' }}
+      >
+        <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor">
+          <circle cx="7" cy="4" r="1.5" /><circle cx="13" cy="4" r="1.5" />
+          <circle cx="7" cy="10" r="1.5" /><circle cx="13" cy="10" r="1.5" />
+          <circle cx="7" cy="16" r="1.5" /><circle cx="13" cy="16" r="1.5" />
+        </svg>
+      </motion.button>
+    </Reorder.Item>
+  )
+}
+
+function DragPriorities() {
+  const [items, setItems] = useState(initialPriorities)
+
+  return (
+    <div className="space-y-2">
+      <p className="font-mono text-[10px] text-text-muted/50 uppercase tracking-widest mb-3">
+        Core Priorities · drag to reorder
+      </p>
+      <Reorder.Group axis="y" values={items} onReorder={setItems} className="space-y-1.5">
+        {items.map((item) => (
+          <DragItem key={item.id} item={item} />
+        ))}
+      </Reorder.Group>
+    </div>
+  )
+}
+
+// ── Animated beam tech diagram — nodes connected to center "AT" node ────────
 function TechConnections() {
   const containerRef = useRef<HTMLDivElement>(null)
   const centerRef = useRef<HTMLDivElement>(null)
@@ -223,21 +299,32 @@ export default function AboutSection() {
             </motion.div>
           </div>
 
-          {/* Right — AnimatedBeam tech diagram */}
+          {/* Right — LiquidGlass card wrapping AnimatedBeam diagram */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="rounded-xl border border-border/60 bg-surface/40 p-6"
+            className="flex flex-col gap-6"
           >
-            <p className="font-mono text-[10px] text-text-muted/50 uppercase tracking-widest mb-4 text-center">
-              Core Stack
-            </p>
-            <TechConnections />
-            <p className="font-mono text-[10px] text-text-muted/30 text-center mt-4">
-              Live animated signal paths
-            </p>
+            <LiquidGlassCard
+              glowIntensity="sm"
+              shadowIntensity="md"
+              blurIntensity="sm"
+              borderRadius="16px"
+              className="p-6 bg-surface/30"
+            >
+              <p className="font-mono text-[10px] text-text-muted/50 uppercase tracking-widest mb-4 text-center">
+                Core Stack
+              </p>
+              <TechConnections />
+              <p className="font-mono text-[10px] text-text-muted/30 text-center mt-4">
+                Live animated signal paths
+              </p>
+            </LiquidGlassCard>
+
+            {/* Drag-to-reorder priorities — from UILayouts DragItems */}
+            <DragPriorities />
           </motion.div>
         </div>
       </div>

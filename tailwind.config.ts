@@ -31,6 +31,10 @@ const config: Config = {
         'marquee-vertical-reverse':
           'marquee-vertical var(--duration) linear infinite reverse',
         'bounce-x': 'bounce-x 1.2s ease-in-out infinite',
+        'infinite-scroll': 'infinite-scroll 30s linear infinite',
+        'infinite-scroll-reverse': 'infinite-scroll 30s linear infinite reverse',
+        border: 'border-rotate 4s linear infinite',
+        spin: 'spin 1s linear infinite',
       },
       keyframes: {
         marquee: {
@@ -44,6 +48,13 @@ const config: Config = {
         'bounce-x': {
           '0%, 100%': { transform: 'translateX(0)' },
           '50%': { transform: 'translateX(6px)' },
+        },
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+        'border-rotate': {
+          to: { '--border-angle': '360deg' },
         },
       },
     },

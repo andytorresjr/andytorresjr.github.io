@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Syne, Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 
 const syne = Syne({
   subsets: ['latin'],
@@ -65,7 +66,7 @@ export default function RootLayout({
       className={`${syne.variable} ${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} dark`}
     >
       <body className="bg-bg text-text-primary font-inter antialiased">
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
   )

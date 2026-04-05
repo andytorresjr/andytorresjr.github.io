@@ -1,8 +1,13 @@
 // Adapted from UILayouts PortfolioExperience block
-// Source: packages/blocks/src/experience-section/portfolio-experience.tsx
 'use client'
 import { motion } from 'framer-motion'
 import TextAnimation from '@/components/ui/scroll-text'
+import {
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionPanel,
+} from '@/components/ui/accordion'
 
 interface ExperienceItem {
   org: string
@@ -137,13 +142,18 @@ function ExperienceRow({ item, index }: { item: ExperienceItem; index: number })
         )}
       </div>
 
-      {/* Col 3 — Description */}
-      <div className="md:col-span-5 space-y-4">
-        {item.description.map((para, i) => (
-          <p key={i} className="font-inter text-sm md:text-base text-text-muted leading-relaxed">
-            {para}
-          </p>
-        ))}
+      {/* Col 3 — Description with accordion — from UILayouts Accordion */}
+      <div className="md:col-span-5">
+        <Accordion defaultValue="para-0">
+          {item.description.map((para, i) => (
+            <AccordionItem key={i} value={`para-${i}`}>
+              <AccordionHeader className="text-sm">
+                {i === 0 ? 'Overview' : 'Details'}
+              </AccordionHeader>
+              <AccordionPanel className="text-sm">{para}</AccordionPanel>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </motion.div>
   )

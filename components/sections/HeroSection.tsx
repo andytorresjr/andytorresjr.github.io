@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import ImageMouseTrail from '@/components/ui/mousetrail'
 import { RandomizedTextEffect } from '@/components/ui/text-randomized'
 import { ArrowDown } from 'lucide-react'
+import ScrollBaseAnimation from '@/components/ui/scroll-text-marque'
 
 // Project thumbnails trail the cursor — replace with actual paths under public/attachments/
 const trailImages = [
@@ -53,6 +54,19 @@ export default function HeroSection() {
           }}
         />
 
+        {/* Noise texture overlay (from UILayouts SectionNoise) */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0 opacity-[0.04]"
+          aria-hidden="true"
+        >
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <filter id="hero-noise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#hero-noise)" />
+          </svg>
+        </div>
+
         {/* Hero content */}
         <div className="relative z-10 flex flex-col justify-center min-h-dvh px-6 md:px-12 lg:px-24 max-w-7xl mx-auto py-24">
           {/* Eyebrow badge */}
@@ -96,13 +110,18 @@ export default function HeroSection() {
             transition={{ delay: 0.5, duration: 0.4, ease: 'easeOut' }}
             className="flex gap-4 flex-wrap mb-16"
           >
+            {/* Rotating gradient button — from UILayouts ButtonRotatingGradient */}
             <a
               href="/attachments/RESUME-FALL2025.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-space-grotesk font-semibold text-sm bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+              className="relative inline-flex h-11 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg"
+              aria-label="View Resume (opens in new tab)"
             >
-              View Resume
+              <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#a2aeff_0%,#3749be_50%,#a2aeff_100%)]" />
+              <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#070e41] px-8 py-1 text-sm font-semibold font-space-grotesk text-neutral-50 backdrop-blur-3xl whitespace-nowrap">
+                View Resume
+              </span>
             </a>
             <a
               href="#projects"
@@ -130,6 +149,16 @@ export default function HeroSection() {
               </div>
             ))}
           </motion.dl>
+        </div>
+
+        {/* Velocity scroll marquee — from UILayouts ScrollBaseAnimation */}
+        <div className="absolute bottom-20 left-0 right-0 overflow-hidden" aria-hidden="true">
+          <ScrollBaseAnimation
+            baseVelocity={-1.5}
+            clasname="font-mono text-[11px] text-text-muted/20 uppercase tracking-[0.2em]"
+          >
+            Embedded Systems &nbsp;·&nbsp; PCB Design &nbsp;·&nbsp; FPGA &nbsp;·&nbsp; ARM Cortex-M &nbsp;·&nbsp; UT Austin &nbsp;·&nbsp;
+          </ScrollBaseAnimation>
         </div>
 
         {/* Scroll indicator */}

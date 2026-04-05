@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS custom property for animated gradient border */
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0turn;
+}
+
 @layer base {
   :root {
     color-scheme: dark;

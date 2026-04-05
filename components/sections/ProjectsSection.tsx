@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Spotlight, SpotLightItem } from '@/components/ui/spotlight'
 import TextAnimation from '@/components/ui/scroll-text'
+import ScrollElement from '@/components/ui/scroll-animation'
 import { ExternalLink, ArrowRight } from 'lucide-react'
 
 interface Project {
@@ -50,7 +51,16 @@ const projects: Project[] = [
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="flex flex-col h-full bg-surface rounded-lg overflow-hidden">
+    // Gradient border card — adapted from UILayouts GradientBorder
+    <article
+      className="flex flex-col h-full rounded-lg overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(45deg,#111111,#1a1a1a 50%,#111111) padding-box, conic-gradient(from var(--border-angle),#27272a80 80%,#6366f1 86%,#818cf8 90%,#6366f1 94%,#27272a80) border-box',
+        border: '1px solid transparent',
+        animation: 'border-rotate 6s linear infinite',
+      }}
+    >
       {/* Image */}
       <div className="relative h-48 bg-surface-2 shrink-0 overflow-hidden">
         {project.status === 'coming-soon' || !project.image ? (
@@ -161,15 +171,20 @@ export default function ProjectsSection() {
                 className="shrink-0 w-[320px] sm:w-[360px] group"
                 style={{ scrollSnapAlign: 'start' } as React.CSSProperties}
               >
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ delay: i * 0.1, duration: 0.5, ease: 'easeOut' }}
+                <ScrollElement
+                  viewport={{ once: true, amount: 0.2, margin: '0px' }}
+                  variants={{
+                    hidden: { opacity: 0, y: 24 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' },
+                    },
+                  }}
                   className="h-full"
                 >
                   <ProjectCard project={project} />
-                </motion.div>
+                </ScrollElement>
               </SpotLightItem>
             ))}
           </Spotlight>
