@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumes — Andres Torres Jr.</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <meta name="description" content="Browse resume variants for Andres Torres Jr. — Hardware, Software, and Data Analysis." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</head>
+<body>
+
+  <!-- Ambient background layers -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="site-header-sticky">
+    <header class="site-header" id="site-header">
+      <div class="scroll-progress" id="scroll-progress"></div>
+      <nav class="navbar" aria-label="Main navigation">
+        <a class="logo" href="index.html">AT</a>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links" type="button">
+          <span class="sr-only">Toggle navigation</span>
+          &#9776;
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="resume.html" aria-current="page">Resume</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="clients.html">Clients</a></li>
+        </ul>
+        <button id="darkModeToggle" class="button button--ghost" type="button">Light Mode</button>
+      </nav>
+    </header>
+  </div>
+
+  <main>
+    <section class="section reveal">
+      <div class="section__header">
+        <h1 class="resume-page__heading">Resumes</h1>
+        <p>Choose a resume tailored to the role you have in mind.</p>
+      </div>
+
+      <div class="project-grid reveal--stagger">
+
+        <!-- Hardware -->
+        <a class="card resume-card" href="attachments/Torres_Resume_Hardware.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Hardware resume PDF">
+          <div class="card__content">
+            <span class="resume-card__label">Hardware</span>
+            <h2 class="resume-card__title">Hardware Resume</h2>
+            <p>Embedded systems, PCB design, FPGA &amp; microcontroller work.</p>
+            <span class="card__link">Open PDF<span class="resume-card__arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <!-- Software -->
+        <a class="card resume-card" href="attachments/Torres_Resume_Software.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Software resume PDF">
+          <div class="card__content">
+            <span class="resume-card__label">Software</span>
+            <h2 class="resume-card__title">Software Resume</h2>
+            <p>Full-stack development, systems programming &amp; tooling.</p>
+            <span class="card__link">Open PDF<span class="resume-card__arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+        <!-- Data Analysis -->
+        <a class="card resume-card" href="attachments/Torres_Resume_Data.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Data Analysis resume PDF">
+          <div class="card__content">
+            <span class="resume-card__label">Data Analysis</span>
+            <h2 class="resume-card__title">Data Analysis Resume</h2>
+            <p>Data pipelines, visualization &amp; analytical projects.</p>
+            <span class="card__link">Open PDF<span class="resume-card__arrow">&rarr;</span></span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="current-year"></span> Andres Torres Jr. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
