@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Order Online — Verde Matcha Café</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage-900: #2f4530;
+    --sage-800: #3f5a3f;
+    --sage-700: #5d7a52;
+    --sage-600: #7a9466;
+    --sage-500: #8fa876;
+    --sage-300: #b8c89c;
+    --sage-100: #dbe4c4;
+    --cream:    #f5efe1;
+    --cream-2:  #ebe3d1;
+    --wood:     #d4b896;
+    --pink:     #f4cdd4;
+    --pink-dk:  #e09baa;
+    --ube:      #b8a4d4;
+    --rose:     #d4859a;
+    --gold:     #c9a35a;
+    --ink:      #2a2a26;
+    --shadow:   0 12px 40px -16px rgba(47,69,48,0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .serif { font-family: 'Fraunces', Georgia, serif; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── NAV ─────────────────────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: blur(14px);
+    background: rgba(245, 239, 225, 0.94);
+    border-bottom: 1px solid rgba(47, 69, 48, 0.08);
+  }
+  .nav-inner {
+    max-width: 1400px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Fraunces', serif; font-weight: 600; color: var(--sage-900);
+    text-decoration: none;
+  }
+  .brand-mark {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--sage-800);
+  }
+  .brand-mark svg { width: 24px; height: 24px; }
+  .brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .brand-text .b1 { font-size: 18px; }
+  .brand-text .b2 { font-family: 'Inter', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--sage-600); margin-top: 4px; }
+
+  .back-link {
+    color: var(--sage-700); text-decoration: none; font-size: 13px; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .back-link:hover { color: var(--sage-900); }
+
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .pickup-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    background: var(--sage-100); color: var(--sage-900);
+    font-size: 12px; font-weight: 600;
+  }
+  .pickup-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25); }
+
+  /* ── HEADER ──────────────────────────────────────────────────────── */
+  .order-header {
+    padding: 48px 0 32px;
+    border-bottom: 1px solid rgba(47,69,48,0.08);
+  }
+  .order-header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 600; color: var(--sage-900);
+    letter-spacing: -0.02em; line-height: 1.05;
+    margin-bottom: 12px;
+  }
+  .order-header h1 em { font-style: italic; color: var(--sage-600); }
+  .order-header p { font-size: 16px; color: rgba(42,42,38,0.65); max-width: 580px; }
+
+  .steps {
+    display: flex; gap: 8px; margin-top: 28px; flex-wrap: wrap;
+  }
+  .step {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.3px;
+    background: var(--cream-2); color: var(--sage-700);
+  }
+  .step.active { background: var(--sage-800); color: var(--cream); }
+  .step .num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(47,69,48,0.15); color: var(--sage-900);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+  }
+  .step.active .num { background: var(--cream); color: var(--sage-800); }
+
+  /* ── MAIN LAYOUT ─────────────────────────────────────────────────── */
+  .order-layout {
+    display: grid; grid-template-columns: 1fr 380px;
+    gap: 40px; padding: 40px 0 80px;
+    align-items: start;
+  }
+  @media (max-width: 1000px) {
+    .order-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ── CATEGORY TABS ───────────────────────────────────────────────── */
+  .cat-tabs {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 28px;
+    position: sticky; top: 76px; z-index: 30;
+    background: var(--cream); padding: 12px 0;
+    border-bottom: 1px solid rgba(47,69,48,0.06);
+  }
+  .cat-tab {
+    padding: 9px 18px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    background: transparent; color: var(--sage-900);
+    border: 1.5px solid rgba(47,69,48,0.15);
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .cat-tab.active { background: var(--sage-800); color: var(--cream); border-color: var(--sage-800); }
+  .cat-tab:hover:not(.active) { border-color: var(--sage-700); }
+
+  /* ── MENU ────────────────────────────────────────────────────────── */
+  .cat-block { margin-bottom: 36px; }
+  .cat-title {
+    font-family: 'Fraunces', serif; font-size: 13px; font-weight: 600;
+    color: var(--sage-700); text-transform: uppercase; letter-spacing: 3px;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .cat-title::after {
+    content: ''; flex: 1; height: 1px; background: rgba(47,69,48,0.15);
+  }
+
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .item-card {
+    background: var(--cream); border-radius: 18px;
+    border: 1.5px solid rgba(47,69,48,0.08);
+    padding: 16px; cursor: pointer; position: relative;
+    transition: all 0.2s;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .item-card:hover {
+    border-color: var(--sage-500); transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .item-thumb {
+    width: 64px; height: 64px; border-radius: 14px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; position: relative; overflow: hidden;
+  }
+  .item-info { flex: 1; min-width: 0; }
+  .item-name {
+    font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600;
+    color: var(--sage-900); line-height: 1.2; margin-bottom: 2px;
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .item-name .badge {
+    display: inline-block; font-family: 'Inter', sans-serif;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 999px;
+    background: var(--pink); color: var(--sage-900);
+  }
+  .item-name .badge.fav { background: var(--gold); color: var(--cream); }
+  .item-name .badge.new { background: var(--rose); color: var(--cream); }
+  .item-desc { font-size: 12px; color: rgba(42,42,38,0.55); margin-bottom: 6px; line-height: 1.35; }
+  .item-bottom { display: flex; align-items: center; justify-content: space-between; }
+  .item-price { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; color: var(--sage-800); }
+  .item-add {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--sage-800); color: var(--cream);
+    border: none; cursor: pointer; font-size: 16px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .item-card:hover .item-add { background: var(--sage-900); transform: scale(1.1); }
+
+  /* item thumb colors */
+  .th-1 { background: linear-gradient(135deg, var(--sage-500), var(--sage-700)); }
+  .th-2 { background: linear-gradient(135deg, var(--rose), var(--ube)); }
+  .th-3 { background: linear-gradient(135deg, var(--ube), var(--sage-500)); }
+  .th-4 { background: linear-gradient(135deg, var(--pink), var(--sage-500)); }
+  .th-5 { background: linear-gradient(135deg, var(--wood), var(--sage-500)); }
+  .th-6 { background: linear-gradient(135deg, var(--sage-300), var(--sage-600)); }
+  .th-7 { background: linear-gradient(135deg, var(--sage-800), var(--sage-500)); }
+  .th-8 { background: linear-gradient(135deg, var(--cream-2), var(--wood)); color: var(--sage-900); }
+
+  /* ── CART SIDEBAR ────────────────────────────────────────────────── */
+  .cart {
+    position: sticky; top: 90px;
+    background: var(--cream); border-radius: 24px;
+    border: 1.5px solid rgba(47,69,48,0.1);
+    padding: 28px;
+    max-height: calc(100vh - 110px);
+    display: flex; flex-direction: column;
+    box-shadow: var(--shadow);
+  }
+  .cart-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .cart-head h2 {
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;
+    color: var(--sage-900);
+  }
+  .cart-count {
+    background: var(--sage-800); color: var(--cream);
+    font-size: 11px; font-weight: 700;
+    padding: 4px 10px; border-radius: 999px;
+  }
+
+  .cart-empty {
+    text-align: center; padding: 40px 16px;
+    color: rgba(42,42,38,0.55);
+    border: 2px dashed rgba(47,69,48,0.15); border-radius: 16px;
+  }
+  .cart-empty .icon { font-size: 48px; margin-bottom: 12px; opacity: 0.6; }
+  .cart-empty p { font-size: 13px; line-height: 1.5; }
+
+  .cart-items {
+    overflow-y: auto; flex: 1;
+    margin: 0 -28px; padding: 0 28px;
+  }
+  .cart-item {
+    display: flex; gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px dashed rgba(47,69,48,0.12);
+  }
+  .cart-item:last-child { border-bottom: none; }
+  .ci-thumb {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .ci-info { flex: 1; min-width: 0; }
+  .ci-name { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600; color: var(--sage-900); line-height: 1.2; }
+  .ci-mods { font-size: 11px; color: rgba(42,42,38,0.55); margin-top: 3px; line-height: 1.35; }
+  .ci-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; gap: 8px; }
+  .qty-ctrl { display: flex; align-items: center; gap: 8px; }
+  .qty-btn {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--cream-2); border: none;
+    color: var(--sage-900); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+  }
+  .qty-btn:hover { background: var(--sage-100); }
+  .qty-val { font-size: 13px; font-weight: 600; color: var(--sage-900); min-width: 16px; text-align: center; }
+  .ci-price { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600; color: var(--sage-800); }
+  .ci-remove {
+    background: none; border: none; color: rgba(42,42,38,0.4);
+    cursor: pointer; font-size: 11px; text-decoration: underline;
+    padding: 0; margin-top: 4px;
+  }
+  .ci-remove:hover { color: var(--pink-dk); }
+
+  .cart-pickup {
+    margin: 16px 0; padding: 16px;
+    background: var(--cream-2); border-radius: 14px;
+  }
+  .cart-pickup .label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sage-700); margin-bottom: 8px; }
+  .pickup-times { display: flex; gap: 6px; flex-wrap: wrap; }
+  .time-chip {
+    padding: 6px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 500;
+    background: var(--cream); color: var(--sage-900);
+    border: 1.5px solid rgba(47,69,48,0.12);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .time-chip.active { background: var(--sage-800); color: var(--cream); border-color: var(--sage-800); }
+  .time-chip:hover:not(.active) { border-color: var(--sage-700); }
+
+  .cart-totals { margin: 12px 0; }
+  .total-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 6px 0; font-size: 13px; color: rgba(42,42,38,0.7);
+  }
+  .total-row.grand {
+    border-top: 1.5px solid rgba(47,69,48,0.15);
+    margin-top: 8px; padding-top: 12px;
+    font-family: 'Fraunces', serif; font-size: 20px;
+    color: var(--sage-900); font-weight: 600;
+  }
+  .total-row.grand .amt { font-size: 22px; color: var(--sage-800); }
+
+  .cart-cta {
+    width: 100%; padding: 16px;
+    background: var(--sage-800); color: var(--cream);
+    border: none; border-radius: 14px;
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .cart-cta:hover:not(:disabled) { background: var(--sage-900); }
+  .cart-cta:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* ── CUSTOMIZE MODAL ─────────────────────────────────────────────── */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(47, 69, 48, 0.5);
+    backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center;
+    padding: 24px;
+    animation: fade 0.2s;
+  }
+  .modal-backdrop.show { display: flex; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal {
+    background: var(--cream); border-radius: 24px;
+    max-width: 560px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 40px 100px -20px rgba(0,0,0,0.4);
+    animation: slideUp 0.25s;
+  }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .modal-head {
+    padding: 28px 28px 0;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .modal-thumb {
+    width: 80px; height: 80px; border-radius: 18px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+  }
+  .modal-head h3 {
+    font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;
+    color: var(--sage-900); margin-bottom: 4px;
+  }
+  .modal-head p { font-size: 13px; color: rgba(42,42,38,0.6); }
+  .modal-close {
+    background: rgba(47,69,48,0.08); border: none;
+    width: 32px; height: 32px; border-radius: 50%;
+    cursor: pointer; font-size: 16px; color: var(--sage-900);
+    margin-left: auto; flex-shrink: 0;
+  }
+  .modal-close:hover { background: rgba(47,69,48,0.15); }
+
+  .modal-body { padding: 24px 28px; }
+  .mod-section { margin-bottom: 22px; }
+  .mod-section:last-child { margin-bottom: 0; }
+  .mod-label {
+    display: flex; align-items: baseline; justify-content: space-between;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--sage-700); margin-bottom: 10px;
+  }
+  .mod-label .optional { font-weight: 500; color: rgba(42,42,38,0.4); letter-spacing: 0.5px; text-transform: none; font-size: 11px; }
+  .mod-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .mod-chip {
+    padding: 9px 16px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    background: var(--cream); color: var(--sage-900);
+    border: 1.5px solid rgba(47,69,48,0.15);
+    cursor: pointer; transition: all 0.15s;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Inter', sans-serif;
+  }
+  .mod-chip:hover { border-color: var(--sage-700); }
+  .mod-chip.active { background: var(--sage-800); color: var(--cream); border-color: var(--sage-800); }
+  .mod-chip .swatch { width: 10px; height: 10px; border-radius: 50%; }
+  .mod-chip .add { font-size: 11px; opacity: 0.8; }
+
+  .mod-notes {
+    width: 100%; padding: 12px 14px;
+    background: var(--cream); border-radius: 12px;
+    border: 1.5px solid rgba(47,69,48,0.15);
+    font-family: 'Inter', sans-serif; font-size: 13px;
+    color: var(--ink); resize: vertical;
+    min-height: 60px;
+  }
+  .mod-notes:focus { outline: none; border-color: var(--sage-600); }
+
+  .modal-foot {
+    padding: 20px 28px 28px;
+    border-top: 1px solid rgba(47,69,48,0.08);
+    display: flex; gap: 14px; align-items: center; justify-content: space-between;
+    position: sticky; bottom: 0; background: var(--cream);
+  }
+  .mod-qty {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--cream-2); padding: 6px 8px; border-radius: 999px;
+  }
+  .mod-qty button {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--cream); border: none; cursor: pointer;
+    color: var(--sage-900); font-size: 14px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mod-qty button:hover { background: var(--sage-100); }
+  .mod-qty .val { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--sage-900); min-width: 18px; text-align: center; }
+
+  .mod-add-btn {
+    flex: 1; padding: 14px 24px;
+    background: var(--sage-800); color: var(--cream);
+    border: none; border-radius: 999px;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .mod-add-btn:hover { background: var(--sage-900); }
+
+  /* ── CHECKOUT MODAL ──────────────────────────────────────────────── */
+  .checkout-modal {
+    background: var(--cream); border-radius: 24px;
+    max-width: 520px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    padding: 36px 32px;
+  }
+  .checkout-modal h3 {
+    font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600;
+    color: var(--sage-900); margin-bottom: 6px;
+  }
+  .checkout-modal h3 em { font-style: italic; color: var(--sage-600); }
+  .checkout-modal > p { font-size: 14px; color: rgba(42,42,38,0.65); margin-bottom: 24px; }
+
+  .form-row { margin-bottom: 16px; }
+  .form-row label {
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--sage-700); margin-bottom: 6px;
+  }
+  .form-row input {
+    width: 100%; padding: 12px 14px;
+    background: var(--cream); border-radius: 12px;
+    border: 1.5px solid rgba(47,69,48,0.15);
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    color: var(--ink);
+  }
+  .form-row input:focus { outline: none; border-color: var(--sage-600); }
+
+  .pay-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pay-option {
+    padding: 14px; border-radius: 12px;
+    background: var(--cream); border: 1.5px solid rgba(47,69,48,0.15);
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    color: var(--sage-900); cursor: pointer; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .pay-option.active { background: var(--sage-100); border-color: var(--sage-700); }
+  .pay-option .ic { font-size: 22px; }
+
+  .checkout-summary {
+    background: var(--cream-2); border-radius: 14px;
+    padding: 16px; margin: 20px 0;
+  }
+  .checkout-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: 'Fraunces', serif; color: var(--sage-900);
+    margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid rgba(47,69,48,0.15);
+  }
+  .checkout-total .lbl { font-size: 15px; font-weight: 600; }
+  .checkout-total .amt { font-size: 22px; font-weight: 600; color: var(--sage-800); }
+
+  .place-btn {
+    width: 100%; padding: 16px;
+    background: var(--sage-800); color: var(--cream);
+    border: none; border-radius: 14px;
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .place-btn:hover { background: var(--sage-900); }
+
+  .checkout-disclaimer { font-size: 11px; color: rgba(42,42,38,0.5); text-align: center; margin-top: 14px; line-height: 1.5; }
+
+  /* ── SUCCESS ─────────────────────────────────────────────────────── */
+  .success-modal {
+    background: var(--cream); border-radius: 24px;
+    max-width: 480px; width: 100%; padding: 48px 36px; text-align: center;
+  }
+  .success-circle {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: var(--sage-100); color: var(--sage-800);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 42px; margin-bottom: 20px;
+  }
+  .success-modal h3 {
+    font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600;
+    color: var(--sage-900); margin-bottom: 8px;
+  }
+  .success-modal h3 em { font-style: italic; color: var(--sage-600); }
+  .success-modal > p { font-size: 15px; color: rgba(42,42,38,0.7); margin-bottom: 24px; }
+  .success-card {
+    background: var(--sage-100); border-radius: 16px;
+    padding: 20px; margin-bottom: 24px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .success-row {
+    display: flex; justify-content: space-between; font-size: 13px;
+  }
+  .success-row .l { color: rgba(42,42,38,0.6); text-transform: uppercase; letter-spacing: 1px; font-size: 11px; font-weight: 600; }
+  .success-row .r { color: var(--sage-900); font-weight: 600; font-family: 'Fraunces', serif; font-size: 15px; }
+
+  .success-actions { display: flex; gap: 10px; }
+  .success-actions a, .success-actions button {
+    flex: 1; padding: 12px;
+    border-radius: 999px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600; text-decoration: none;
+    cursor: pointer; border: none;
+  }
+  .btn-ghost-sm { background: var(--cream-2); color: var(--sage-900); }
+  .btn-primary-sm { background: var(--sage-800); color: var(--cream); }
+  .btn-primary-sm:hover { background: var(--sage-900); }
+  .btn-ghost-sm:hover { background: var(--sage-100); }
+</style>
+</head>
+<body>
+<a href="/projects.html" style="position:fixed;left:14px;bottom:14px;z-index:99999;background:rgba(47,69,48,.94);color:#f5efe1;font:600 11.5px/1 Inter,system-ui,sans-serif;padding:9px 13px;border-radius:999px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.28);letter-spacing:.01em;">← Portfolio demo · A. Torres Jr.</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="chasen" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+        <path d="M12 2v6"/>
+        <path d="M7 8h10l-1.2 4.5a3.6 3.6 0 0 1-7.2 0L7 8z"/>
+        <path d="M9 8v4.5M11 8v4.5M13 8v4.5M15 8v4.5"/>
+        <path d="M9.5 16.5h5"/>
+        <path d="M10.5 19h3"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark" style="color: var(--sage-800);">
+        <svg><use href="#chasen"/></svg>
+      </span>
+      <span class="brand-text">
+        <span class="b1">Verde Matcha</span>
+        <span class="b2">Café · Riverside</span>
+      </span>
+    </a>
+    <div class="nav-right">
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+        Back to site
+      </a>
+      <span class="pickup-badge"><span class="dot"></span>Pickup · Ready in ~15 min</span>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="order-header">
+    <h1>Order for <em>pickup</em>.</h1>
+    <p>Build your drink, schedule a pickup time, and walk in & out. We'll have it ready at the counter on Garden Walk.</p>
+    <div class="steps">
+      <span class="step active"><span class="num">1</span>Build your order</span>
+      <span class="step"><span class="num">2</span>Schedule pickup</span>
+      <span class="step"><span class="num">3</span>Pay & confirm</span>
+    </div>
+  </header>
+
+  <main class="order-layout">
+    <!-- MENU -->
+    <div>
+      <div class="cat-tabs">
+        <button class="cat-tab active" data-cat="all">All</button>
+        <button class="cat-tab" data-cat="signature">Signatures</button>
+        <button class="cat-tab" data-cat="latte">Lattes</button>
+        <button class="cat-tab" data-cat="frappe">Frappes</button>
+        <button class="cat-tab" data-cat="soft">Soft Serve</button>
+        <button class="cat-tab" data-cat="hot">Hot</button>
+        <button class="cat-tab" data-cat="refresher">Refreshers</button>
+        <button class="cat-tab" data-cat="float">Floats</button>
+        <button class="cat-tab" data-cat="food">Sweets</button>
+      </div>
+
+      <div id="menuContainer"></div>
+    </div>
+
+    <!-- CART -->
+    <aside class="cart">
+      <div class="cart-head">
+        <h2>Your Order</h2>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+
+      <div id="cartBody">
+        <div class="cart-empty" id="cartEmpty">
+          <div class="icon">🍵</div>
+          <p>Your cart is feeling lonely.<br/>Tap any drink to start your order.</p>
+        </div>
+        <div class="cart-items" id="cartItems" style="display:none"></div>
+      </div>
+
+      <div class="cart-pickup" id="cartPickup" style="display:none">
+        <div class="label">Pickup time</div>
+        <div class="pickup-times" id="pickupTimes"></div>
+      </div>
+
+      <div class="cart-totals" id="cartTotals" style="display:none">
+        <div class="total-row"><span>Subtotal</span><span class="sub">$0.00</span></div>
+        <div class="total-row"><span>Tax (8.25%)</span><span class="tax">$0.00</span></div>
+        <div class="total-row grand"><span>Total</span><span class="amt">$0.00</span></div>
+      </div>
+
+      <button class="cart-cta" id="checkoutBtn" disabled>
+        Checkout
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </aside>
+  </main>
+</div>
+
+<!-- CUSTOMIZE MODAL -->
+<div class="modal-backdrop" id="customizeModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-thumb" id="modalThumb">🍵</div>
+      <div style="flex:1">
+        <h3 id="modalName">Drink Name</h3>
+        <p id="modalDesc">Description here.</p>
+      </div>
+      <button class="modal-close" id="closeCustomize" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- options injected here -->
+    </div>
+    <div class="modal-foot">
+      <div class="mod-qty">
+        <button id="qtyDown">−</button>
+        <span class="val" id="modQty">1</span>
+        <button id="qtyUp">+</button>
+      </div>
+      <button class="mod-add-btn" id="addToCart">
+        <span>Add to Order</span>
+        <span id="modPrice">$0.00</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-backdrop" id="checkoutModal">
+  <div class="modal checkout-modal">
+    <h3>Almost <em>there</em>.</h3>
+    <p>A few details, then we'll start whisking.</p>
+
+    <div class="form-row">
+      <label>Your name</label>
+      <input type="text" id="custName" placeholder="So we can call out the order" />
+    </div>
+    <div class="form-row">
+      <label>Phone</label>
+      <input type="tel" id="custPhone" placeholder="(555) 000-0000" />
+    </div>
+    <div class="form-row">
+      <label>Payment</label>
+      <div class="pay-options">
+        <div class="pay-option active" data-pay="card"><span class="ic">💳</span><span>Card</span></div>
+        <div class="pay-option" data-pay="apple"><span class="ic">📱</span><span>Apple Pay</span></div>
+      </div>
+    </div>
+
+    <div class="checkout-summary">
+      <div class="total-row"><span>Subtotal</span><span class="sub">$0.00</span></div>
+      <div class="total-row"><span>Tax</span><span class="tax">$0.00</span></div>
+      <div class="checkout-total"><span class="lbl">Total</span><span class="amt">$0.00</span></div>
+    </div>
+
+    <button class="place-btn" id="placeOrder">Place Order</button>
+    <p class="checkout-disclaimer">This is a demo — no payment is actually processed. Hooks for Square/Stripe go here.</p>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-backdrop" id="successModal">
+  <div class="success-modal">
+    <div class="success-circle">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+    </div>
+    <h3>Order <em>confirmed</em>.</h3>
+    <p>We're whisking it now. You'll get a text when it's ready.</p>
+    <div class="success-card">
+      <div class="success-row"><span class="l">Order #</span><span class="r" id="orderId">—</span></div>
+      <div class="success-row"><span class="l">Pickup</span><span class="r" id="orderPickup">—</span></div>
+      <div class="success-row"><span class="l">Address</span><span class="r">120 Garden Walk, B</span></div>
+      <div class="success-row"><span class="l">Total</span><span class="r" id="orderTotal">—</span></div>
+    </div>
+    <div class="success-actions">
+      <a href="index.html" class="btn-ghost-sm">Back to home</a>
+      <button class="btn-primary-sm" id="newOrder">Order again</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── MENU DATA ────────────────────────────────────────────────────
+  const MENU = [
+    { cat: 'signature', label: 'Signature Iced Drinks', items: [
+      { id: 'strawube',    name: 'Strawberry Ube Swirl', desc: 'Three layers — pink, purple, green.', price: 7.50, thumb: '🥤', th: 'th-2', badge: { text: '★ #1', cls: 'fav' }, allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'blush',       name: 'Blush Matcha',         desc: 'Iced matcha with strawberry foam.',  price: 7.00, thumb: '🍵', th: 'th-4', badge: { text: 'House', cls: '' }, allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'icedmatcha',  name: 'Iced Matcha',          desc: 'Pure, lightly sweetened.',           price: 6.00, thumb: '🍵', th: 'th-1', allowFoam: true, allowSyrup: true, allowMilk: false, allowShot: true },
+      { id: 'icedlatte',   name: 'Iced Matcha Latte',    desc: 'Hand-whisked matcha + milk.',        price: 6.50, thumb: '🥤', th: 'th-1', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'frappe-sig',  name: 'Matcha Frappe',        desc: 'Blended, whipped cream top.',        price: 7.50, thumb: '🥤', th: 'th-6', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'lattefloat',  name: 'Matcha Latte Float',   desc: 'Latte + matcha soft serve.',         price: 8.00, thumb: '🍦', th: 'th-7', allowFoam: false, allowSyrup: true, allowMilk: true, allowShot: true },
+    ]},
+    { cat: 'latte', label: 'Lattes', items: [
+      { id: 'matchalatte', name: 'Matcha Latte',           desc: 'The classic.',                       price: 6.50, thumb: '🍵', th: 'th-1', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'ubelatte',    name: 'Ube Latte',              desc: 'Purple yam, milk, no matcha.',       price: 6.75, thumb: '🥤', th: 'th-3', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: false },
+      { id: 'ubematcha',   name: 'Ube Matcha Latte',       desc: 'Ube base, matcha float — layered.',  price: 7.25, thumb: '🥤', th: 'th-3', badge: { text: 'Fan Favorite', cls: 'fav' }, allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'strawlatte',  name: 'Strawberry Matcha Latte',desc: 'Strawberry syrup, matcha, milk.',    price: 7.00, thumb: '🥤', th: 'th-4', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'lavlatte',    name: 'Lavender Matcha Latte',  desc: 'Floral, calm, slightly sweet.',      price: 7.00, thumb: '🥤', th: 'th-3', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'rasplatte',   name: 'Raspberry Matcha Latte', desc: 'Bright berry, deep green.',          price: 7.00, thumb: '🥤', th: 'th-2', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+    ]},
+    { cat: 'frappe', label: 'Frappes', items: [
+      { id: 'matchafrap', name: 'Matcha Frappe', desc: 'Frozen, blended, whipped cream.', price: 7.50, thumb: '🥤', th: 'th-6', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'ubefrap',    name: 'Ube Frappe',    desc: 'Purple, frozen, creamy.',          price: 7.50, thumb: '🥤', th: 'th-3', allowFoam: true, allowSyrup: true, allowMilk: true, allowShot: false },
+    ]},
+    { cat: 'soft', label: 'Soft Serve', items: [
+      { id: 'soft-m', name: 'Matcha Soft Serve',           desc: 'House-spun matcha ice cream.', price: 5.00, thumb: '🍦', th: 'th-1', allowFoam: false, allowSyrup: false, allowMilk: false, allowShot: false },
+      { id: 'soft-u', name: 'Ube Soft Serve',              desc: 'Purple, sweet, photogenic.',   price: 5.00, thumb: '🍦', th: 'th-3', allowFoam: false, allowSyrup: false, allowMilk: false, allowShot: false },
+      { id: 'soft-mx',name: 'Matcha & Ube Mix Soft Serve', desc: 'Best of both, swirled.',       price: 5.50, thumb: '🍦', th: 'th-3', badge: { text: 'Half & Half', cls: '' }, allowFoam: false, allowSyrup: false, allowMilk: false, allowShot: false },
+    ]},
+    { cat: 'hot', label: 'Hot Drinks', items: [
+      { id: 'hotlatte', name: 'Hot Matcha Latte', desc: 'Steamed milk, whisked matcha.',     price: 6.50, thumb: '☕', th: 'th-7', allowFoam: false, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'usucha',   name: 'Usucha (Traditional)', desc: 'Bowl-served, bamboo-whisked.',  price: 8.00, thumb: '🍵', th: 'th-7', badge: { text: 'Ceremonial', cls: '' }, allowFoam: false, allowSyrup: false, allowMilk: false, allowShot: false },
+    ]},
+    { cat: 'refresher', label: 'Refreshers', items: [
+      { id: 'matchalem', name: 'Matcha Lemonade',            desc: 'Bright, tart, deeply green.', price: 6.75, thumb: '🍋', th: 'th-6', allowFoam: true, allowSyrup: true, allowMilk: false, allowShot: true },
+      { id: 'strawlem',  name: 'Strawberry Matcha Lemonade', desc: 'Strawberry purée added.',     price: 7.25, thumb: '🍋', th: 'th-4', allowFoam: true, allowSyrup: true, allowMilk: false, allowShot: true },
+      { id: 'lychee',    name: 'Lychee Green Tea',           desc: 'Loose-leaf green + lychee.',  price: 6.50, thumb: '🍃', th: 'th-6', allowFoam: false, allowSyrup: true, allowMilk: false, allowShot: false },
+    ]},
+    { cat: 'float', label: 'Floats', items: [
+      { id: 'mfloat', name: 'Matcha Latte Float', desc: 'Latte + matcha soft serve.', price: 8.00, thumb: '🍦', th: 'th-1', allowFoam: false, allowSyrup: true, allowMilk: true, allowShot: true },
+      { id: 'ufloat', name: 'Ube Latte Float',    desc: 'Ube latte + ube soft serve.', price: 8.00, thumb: '🍦', th: 'th-3', allowFoam: false, allowSyrup: true, allowMilk: true, allowShot: false },
+    ]},
+    { cat: 'food', label: 'Sweets & Bakery', items: [
+      { id: 'concha', name: 'Matcha Concha', desc: 'Mexican sweet bread, in matcha. Only here.', price: 4.50, thumb: '🥐', th: 'th-8', badge: { text: '★ 10/10', cls: 'fav' }, allowFoam: false, allowSyrup: false, allowMilk: false, allowShot: false },
+      { id: 'pastry', name: 'Daily Pastry',  desc: 'Ask the counter — case rotates.',           price: 3.50, thumb: '🥮', th: 'th-8', allowFoam: false, allowSyrup: false, allowMilk: false, allowShot: false },
+    ]},
+  ];
+
+  const SIZES   = [{ name: '16oz', add: 0 }, { name: '24oz', add: 1.25 }];
+  const MILKS   = [{ name: 'Whole', add: 0 }, { name: 'Oat', add: 0.75 }];
+  const FOAMS   = [
+    { name: 'None', add: 0, color: 'transparent' },
+    { name: 'Strawberry', add: 1.00, color: '#f4cdd4' },
+    { name: 'Ube', add: 1.00, color: '#b8a4d4' },
+    { name: 'Banana', add: 1.00, color: '#f5e3a0' },
+    { name: 'Lavender', add: 1.00, color: '#cdb6e0' },
+    { name: 'Rose', add: 1.00, color: '#e8a4b3' },
+  ];
+  const SYRUPS  = ['None', 'Strawberry', 'Ube', 'Lavender', 'Vanilla', 'Rose', 'Raspberry', 'Black Raspberry'];
+
+  // ── STATE ────────────────────────────────────────────────────────
+  const cart = [];
+  let editingDraft = null;
+  let pickupTime = null;
+  let payMethod = 'card';
+
+  // ── RENDER MENU ──────────────────────────────────────────────────
+  const menuContainer = document.getElementById('menuContainer');
+
+  function renderMenu(filterCat = 'all') {
+    menuContainer.innerHTML = '';
+    MENU.forEach(cat => {
+      if (filterCat !== 'all' && filterCat !== cat.cat) return;
+      const block = document.createElement('section');
+      block.className = 'cat-block';
+      const title = document.createElement('h2');
+      title.className = 'cat-title';
+      title.textContent = cat.label;
+      block.appendChild(title);
+
+      const grid = document.createElement('div');
+      grid.className = 'menu-grid';
+
+      cat.items.forEach(it => {
+        const card = document.createElement('article');
+        card.className = 'item-card';
+        card.innerHTML = `
+          <div class="item-thumb ${it.th}">${it.thumb}</div>
+          <div class="item-info">
+            <div class="item-name">${it.name}${it.badge ? `<span class="badge ${it.badge.cls}">${it.badge.text}</span>` : ''}</div>
+            <div class="item-desc">${it.desc}</div>
+            <div class="item-bottom">
+              <span class="item-price">$${it.price.toFixed(2)}</span>
+              <button class="item-add" aria-label="Add">+</button>
+            </div>
+          </div>
+        `;
+        card.addEventListener('click', () => openCustomize(it));
+        grid.appendChild(card);
+      });
+      block.appendChild(grid);
+      menuContainer.appendChild(block);
+    });
+  }
+  renderMenu();
+
+  // ── CATEGORY TABS ────────────────────────────────────────────────
+  document.querySelectorAll('.cat-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderMenu(tab.dataset.cat);
+    });
+  });
+
+  // ── CUSTOMIZE MODAL ──────────────────────────────────────────────
+  const customizeModal = document.getElementById('customizeModal');
+  const modalBody = document.getElementById('modalBody');
+  const modalName = document.getElementById('modalName');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalThumb = document.getElementById('modalThumb');
+  const modPrice = document.getElementById('modPrice');
+  const modQtyEl = document.getElementById('modQty');
+
+  function openCustomize(item) {
+    editingDraft = {
+      item,
+      size: SIZES[0],
+      milk: MILKS[0],
+      foam: FOAMS[0],
+      syrup: 'None',
+      extraShot: false,
+      qty: 1,
+      notes: '',
+    };
+
+    modalName.textContent = item.name;
+    modalDesc.textContent = item.desc;
+    modalThumb.textContent = item.thumb;
+    modalThumb.className = `modal-thumb ${item.th}`;
+
+    let html = '';
+    html += `<div class="mod-section">
+      <div class="mod-label">Size</div>
+      <div class="mod-chips" data-group="size">
+        ${SIZES.map((s, i) => `<button class="mod-chip ${i===0?'active':''}" data-idx="${i}">${s.name}${s.add ? ` <span class="add">+$${s.add.toFixed(2)}</span>` : ''}</button>`).join('')}
+      </div>
+    </div>`;
+
+    if (item.allowMilk) {
+      html += `<div class="mod-section">
+        <div class="mod-label">Milk</div>
+        <div class="mod-chips" data-group="milk">
+          ${MILKS.map((m, i) => `<button class="mod-chip ${i===0?'active':''}" data-idx="${i}">${m.name}${m.add ? ` <span class="add">+$${m.add.toFixed(2)}</span>` : ''}</button>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    if (item.allowFoam) {
+      html += `<div class="mod-section">
+        <div class="mod-label">Cold Foam <span class="optional">optional</span></div>
+        <div class="mod-chips" data-group="foam">
+          ${FOAMS.map((f, i) => `<button class="mod-chip ${i===0?'active':''}" data-idx="${i}">${f.color !== 'transparent' ? `<span class="swatch" style="background:${f.color}"></span>` : ''}${f.name}${f.add ? ` <span class="add">+$${f.add.toFixed(2)}</span>` : ''}</button>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    if (item.allowSyrup) {
+      html += `<div class="mod-section">
+        <div class="mod-label">Syrup <span class="optional">optional</span></div>
+        <div class="mod-chips" data-group="syrup">
+          ${SYRUPS.map((s, i) => `<button class="mod-chip ${i===0?'active':''}" data-syrup="${s}">${s}</button>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    if (item.allowShot) {
+      html += `<div class="mod-section">
+        <div class="mod-label">Extra Matcha Shot <span class="optional">+$0.75</span></div>
+        <div class="mod-chips" data-group="shot">
+          <button class="mod-chip active" data-shot="false">No</button>
+          <button class="mod-chip" data-shot="true">Yes, double it</button>
+        </div>
+      </div>`;
+    }
+
+    html += `<div class="mod-section">
+      <div class="mod-label">Notes <span class="optional">optional</span></div>
+      <textarea class="mod-notes" id="modNotes" placeholder="Less sweet, light ice, name on cup…"></textarea>
+    </div>`;
+
+    modalBody.innerHTML = html;
+
+    // Bind chip groups
+    modalBody.querySelectorAll('.mod-chips').forEach(group => {
+      const groupName = group.dataset.group;
+      group.querySelectorAll('.mod-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          group.querySelectorAll('.mod-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          if (groupName === 'size') editingDraft.size = SIZES[+chip.dataset.idx];
+          if (groupName === 'milk') editingDraft.milk = MILKS[+chip.dataset.idx];
+          if (groupName === 'foam') editingDraft.foam = FOAMS[+chip.dataset.idx];
+          if (groupName === 'syrup') editingDraft.syrup = chip.dataset.syrup;
+          if (groupName === 'shot') editingDraft.extraShot = chip.dataset.shot === 'true';
+          updateModalPrice();
+        });
+      });
+    });
+
+    document.getElementById('modNotes').addEventListener('input', e => {
+      editingDraft.notes = e.target.value;
+    });
+
+    modQtyEl.textContent = '1';
+    updateModalPrice();
+    customizeModal.classList.add('show');
+  }
+
+  function lineItemUnitPrice(d) {
+    let p = d.item.price;
+    p += d.size.add;
+    if (d.item.allowMilk) p += d.milk.add;
+    if (d.item.allowFoam) p += d.foam.add;
+    if (d.item.allowShot && d.extraShot) p += 0.75;
+    return p;
+  }
+
+  function updateModalPrice() {
+    const p = lineItemUnitPrice(editingDraft) * editingDraft.qty;
+    modPrice.textContent = `$${p.toFixed(2)}`;
+  }
+
+  document.getElementById('qtyDown').addEventListener('click', () => {
+    if (editingDraft.qty > 1) { editingDraft.qty--; modQtyEl.textContent = editingDraft.qty; updateModalPrice(); }
+  });
+  document.getElementById('qtyUp').addEventListener('click', () => {
+    editingDraft.qty++; modQtyEl.textContent = editingDraft.qty; updateModalPrice();
+  });
+
+  document.getElementById('closeCustomize').addEventListener('click', () => {
+    customizeModal.classList.remove('show');
+  });
+  customizeModal.addEventListener('click', e => {
+    if (e.target === customizeModal) customizeModal.classList.remove('show');
+  });
+
+  document.getElementById('addToCart').addEventListener('click', () => {
+    const d = editingDraft;
+    const mods = [];
+    mods.push(d.size.name);
+    if (d.item.allowMilk) mods.push(d.milk.name + ' milk');
+    if (d.item.allowFoam && d.foam.name !== 'None') mods.push(d.foam.name + ' foam');
+    if (d.item.allowSyrup && d.syrup !== 'None') mods.push(d.syrup + ' syrup');
+    if (d.item.allowShot && d.extraShot) mods.push('+ extra shot');
+
+    cart.push({
+      id: d.item.id + '-' + Date.now(),
+      name: d.item.name,
+      thumb: d.item.thumb,
+      th: d.item.th,
+      modsText: mods.join(' · '),
+      notes: d.notes,
+      qty: d.qty,
+      unitPrice: lineItemUnitPrice(d),
+    });
+    customizeModal.classList.remove('show');
+    renderCart();
+  });
+
+  // ── CART ─────────────────────────────────────────────────────────
+  const cartItems = document.getElementById('cartItems');
+  const cartEmpty = document.getElementById('cartEmpty');
+  const cartPickup = document.getElementById('cartPickup');
+  const cartTotals = document.getElementById('cartTotals');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const cartCount = document.getElementById('cartCount');
+
+  function renderPickupTimes() {
+    const wrap = document.getElementById('pickupTimes');
+    const now = new Date();
+    const times = [];
+    for (let i = 0; i < 4; i++) {
+      const t = new Date(now.getTime() + (15 + i * 15) * 60000);
+      const label = (i === 0) ? `ASAP · ~15 min` : t.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      times.push(label);
+    }
+    if (!pickupTime) pickupTime = times[0];
+    wrap.innerHTML = times.map(t => `<button class="time-chip ${t === pickupTime ? 'active' : ''}" data-time="${t}">${t}</button>`).join('');
+    wrap.querySelectorAll('.time-chip').forEach(c => {
+      c.addEventListener('click', () => {
+        pickupTime = c.dataset.time;
+        wrap.querySelectorAll('.time-chip').forEach(x => x.classList.remove('active'));
+        c.classList.add('active');
+      });
+    });
+  }
+
+  function renderCart() {
+    cartCount.textContent = cart.reduce((s, i) => s + i.qty, 0);
+    if (cart.length === 0) {
+      cartEmpty.style.display = '';
+      cartItems.style.display = 'none';
+      cartPickup.style.display = 'none';
+      cartTotals.style.display = 'none';
+      checkoutBtn.disabled = true;
+      return;
+    }
+    cartEmpty.style.display = 'none';
+    cartItems.style.display = '';
+    cartPickup.style.display = '';
+    cartTotals.style.display = '';
+    checkoutBtn.disabled = false;
+
+    cartItems.innerHTML = cart.map((it, idx) => `
+      <div class="cart-item">
+        <div class="ci-thumb ${it.th}">${it.thumb}</div>
+        <div class="ci-info">
+          <div class="ci-name">${it.name}</div>
+          <div class="ci-mods">${it.modsText}${it.notes ? ` · "${it.notes}"` : ''}</div>
+          <div class="ci-bottom">
+            <div class="qty-ctrl">
+              <button class="qty-btn" data-act="dec" data-idx="${idx}">−</button>
+              <span class="qty-val">${it.qty}</span>
+              <button class="qty-btn" data-act="inc" data-idx="${idx}">+</button>
+            </div>
+            <div class="ci-price">$${(it.unitPrice * it.qty).toFixed(2)}</div>
+          </div>
+          <button class="ci-remove" data-act="rm" data-idx="${idx}">Remove</button>
+        </div>
+      </div>
+    `).join('');
+
+    cartItems.querySelectorAll('button[data-act]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = +btn.dataset.idx;
+        if (btn.dataset.act === 'inc') cart[i].qty++;
+        else if (btn.dataset.act === 'dec') { if (cart[i].qty > 1) cart[i].qty--; else cart.splice(i, 1); }
+        else if (btn.dataset.act === 'rm') cart.splice(i, 1);
+        renderCart();
+      });
+    });
+
+    renderPickupTimes();
+
+    const sub = cart.reduce((s, i) => s + i.unitPrice * i.qty, 0);
+    const tax = sub * 0.0825;
+    const total = sub + tax;
+    document.querySelectorAll('.sub').forEach(el => el.textContent = `$${sub.toFixed(2)}`);
+    document.querySelectorAll('.tax').forEach(el => el.textContent = `$${tax.toFixed(2)}`);
+    document.querySelectorAll('.amt').forEach(el => el.textContent = `$${total.toFixed(2)}`);
+  }
+  renderCart();
+
+  // ── CHECKOUT ─────────────────────────────────────────────────────
+  const checkoutModal = document.getElementById('checkoutModal');
+  checkoutBtn.addEventListener('click', () => {
+    document.querySelectorAll('.step')[1].classList.add('active');
+    checkoutModal.classList.add('show');
+  });
+  checkoutModal.addEventListener('click', e => {
+    if (e.target === checkoutModal) checkoutModal.classList.remove('show');
+  });
+
+  document.querySelectorAll('.pay-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      payMethod = opt.dataset.pay;
+    });
+  });
+
+  document.getElementById('placeOrder').addEventListener('click', () => {
+    const name = document.getElementById('custName').value.trim() || 'Friend';
+    const sub = cart.reduce((s, i) => s + i.unitPrice * i.qty, 0);
+    const total = sub * 1.0825;
+
+    document.getElementById('orderId').textContent = '#MM' + Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('orderPickup').textContent = pickupTime;
+    document.getElementById('orderTotal').textContent = `$${total.toFixed(2)}`;
+
+    document.querySelectorAll('.step')[2].classList.add('active');
+    checkoutModal.classList.remove('show');
+    document.getElementById('successModal').classList.add('show');
+  });
+
+  document.getElementById('newOrder').addEventListener('click', () => {
+    cart.length = 0;
+    document.getElementById('successModal').classList.remove('show');
+    document.querySelectorAll('.step').forEach((s, i) => { if (i > 0) s.classList.remove('active'); });
+    renderCart();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
