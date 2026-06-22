@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Write &mdash; Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    .admin-wrap { max-width: 1180px; margin: 0 auto; padding: 6.5rem 1.5rem 4rem; }
+    .admin-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .admin-bar h1 { font-family: var(--font-head); font-size: 1.6rem; }
+    .admin-bar .who { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-3); }
+    .row { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+
+    /* Login */
+    .login-card { max-width: 420px; margin: 4rem auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.2rem; }
+    .login-card h1 { font-family: var(--font-head); font-size: 1.5rem; margin-bottom: 0.4rem; }
+    .login-card p.sub { color: var(--text-2); font-size: 0.92rem; margin-bottom: 1.5rem; }
+
+    label { display: block; font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin: 0 0 0.4rem; }
+    input, textarea, select {
+      width: 100%; padding: 0.7rem 0.9rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--bg, #0e0e12); color: inherit;
+      font-size: 0.95rem; font-family: inherit; margin-bottom: 1.1rem;
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
+    textarea { resize: vertical; }
+    .field-msg { font-size: 0.85rem; min-height: 1.1em; margin-bottom: 0.5rem; }
+    .field-msg.err { color: #f87171; }
+    .field-msg.ok { color: #34d399; }
+
+    /* Editor layout */
+    .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+    @media (max-width: 860px) { .editor-grid { grid-template-columns: 1fr; } }
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem; }
+    .panel h2 { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 1.2rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+    .body-area { min-height: 340px; font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.6; }
+    .check-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.2rem; }
+    .check-row input { width: auto; margin: 0; }
+    .check-row label { margin: 0; text-transform: none; letter-spacing: 0; font-size: 0.95rem; color: var(--text-1, #fff); font-family: var(--font-head); }
+
+    .preview-pane { border: 1px dashed var(--border); border-radius: var(--radius); padding: 1.3rem; min-height: 340px; }
+    .preview-pane h2 { font-size: 1.4rem; font-family: var(--font-head); margin: 1.4rem 0 0.7rem; }
+    .preview-pane p { color: var(--text-2); margin-bottom: 1rem; line-height: 1.7; }
+    .preview-pane a { color: var(--accent); }
+    .preview-pane img { max-width: 100%; border-radius: 8px; }
+    .preview-pane code { font-family: var(--font-mono); background: var(--accent-dim); padding: 0.1em 0.35em; border-radius: 4px; }
+    .preview-pane pre { background: var(--bg, #0e0e12); border: 1px solid var(--border); padding: 1rem; border-radius: 8px; overflow-x: auto; }
+
+    /* Post list */
+    .post-row { display: flex; align-items: center; gap: 0.9rem; padding: 0.9rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 0.7rem; background: var(--surface); }
+    .post-row .meta { flex: 1; min-width: 0; }
+    .post-row .ptitle { font-weight: 600; font-family: var(--font-head); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .post-row .psub { font-size: 0.76rem; color: var(--text-3); font-family: var(--font-mono); }
+    .badge { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.55rem; border-radius: 999px; }
+    .badge.live { background: rgba(52,211,153,0.16); color: #34d399; }
+    .badge.draft { background: rgba(148,163,184,0.16); color: #94a3b8; }
+    .chip { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.55rem; border-radius: 999px; }
+    .chip-newsletter { background: rgba(99,102,241,0.14); color: #a5b4fc; }
+    .chip-update { background: rgba(249,115,22,0.14); color: #fdba74; }
+    .chip-educational { background: rgba(34,211,238,0.14); color: #67e8f9; }
+
+    .btn-sm { font-size: 0.8rem; padding: 0.45rem 0.85rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-2); cursor: pointer; font-weight: 600; }
+    .btn-sm:hover { border-color: var(--border-accent); color: var(--text-1, #fff); }
+    .btn-sm.danger:hover { border-color: #f87171; color: #f87171; }
+    .btn-link { background: none; border: none; color: var(--accent); cursor: pointer; font: inherit; }
+    [hidden] { display: none !important; }
+    .empty { color: var(--text-3); font-family: var(--font-mono); font-size: 0.88rem; padding: 1rem 0; }
+  </style>
+</head>
+<body>
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div><div class="bg-orb bg-orb--2"></div><div class="bg-orb bg-orb--3"></div>
+  </div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="admin-wrap">
+
+    <!-- ===== LOGIN ===== -->
+    <div id="login" hidden>
+      <div class="login-card">
+        <h1>Admin</h1>
+        <p class="sub">Sign in to write and publish posts.</p>
+        <label for="email">Email</label>
+        <input type="email" id="email" autocomplete="username" placeholder="you@example.com" />
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" placeholder="••••••••" />
+        <div class="field-msg" id="auth-msg" role="status"></div>
+        <div class="row">
+          <button class="button" id="signin-btn">Sign in</button>
+          <button class="btn-link" id="signup-btn">First time? Create account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== APP ===== -->
+    <div id="app" hidden>
+      <div class="admin-bar">
+        <div>
+          <h1>Your posts</h1>
+          <span class="who" id="who"></span>
+        </div>
+        <div class="row">
+          <a class="btn-sm" href="/blog/" target="_blank" rel="noopener">View blog ↗</a>
+          <button class="button" id="new-btn">+ New post</button>
+          <button class="btn-sm" id="signout-btn">Sign out</button>
+        </div>
+      </div>
+
+      <!-- Post list -->
+      <div id="list-wrap">
+        <div id="post-list"><p class="empty">Loading…</p></div>
+      </div>
+
+      <!-- Editor -->
+      <div id="editor" hidden>
+        <div class="admin-bar">
+          <h2 id="editor-title" style="font-family:var(--font-head);font-size:1.3rem;">New post</h2>
+          <button class="btn-sm" id="back-btn">← Back to list</button>
+        </div>
+        <div class="editor-grid">
+          <div class="panel">
+            <input type="hidden" id="post-id" />
+            <label for="f-title">Title</label>
+            <input type="text" id="f-title" placeholder="A clear, specific headline" />
+
+            <div class="two-col">
+              <div>
+                <label for="f-slug">Slug (URL)</label>
+                <input type="text" id="f-slug" placeholder="auto-from-title" />
+              </div>
+              <div>
+                <label for="f-cat">Category</label>
+                <select id="f-cat">
+                  <option value="newsletter">Newsletter</option>
+                  <option value="update">Update</option>
+                  <option value="educational">Educational</option>
+                </select>
+              </div>
+            </div>
+
+            <label for="f-excerpt">Excerpt (shown on the blog list)</label>
+            <textarea id="f-excerpt" rows="2" placeholder="One or two sentences summarizing the post."></textarea>
+
+            <label for="f-cover">Cover image URL (optional)</label>
+            <input type="url" id="f-cover" placeholder="https://…" />
+
+            <label for="f-body">Body (Markdown)</label>
+            <textarea id="f-body" class="body-area" placeholder="Write in Markdown. # Heading, **bold**, [links](url), lists, ```code```…"></textarea>
+
+            <div class="check-row">
+              <input type="checkbox" id="f-published" />
+              <label for="f-published">Published (visible on the blog)</label>
+            </div>
+
+            <div class="field-msg" id="save-msg" role="status"></div>
+            <div class="row">
+              <button class="button" id="save-btn">Save</button>
+              <button class="btn-sm danger" id="delete-btn" hidden>Delete</button>
+            </div>
+          </div>
+
+          <div>
+            <label>Live preview</label>
+            <div class="preview-pane" id="preview"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+    import { marked } from 'https://esm.sh/marked@12'
+    import DOMPurify from 'https://esm.sh/dompurify@3'
+
+    const SB_URL = 'https://splknhwqpdudqmnzfdpx.supabase.co'
+    const SB_KEY = 'sb_publishable_K9O8BGdztxhpELznMGRceg_i_OeRjE0'
+    const OWNER = 'andytorres_6@hotmail.com'
+    const sb = createClient(SB_URL, SB_KEY)
+
+    const $ = (id) => document.getElementById(id)
+    const loginEl = $('login'), appEl = $('app'), editorEl = $('editor'), listWrap = $('list-wrap')
+    const CATS = { newsletter: 'Newsletter', update: 'Update', educational: 'Educational' }
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+    const slugify = (s) => String(s).toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '')
+
+    // ---------- Auth ----------
+    async function refresh() {
+      const { data: { session } } = await sb.auth.getSession()
+      const email = session?.user?.email || null
+      if (email && email.toLowerCase() === OWNER.toLowerCase()) {
+        loginEl.hidden = true; appEl.hidden = false
+        $('who').textContent = email
+        loadPosts()
+      } else if (email) {
+        // Authenticated but not the owner
+        await sb.auth.signOut()
+        loginEl.hidden = false; appEl.hidden = true
+        setAuthMsg('That account isn’t authorized to publish here.', 'err')
+      } else {
+        loginEl.hidden = false; appEl.hidden = true
+      }
+    }
+    const setAuthMsg = (t, k = '') => { const m = $('auth-msg'); m.className = 'field-msg ' + k; m.textContent = t }
+
+    $('signin-btn').addEventListener('click', async () => {
+      setAuthMsg('Signing in…')
+      const { error } = await sb.auth.signInWithPassword({ email: $('email').value.trim(), password: $('password').value })
+      if (error) return setAuthMsg(error.message, 'err')
+      refresh()
+    })
+    $('signup-btn').addEventListener('click', async () => {
+      const email = $('email').value.trim()
+      if (email.toLowerCase() !== OWNER.toLowerCase()) return setAuthMsg('Only the site owner can create the admin account.', 'err')
+      if (($('password').value || '').length < 8) return setAuthMsg('Choose a password of at least 8 characters.', 'err')
+      setAuthMsg('Creating account…')
+      const { data, error } = await sb.auth.signUp({ email, password: $('password').value })
+      if (error) return setAuthMsg(error.message, 'err')
+      if (data.session) refresh()
+      else setAuthMsg('Account created — check your email to confirm, then sign in.', 'ok')
+    })
+    $('signout-btn').addEventListener('click', async () => { await sb.auth.signOut(); refresh() })
+
+    // ---------- Posts ----------
+    async function loadPosts() {
+      const { data, error } = await sb.from('blog_posts').select('*').order('updated_at', { ascending: false })
+      if (error) { $('post-list').innerHTML = `<p class="empty">Couldn't load posts: ${esc(error.message)}</p>`; return }
+      if (!data.length) { $('post-list').innerHTML = `<p class="empty">No posts yet. Hit “+ New post” to write your first.</p>`; return }
+      $('post-list').innerHTML = data.map((p) => `
+        <div class="post-row">
+          <span class="chip chip-${esc(p.category)}">${esc(CATS[p.category] || p.category)}</span>
+          <div class="meta">
+            <div class="ptitle">${esc(p.title)}</div>
+            <div class="psub">/${esc(p.slug)} · updated ${new Date(p.updated_at).toLocaleDateString()}</div>
+          </div>
+          <span class="badge ${p.published ? 'live' : 'draft'}">${p.published ? 'Live' : 'Draft'}</span>
+          <button class="btn-sm" data-act="toggle" data-id="${p.id}">${p.published ? 'Unpublish' : 'Publish'}</button>
+          <button class="btn-sm" data-act="edit" data-id="${p.id}">Edit</button>
+        </div>`).join('')
+    }
+
+    $('post-list').addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-act]'); if (!btn) return
+      const id = btn.dataset.id
+      if (btn.dataset.act === 'edit') return editPost(id)
+      if (btn.dataset.act === 'toggle') {
+        const publish = btn.textContent === 'Publish'
+        const patch = { published: publish }
+        if (publish) patch.published_at = new Date().toISOString()
+        const { error } = await sb.from('blog_posts').update(patch).eq('id', id)
+        if (error) alert('Error: ' + error.message)
+        loadPosts()
+      }
+    })
+
+    // ---------- Editor ----------
+    let slugTouched = false
+    function openEditor() { listWrap.hidden = true; editorEl.hidden = false }
+    function closeEditor() { editorEl.hidden = true; listWrap.hidden = false; loadPosts() }
+
+    function clearForm() {
+      ;['post-id', 'f-title', 'f-slug', 'f-excerpt', 'f-cover', 'f-body'].forEach((i) => ($(i).value = ''))
+      $('f-cat').value = 'newsletter'; $('f-published').checked = false
+      $('save-msg').textContent = ''; $('preview').innerHTML = ''; slugTouched = false
+      $('delete-btn').hidden = true
+    }
+
+    $('new-btn').addEventListener('click', () => { clearForm(); $('editor-title').textContent = 'New post'; openEditor() })
+    $('back-btn').addEventListener('click', closeEditor)
+
+    async function editPost(id) {
+      const { data, error } = await sb.from('blog_posts').select('*').eq('id', id).single()
+      if (error) return alert('Error: ' + error.message)
+      clearForm()
+      $('post-id').value = data.id
+      $('f-title').value = data.title || ''
+      $('f-slug').value = data.slug || ''
+      $('f-cat').value = data.category || 'newsletter'
+      $('f-excerpt').value = data.excerpt || ''
+      $('f-cover').value = data.cover_image_url || ''
+      $('f-body').value = data.body_md || ''
+      $('f-published').checked = !!data.published
+      slugTouched = true
+      $('editor-title').textContent = 'Edit post'
+      $('delete-btn').hidden = false
+      updatePreview()
+      openEditor()
+    }
+
+    // Auto-slug + live preview
+    $('f-title').addEventListener('input', () => { if (!slugTouched) $('f-slug').value = slugify($('f-title').value) })
+    $('f-slug').addEventListener('input', () => { slugTouched = true })
+    $('f-body').addEventListener('input', updatePreview)
+    function updatePreview() { $('preview').innerHTML = DOMPurify.sanitize(marked.parse($('f-body').value || '*Nothing to preview yet.*')) }
+
+    $('save-btn').addEventListener('click', async () => {
+      const msg = $('save-msg'); msg.className = 'field-msg'
+      const title = $('f-title').value.trim()
+      let slug = $('f-slug').value.trim() || slugify(title)
+      const body = $('f-body').value
+      if (!title || !slug || !body) { msg.className = 'field-msg err'; msg.textContent = 'Title, slug, and body are required.'; return }
+      const id = $('post-id').value
+      const published = $('f-published').checked
+      const record = {
+        title, slug, category: $('f-cat').value,
+        excerpt: $('f-excerpt').value.trim() || null,
+        cover_image_url: $('f-cover').value.trim() || null,
+        body_md: body, published,
+      }
+      if (published) record.published_at = new Date().toISOString()
+      msg.textContent = 'Saving…'
+      let error
+      if (id) {
+        if (!published) record.published_at = null
+        ;({ error } = await sb.from('blog_posts').update(record).eq('id', id))
+      } else {
+        ;({ error } = await sb.from('blog_posts').insert(record))
+      }
+      if (error) {
+        msg.className = 'field-msg err'
+        msg.textContent = error.code === '23505' ? 'That slug is already used — change it.' : error.message
+        return
+      }
+      msg.className = 'field-msg ok'; msg.textContent = 'Saved.'
+      setTimeout(closeEditor, 600)
+    })
+
+    $('delete-btn').addEventListener('click', async () => {
+      const id = $('post-id').value
+      if (!id || !confirm('Delete this post permanently?')) return
+      const { error } = await sb.from('blog_posts').delete().eq('id', id)
+      if (error) return alert('Error: ' + error.message)
+      closeEditor()
+    })
+
+    refresh()
+  </script>
+</body>
+</html>
