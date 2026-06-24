@@ -91,14 +91,13 @@
       <div class="login-card">
         <h1>Admin</h1>
         <p class="sub">Sign in to write and publish posts.</p>
-        <label for="email">Email</label>
-        <input type="email" id="email" autocomplete="username" placeholder="you@example.com" />
+        <label for="email">Username</label>
+        <input type="text" id="email" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="username" />
         <label for="password">Password</label>
         <input type="password" id="password" autocomplete="current-password" placeholder="••••••••" />
         <div class="field-msg" id="auth-msg" role="status"></div>
         <div class="row">
           <button class="button" id="signin-btn">Sign in</button>
-          <button class="btn-link" id="signup-btn">First time? Create account</button>
         </div>
       </div>
     </div>
@@ -186,7 +185,13 @@
 
     const SB_URL = 'https://splknhwqpdudqmnzfdpx.supabase.co'
     const SB_KEY = 'sb_publishable_K9O8BGdztxhpELznMGRceg_i_OeRjE0'
-    const OWNER = 'andytorres_6@hotmail.com'
+    // Dedicated blog-admin account. Username login (no email required): the
+    // username is mapped to an internal address that can never receive mail.
+    // Write access is enforced server-side by Postgres RLS keyed to this user
+    // id — the client check below is only for UX, not security.
+    const ADMIN_DOMAIN = 'admin.local'
+    const ADMIN_UID = '0a9d5f1c-7b3e-4c2a-9e6d-1f2a3b4c5d6e'
+    const toEmail = (u) => (u.includes('@') ? u : `${u}@${ADMIN_DOMAIN}`)
     const sb = createClient(SB_URL, SB_KEY)
 
     const $ = (id) => document.getElementById(id)
@@ -198,13 +203,13 @@
     // ---------- Auth ----------
     async function refresh() {
       const { data: { session } } = await sb.auth.getSession()
-      const email = session?.user?.email || null
-      if (email && email.toLowerCase() === OWNER.toLowerCase()) {
+      const user = session?.user || null
+      if (user && user.id === ADMIN_UID) {
         loginEl.hidden = true; appEl.hidden = false
-        $('who').textContent = email
+        $('who').textContent = (user.email || '').split('@')[0]
         loadPosts()
-      } else if (email) {
-        // Authenticated but not the owner
+      } else if (user) {
+        // Authenticated but not the blog admin
         await sb.auth.signOut()
         loginEl.hidden = false; appEl.hidden = true
         setAuthMsg('That account isn’t authorized to publish here.', 'err')
@@ -214,22 +219,17 @@
     }
     const setAuthMsg = (t, k = '') => { const m = $('auth-msg'); m.className = 'field-msg ' + k; m.textContent = t }
 
-    $('signin-btn').addEventListener('click', async () => {
+    async function doSignIn() {
+      const u = $('email').value.trim()
+      if (!u) return setAuthMsg('Enter your username.', 'err')
       setAuthMsg('Signing in…')
-      const { error } = await sb.auth.signInWithPassword({ email: $('email').value.trim(), password: $('password').value })
-      if (error) return setAuthMsg(error.message, 'err')
+      const { error } = await sb.auth.signInWithPassword({ email: toEmail(u), password: $('password').value })
+      if (error) return setAuthMsg('Wrong username or password.', 'err')
       refresh()
-    })
-    $('signup-btn').addEventListener('click', async () => {
-      const email = $('email').value.trim()
-      if (email.toLowerCase() !== OWNER.toLowerCase()) return setAuthMsg('Only the site owner can create the admin account.', 'err')
-      if (($('password').value || '').length < 8) return setAuthMsg('Choose a password of at least 8 characters.', 'err')
-      setAuthMsg('Creating account…')
-      const { data, error } = await sb.auth.signUp({ email, password: $('password').value })
-      if (error) return setAuthMsg(error.message, 'err')
-      if (data.session) refresh()
-      else setAuthMsg('Account created — check your email to confirm, then sign in.', 'ok')
-    })
+    }
+    $('signin-btn').addEventListener('click', doSignIn)
+    $('email').addEventListener('keydown', (e) => { if (e.key === 'Enter') doSignIn() })
+    $('password').addEventListener('keydown', (e) => { if (e.key === 'Enter') doSignIn() })
     $('signout-btn').addEventListener('click', async () => { await sb.auth.signOut(); refresh() })
 
     // ---------- Posts ----------
