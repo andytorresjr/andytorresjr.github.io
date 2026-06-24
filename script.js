@@ -64,14 +64,58 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 const yearEl = document.getElementById('current-year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* ========== Active Nav Link ========== */
-const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-document.querySelectorAll('.nav-links a').forEach((link) => {
-  const linkPath = link.getAttribute('href').split('/').pop().split('#')[0] || 'index.html';
-  if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
-    link.setAttribute('aria-current', 'page');
-  }
+/* ========== Active Nav Link ==========
+   Two kinds of nav links:
+   - Cross-page links (resume.html, /blog/, etc.) → mark active when their
+     URL matches the page we're on.
+   - In-page anchors (#home, #projects, …) → handled by the scrollspy below,
+     which keeps exactly one highlighted based on the section in view. */
+const allNavLinks = Array.from(document.querySelectorAll('.nav-links a'));
+
+// Normalize a pathname so "/" and "/index.html" compare equal.
+const normalizePath = (p) => p.replace(/index\.html$/, '').replace(/\/$/, '') || '/';
+const currentPath = normalizePath(window.location.pathname);
+
+allNavLinks.forEach((link) => {
+  const href = link.getAttribute('href') || '';
+  if (href.startsWith('#')) return; // anchor — left to scrollspy
+  const linkPath = normalizePath(new URL(href, window.location.href).pathname);
+  if (linkPath === currentPath) link.setAttribute('aria-current', 'page');
 });
+
+/* ========== Scrollspy — single active section on the homepage ========== */
+const spyLinks = allNavLinks.filter((a) => (a.getAttribute('href') || '').startsWith('#'));
+const spySections = spyLinks
+  .map((a) => document.getElementById(a.getAttribute('href').slice(1)))
+  .filter(Boolean);
+
+if (spySections.length) {
+  const setActiveSection = (id) => {
+    spyLinks.forEach((a) => {
+      if (a.getAttribute('href') === `#${id}`) {
+        a.setAttribute('aria-current', 'page');
+      } else {
+        a.removeAttribute('aria-current');
+      }
+    });
+  };
+
+  // A thin band ~45% down the viewport. Only the section crossing that band
+  // is active, so never more than one link is highlighted at a time.
+  const spyObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries.filter((e) => e.isIntersecting);
+      if (!visible.length) return;
+      const topMost = visible.reduce((a, b) =>
+        a.boundingClientRect.top < b.boundingClientRect.top ? a : b
+      );
+      setActiveSection(topMost.target.id);
+    },
+    { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+  );
+
+  spySections.forEach((s) => spyObserver.observe(s));
+}
 
 /* ========== Scroll Progress Bar ========== */
 const scrollProgress = document.getElementById('scroll-progress');
