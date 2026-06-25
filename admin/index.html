@@ -76,6 +76,14 @@
     .btn-link { background: none; border: none; color: var(--accent); cursor: pointer; font: inherit; }
     [hidden] { display: none !important; }
     .empty { color: var(--text-3); font-family: var(--font-mono); font-size: 0.88rem; padding: 1rem 0; }
+    .chip-scheduled { background: rgba(251,191,36,0.16); color: #fbbf24; }
+
+    /* Schedule dialog */
+    dialog.sched { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: inherit; padding: 1.8rem; max-width: 420px; width: calc(100% - 2rem); }
+    dialog.sched::backdrop { background: rgba(0,0,0,0.55); }
+    dialog.sched h2 { font-family: var(--font-head); font-size: 1.15rem; margin-bottom: 0.4rem; }
+    dialog.sched p.sub { color: var(--text-2); font-size: 0.88rem; margin-bottom: 1.2rem; }
+    dialog.sched .row { justify-content: flex-end; margin-top: 0.4rem; }
   </style>
 </head>
 <body>
@@ -178,6 +186,20 @@
     </div>
   </div>
 
+  <!-- ===== SCHEDULE DIALOG ===== -->
+  <dialog class="sched" id="sched-dialog">
+    <h2 id="sched-title">Schedule send</h2>
+    <p class="sub" id="sched-sub">Pick when this post should be emailed to all confirmed subscribers. Times are in your local timezone.</p>
+    <input type="hidden" id="sched-post-id" />
+    <label for="sched-when">Send at</label>
+    <input type="datetime-local" id="sched-when" />
+    <div class="field-msg err" id="sched-msg"></div>
+    <div class="row">
+      <button class="btn-sm" id="sched-cancel-btn">Cancel</button>
+      <button class="button" id="sched-save-btn">Schedule</button>
+    </div>
+  </dialog>
+
   <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
     import { marked } from 'https://esm.sh/marked@12'
@@ -199,6 +221,29 @@
     const CATS = { newsletter: 'Newsletter', update: 'Update', educational: 'Educational' }
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
     const slugify = (s) => String(s).toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '')
+
+    // ---------- Newsletter send/schedule controls ----------
+    // An ISO/UTC timestamp -> the "YYYY-MM-DDTHH:MM" string a datetime-local wants, in LOCAL time.
+    const toLocalInput = (iso) => {
+      const d = new Date(iso); d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
+      return d.toISOString().slice(0, 16)
+    }
+
+    // Buttons shown per post depend on published / scheduled / already-sent state.
+    function newsletterControls(p) {
+      if (!p.published) return ''
+      if (p.newsletter_sent_at) {
+        return `<button class="btn-sm" data-act="send" data-id="${p.id}" data-sent="1" title="Sent ${esc(new Date(p.newsletter_sent_at).toLocaleString())}">✓ Re-send</button>`
+      }
+      if (p.newsletter_scheduled_at) {
+        const when = esc(new Date(p.newsletter_scheduled_at).toLocaleString())
+        return `<span class="chip chip-scheduled" title="Scheduled for ${when}">🕒 ${when}</span>
+          <button class="btn-sm" data-act="schedule" data-id="${p.id}" data-when="${esc(p.newsletter_scheduled_at)}">Reschedule</button>
+          <button class="btn-sm danger" data-act="cancel-schedule" data-id="${p.id}">Cancel</button>`
+      }
+      return `<button class="btn-sm" data-act="send" data-id="${p.id}" data-sent="" title="Email this post to subscribers now">Send email</button>
+        <button class="btn-sm" data-act="schedule" data-id="${p.id}">Schedule</button>`
+    }
 
     // ---------- Auth ----------
     async function refresh() {
@@ -245,7 +290,7 @@
             <div class="psub">/${esc(p.slug)} · updated ${new Date(p.updated_at).toLocaleDateString()}</div>
           </div>
           <span class="badge ${p.published ? 'live' : 'draft'}">${p.published ? 'Live' : 'Draft'}</span>
-          ${p.published ? `<button class="btn-sm" data-act="send" data-id="${p.id}" data-sent="${p.newsletter_sent_at ? '1' : ''}" title="${p.newsletter_sent_at ? 'Sent ' + new Date(p.newsletter_sent_at).toLocaleString() : 'Email this post to subscribers'}">${p.newsletter_sent_at ? '✓ Re-send' : 'Send email'}</button>` : ''}
+          ${newsletterControls(p)}
           <button class="btn-sm" data-act="toggle" data-id="${p.id}">${p.published ? 'Unpublish' : 'Publish'}</button>
           <button class="btn-sm" data-act="edit" data-id="${p.id}">Edit</button>
         </div>`).join('')
@@ -272,6 +317,14 @@
         loadPosts()
         return
       }
+      if (btn.dataset.act === 'schedule') return openSchedule(id, btn.dataset.when || '')
+      if (btn.dataset.act === 'cancel-schedule') {
+        if (!confirm('Cancel the scheduled send for this post?')) return
+        const { error } = await sb.from('blog_posts').update({ newsletter_scheduled_at: null }).eq('id', id)
+        if (error) alert('Error: ' + error.message)
+        loadPosts()
+        return
+      }
       if (btn.dataset.act === 'toggle') {
         const publish = btn.textContent === 'Publish'
         const patch = { published: publish }
@@ -280,6 +333,34 @@
         if (error) alert('Error: ' + error.message)
         loadPosts()
       }
+    })
+
+    // ---------- Schedule dialog ----------
+    const schedDialog = $('sched-dialog')
+    function openSchedule(id, existingIso) {
+      $('sched-post-id').value = id
+      $('sched-msg').textContent = ''
+      const whenEl = $('sched-when')
+      // Earliest selectable time is one minute from now.
+      const min = new Date(Date.now() + 60000)
+      whenEl.min = toLocalInput(min.toISOString())
+      whenEl.value = existingIso ? toLocalInput(existingIso) : toLocalInput(new Date(Date.now() + 3600000).toISOString())
+      $('sched-title').textContent = existingIso ? 'Reschedule send' : 'Schedule send'
+      $('sched-save-btn').textContent = existingIso ? 'Reschedule' : 'Schedule'
+      schedDialog.showModal()
+    }
+    $('sched-cancel-btn').addEventListener('click', () => schedDialog.close())
+    $('sched-save-btn').addEventListener('click', async () => {
+      const msg = $('sched-msg')
+      const val = $('sched-when').value
+      if (!val) { msg.textContent = 'Pick a date and time.'; return }
+      const when = new Date(val)
+      if (isNaN(when) || when.getTime() < Date.now()) { msg.textContent = 'Pick a time in the future.'; return }
+      const id = $('sched-post-id').value
+      const { error } = await sb.from('blog_posts').update({ newsletter_scheduled_at: when.toISOString() }).eq('id', id)
+      if (error) { msg.textContent = 'Error: ' + error.message; return }
+      schedDialog.close()
+      loadPosts()
     })
 
     // ---------- Editor ----------

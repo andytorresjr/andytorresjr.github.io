@@ -69,3 +69,49 @@ to the first three deploy commands.
   non-unsubscribed subscriber, each with a one-click unsubscribe link.
 - A post can only be sent once unless you confirm the "send AGAIN?" prompt (tracked via
   `blog_posts.newsletter_sent_at`).
+
+---
+
+# Scheduled sends (added later)
+
+Lets you pick a future time for a post to be emailed instead of sending it right now.
+A `pg_cron` job runs every minute, calls the new `dispatch-scheduled` function, and that
+function sends any published post whose time has passed and that hasn't gone out yet.
+
+## Step A — Pick a CRON_SECRET and set it
+This is a shared password between the cron job and the function so nothing else can trigger a send.
+```powershell
+# generate one (any long random string works), e.g.:
+#   openssl rand -hex 32
+supabase secrets set CRON_SECRET="<your-long-random-string>"
+```
+
+## Step B — Run the schedule migration
+1. Open `supabase/migrations/0002_schedule.sql`.
+2. Replace the `REPLACE_WITH_CRON_SECRET` placeholder with the **same** string you set in Step A.
+3. Paste it into the Supabase dashboard → SQL Editor → Run.
+   (This needs the `pg_cron` + `pg_net` extensions, which the dashboard enables automatically.)
+
+It adds `blog_posts.newsletter_scheduled_at` and registers the minute-by-minute `cron.schedule` job.
+
+## Step C — Deploy the dispatcher
+```powershell
+supabase functions deploy dispatch-scheduled
+```
+`config.toml` marks it `verify_jwt = false`; it authenticates the cron via the `x-cron-secret`
+header instead. If your CLI ignores config, append `--no-verify-jwt`.
+
+## Step D — Test
+1. In `/admin/`, on a published post that hasn't been emailed, click **Schedule**.
+2. Pick a time a couple minutes out → **Schedule**. The row shows a 🕒 chip + **Reschedule** / **Cancel**.
+3. Wait for the time to pass; within ~1 minute you should receive the email and the row flips to **✓ Re-send**.
+
+To watch it server-side: Supabase → Database → check `cron.job` (the job is `dispatch-scheduled-newsletters`)
+and `cron.job_run_details` for run history.
+
+## Notes
+- Scheduling writes `newsletter_scheduled_at` straight from the admin client (same RLS path as Publish) —
+  no function call needed. Only the actual send is server-side.
+- A send is still one-shot: `newsletter_sent_at` is stamped and `newsletter_scheduled_at` cleared once it goes out,
+  so the cron never double-sends.
+- Unpublishing a scheduled post stops it (the dispatcher only sends `published = true` posts).

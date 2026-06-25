@@ -16,3 +16,8 @@ verify_jwt = false
 # the caller is the blog-admin user id before sending anything.
 [functions.send-newsletter]
 verify_jwt = true
+
+# Cron-only: triggered by the pg_cron job every minute. No JWT — it authenticates
+# the caller with a shared CRON_SECRET header instead (see 0002_schedule.sql).
+[functions.dispatch-scheduled]
+verify_jwt = false
