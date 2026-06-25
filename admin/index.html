@@ -213,7 +213,7 @@
     // id — the client check below is only for UX, not security.
     const ADMIN_DOMAIN = 'admin.local'
     const ADMIN_UID = '0a9d5f1c-7b3e-4c2a-9e6d-1f2a3b4c5d6e'
-    const toEmail = (u) => (u.includes('@') ? u : `${u}@${ADMIN_DOMAIN}`)
+    const toEmail = (u) => (u.includes('@') ? u.toLowerCase() : `${u.toLowerCase()}@${ADMIN_DOMAIN}`)
     const sb = createClient(SB_URL, SB_KEY)
 
     const $ = (id) => document.getElementById(id)
