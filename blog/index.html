@@ -262,14 +262,15 @@
       const msg = document.getElementById('sub-msg')
       msg.className = 'sub-msg'
       msg.textContent = 'Subscribing…'
-      const { error } = await sb.from('blog_subscribers').insert({ email, source: 'blog' })
-      if (error) {
-        if (error.code === '23505') { msg.className = 'sub-msg ok'; msg.textContent = "You're already on the list — thank you!" }
-        else { msg.className = 'sub-msg err'; msg.textContent = 'Something went wrong. Try again later.' }
+      const { data, error } = await sb.functions.invoke('subscribe', { body: { email, source: 'blog' } })
+      if (error || !data?.ok) {
+        msg.className = 'sub-msg err'; msg.textContent = 'Something went wrong. Try again later.'
         return
       }
       msg.className = 'sub-msg ok'
-      msg.textContent = "You're in! Thanks for subscribing."
+      msg.textContent = data.status === 'already_confirmed'
+        ? "You're already on the list — thank you!"
+        : 'Almost there — check your inbox to confirm your subscription.'
       e.target.reset()
     })
 
