@@ -245,6 +245,7 @@
             <div class="psub">/${esc(p.slug)} · updated ${new Date(p.updated_at).toLocaleDateString()}</div>
           </div>
           <span class="badge ${p.published ? 'live' : 'draft'}">${p.published ? 'Live' : 'Draft'}</span>
+          ${p.published ? `<button class="btn-sm" data-act="send" data-id="${p.id}" data-sent="${p.newsletter_sent_at ? '1' : ''}" title="${p.newsletter_sent_at ? 'Sent ' + new Date(p.newsletter_sent_at).toLocaleString() : 'Email this post to subscribers'}">${p.newsletter_sent_at ? '✓ Re-send' : 'Send email'}</button>` : ''}
           <button class="btn-sm" data-act="toggle" data-id="${p.id}">${p.published ? 'Unpublish' : 'Publish'}</button>
           <button class="btn-sm" data-act="edit" data-id="${p.id}">Edit</button>
         </div>`).join('')
@@ -254,6 +255,23 @@
       const btn = e.target.closest('button[data-act]'); if (!btn) return
       const id = btn.dataset.id
       if (btn.dataset.act === 'edit') return editPost(id)
+      if (btn.dataset.act === 'send') {
+        const already = btn.dataset.sent === '1'
+        if (!confirm(already
+          ? 'This post was already emailed. Send it to all confirmed subscribers AGAIN?'
+          : 'Email this post to all confirmed subscribers now?')) return
+        const label = btn.textContent; btn.disabled = true; btn.textContent = 'Sending…'
+        const { data, error } = await sb.functions.invoke('send-newsletter', { body: { postId: id, force: already } })
+        btn.disabled = false
+        if (error || !data?.ok) {
+          btn.textContent = label
+          alert('Send failed: ' + (data?.error || error?.message || 'unknown error'))
+          return
+        }
+        alert(`Sent to ${data.sent} of ${data.total} subscriber(s).`)
+        loadPosts()
+        return
+      }
       if (btn.dataset.act === 'toggle') {
         const publish = btn.textContent === 'Publish'
         const patch = { published: publish }

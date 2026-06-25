@@ -1,0 +1,18 @@
+# Supabase project config — only the bits the newsletter functions need.
+project_id = "splknhwqpdudqmnzfdpx"
+
+# Public-facing functions: reachable from the browser / email links without a
+# logged-in user, so JWT verification is turned off. They do their own checks.
+[functions.subscribe]
+verify_jwt = false
+
+[functions.confirm]
+verify_jwt = false
+
+[functions.unsubscribe]
+verify_jwt = false
+
+# Admin-only: requires a valid signed-in session. The function ALSO checks that
+# the caller is the blog-admin user id before sending anything.
+[functions.send-newsletter]
+verify_jwt = true
