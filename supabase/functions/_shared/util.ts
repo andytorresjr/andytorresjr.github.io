@@ -8,6 +8,25 @@ export const NEWSLETTER_FROM =
 
 export const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 
+// Optional. If set, added as Reply-To so replies reach a real, monitored inbox
+// (a small legitimacy signal). e.g. "andres@andrestorresjr.com".
+export const NEWSLETTER_REPLY_TO = Deno.env.get("NEWSLETTER_REPLY_TO") ?? "";
+
+// Crude Markdown -> plain text, for the text/plain alternative part of emails.
+// A multipart (text + html) message is far less likely to be flagged as spam
+// than HTML-only.
+export function mdToText(md: string): string {
+  return String(md ?? "")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")            // images
+    .replace(/\[([^\]]*)\]\(([^)]*)\)/g, "$1 ($2)")   // links -> text (url)
+    .replace(/^#{1,6}\s+/gm, "")                       // headings
+    .replace(/(\*\*|__|\*|_|`)/g, "")                  // emphasis / inline code
+    .replace(/^\s*>\s?/gm, "")                          // blockquotes
+    .replace(/^\s*[-*+]\s+/gm, "- ")                   // list bullets
+    .replace(/\n{3,}/g, "\n\n")                         // collapse blank runs
+    .trim();
+}
+
 export const FUNCTIONS_BASE = `${Deno.env.get("SUPABASE_URL")}/functions/v1`;
 
 export const corsHeaders = {

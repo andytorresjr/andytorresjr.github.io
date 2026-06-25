@@ -4,7 +4,7 @@
 // `newsletter_sent_at` so it can't go out twice.
 import { marked } from "https://esm.sh/marked@12";
 import {
-  sendBatch, NEWSLETTER_FROM, FUNCTIONS_BASE, SITE_URL,
+  sendBatch, mdToText, NEWSLETTER_FROM, NEWSLETTER_REPLY_TO, FUNCTIONS_BASE, SITE_URL,
 } from "./util.ts";
 
 // deno-lint-ignore no-explicit-any
@@ -53,6 +53,8 @@ export async function sendPostToSubscribers(admin: Admin, post: Post): Promise<S
 
   const postUrl = `${SITE_URL}/blog/?slug=${encodeURIComponent(post.slug)}`;
   const bodyHtml = marked.parse(post.body_md || "");
+  const siteName = SITE_URL.replace("https://", "");
+  const bodyText = mdToText(post.body_md || "");
 
   const buildHtml = (unsubUrl: string) => `
   <div style="font-family:system-ui,Segoe UI,Roboto,sans-serif;max-width:600px;margin:auto;color:#1a1a22;line-height:1.7">
@@ -69,13 +71,21 @@ export async function sendPostToSubscribers(admin: Admin, post: Post): Promise<S
     </p>
   </div>`;
 
+  const buildText = (unsubUrl: string) =>
+    `${post.title}\n\n${bodyText}\n\n` +
+    `Read it on the site: ${postUrl}\n\n` +
+    `—\nYou're getting this because you subscribed at ${siteName}.\n` +
+    `Unsubscribe: ${unsubUrl}`;
+
   const emails = subs.map((s: { email: string; unsubscribe_token: string }) => {
     const unsubUrl = `${FUNCTIONS_BASE}/unsubscribe?token=${s.unsubscribe_token}`;
     return {
       from: NEWSLETTER_FROM,
       to: [s.email],
+      ...(NEWSLETTER_REPLY_TO ? { reply_to: NEWSLETTER_REPLY_TO } : {}),
       subject: post.title,
       html: buildHtml(unsubUrl),
+      text: buildText(unsubUrl),
       headers: {
         "List-Unsubscribe": `<${unsubUrl}>`,
         "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",

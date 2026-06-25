@@ -3,7 +3,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   corsHeaders, json, EMAIL_RE, sendOne,
-  NEWSLETTER_FROM, FUNCTIONS_BASE, SITE_URL,
+  NEWSLETTER_FROM, NEWSLETTER_REPLY_TO, FUNCTIONS_BASE, SITE_URL,
 } from "../_shared/util.ts";
 
 Deno.serve(async (req) => {
@@ -45,7 +45,14 @@ Deno.serve(async (req) => {
   const res = await sendOne({
     from: NEWSLETTER_FROM,
     to: [email],
+    ...(NEWSLETTER_REPLY_TO ? { reply_to: NEWSLETTER_REPLY_TO } : {}),
     subject: "Confirm your subscription",
+    text:
+      `One more step\n\n` +
+      `Thanks for subscribing to Andres Torres Jr.'s newsletter. ` +
+      `Please confirm your email so I know it's really you:\n\n${confirmUrl}\n\n` +
+      `If you didn't request this, just ignore this email — you won't be added.\n` +
+      `${SITE_URL.replace("https://", "")}`,
     html: `
       <div style="font-family:system-ui,Segoe UI,Roboto,sans-serif;max-width:480px;margin:auto;color:#1a1a22">
         <h2 style="font-size:1.3rem">One more step</h2>
