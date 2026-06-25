@@ -1,13 +1,15 @@
-// GET ?token=<confirm_token> -> marks the subscriber confirmed, shows a page.
-// Opened directly from the confirmation email, so it returns HTML.
+// GET ?token=<confirm_token> -> marks the subscriber confirmed, then redirects
+// to the blog with a status banner. Opened directly from the confirmation email.
+// (We redirect rather than render HTML here: Edge Functions on *.supabase.co are
+// sandboxed and can't serve a real HTML page.)
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { corsHeaders, htmlPage } from "../_shared/util.ts";
+import { corsHeaders, redirect, UUID_RE } from "../_shared/util.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   const token = new URL(req.url).searchParams.get("token") ?? "";
-  if (!token) return htmlPage("Invalid link", "This confirmation link is missing its token.", 400);
+  if (!UUID_RE.test(token)) return redirect("/blog/?sub=invalid");
 
   const admin = createClient(
     Deno.env.get("SUPABASE_URL")!,
@@ -23,11 +25,9 @@ Deno.serve(async (req) => {
 
   if (error) {
     console.error("confirm failed", error);
-    return htmlPage("Something went wrong", "Please try the link again in a moment.", 500);
+    return redirect("/blog/?sub=error");
   }
-  if (!data) {
-    return htmlPage("Link not found", "This confirmation link is invalid or has already been used.", 404);
-  }
+  if (!data) return redirect("/blog/?sub=invalid");
 
-  return htmlPage("You're confirmed! &#10003;", "Thanks &mdash; you'll get new posts in your inbox. No spam, unsubscribe anytime.");
+  return redirect("/blog/?sub=confirmed");
 });

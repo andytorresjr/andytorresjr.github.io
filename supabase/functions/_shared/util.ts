@@ -48,6 +48,19 @@ export function htmlPage(title: string, message: string, status = 200): Response
 }
 
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+// 302 to a page on the public site. Used by confirm/unsubscribe so the message
+// renders in the site's own styling — Edge Functions on *.supabase.co are
+// sandboxed (Content-Type forced to text/plain) and can't serve HTML pages.
+export function redirect(path: string): Response {
+  const url = path.startsWith("http") ? path : `${SITE_URL}${path}`;
+  return new Response(null, {
+    status: 302,
+    headers: { ...corsHeaders, Location: url },
+  });
+}
 
 // Send one or more emails through Resend (batch endpoint, max 100 per call).
 export async function sendBatch(emails: unknown[]): Promise<Response> {

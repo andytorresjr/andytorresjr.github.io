@@ -82,6 +82,24 @@
     .subscribe form { display: flex; gap: 0.6rem; max-width: 440px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
     .subscribe input { flex: 1; min-width: 220px; padding: 0.8rem 1.1rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: inherit; font-size: 0.95rem; }
     .subscribe input:focus { outline: none; border-color: var(--accent); }
+
+    /* Confirm / unsubscribe status banner */
+    .sub-banner {
+      display: flex; align-items: center; gap: 0.8rem;
+      max-width: 760px; margin: 1.4rem auto 0; padding: 0.9rem 1.1rem;
+      border: 1px solid var(--border); border-left: 4px solid var(--accent);
+      border-radius: var(--radius); background: var(--surface);
+      font-size: 0.95rem; line-height: 1.5;
+    }
+    .sub-banner span { flex: 1; }
+    .sub-banner.ok    { border-left-color: #34d399; }
+    .sub-banner.info  { border-left-color: #6366f1; }
+    .sub-banner.err   { border-left-color: #f87171; }
+    .sub-banner button {
+      background: none; border: none; color: var(--text-3);
+      font-size: 1.3rem; line-height: 1; cursor: pointer; padding: 0 0.2rem;
+    }
+    .sub-banner button:hover { color: var(--text-1, #fff); }
     .sub-msg { margin-top: 0.9rem; font-size: 0.9rem; min-height: 1.2em; }
     .sub-msg.ok { color: #34d399; }
     .sub-msg.err { color: #f87171; }
@@ -126,6 +144,12 @@
   </div>
 
   <main>
+    <!-- Status banner after email confirm / unsubscribe redirects here -->
+    <div id="sub-banner" class="sub-banner" role="status" hidden>
+      <span id="sub-banner-text"></span>
+      <button type="button" id="sub-banner-close" aria-label="Dismiss">&times;</button>
+    </div>
+
     <!-- ===== LIST VIEW ===== -->
     <section class="section reveal" id="view-list">
       <div class="section__header" style="padding-bottom: 0;">
@@ -274,8 +298,29 @@
       e.target.reset()
     })
 
+    // Status banner (?sub=... from the confirm / unsubscribe redirects)
+    const params = new URLSearchParams(location.search)
+    const SUB_MSGS = {
+      confirmed:    { tone: 'ok',   text: "You're confirmed! ✓ You'll get new posts in your inbox. Thanks for subscribing." },
+      unsubscribed: { tone: 'info', text: "You've been unsubscribed. Sorry to see you go — you can resubscribe anytime below." },
+      invalid:      { tone: 'err',  text: "That link is invalid or was already used. Try subscribing again below." },
+      error:        { tone: 'err',  text: "Something went wrong — please try the link again in a moment." },
+    }
+    const subStatus = SUB_MSGS[params.get('sub')]
+    if (subStatus) {
+      const banner = document.getElementById('sub-banner')
+      banner.classList.add(subStatus.tone)
+      document.getElementById('sub-banner-text').textContent = subStatus.text
+      banner.hidden = false
+      document.getElementById('sub-banner-close').addEventListener('click', () => { banner.hidden = true })
+      // Drop the param so a refresh doesn't show it again.
+      params.delete('sub')
+      const qs = params.toString()
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''))
+    }
+
     // Route
-    const slug = new URLSearchParams(location.search).get('slug')
+    const slug = params.get('slug')
     if (slug) showPost(slug)
     else showList()
   </script>
