@@ -29,5 +29,5 @@ Deno.serve(async (req) => {
     return htmlPage("Link not found", "This confirmation link is invalid or has already been used.", 404);
   }
 
-  return htmlPage("You're confirmed! ✓", "Thanks — you'll get new posts in your inbox. No spam, unsubscribe anytime.");
+  return htmlPage("You're confirmed! &#10003;", "Thanks &mdash; you'll get new posts in your inbox. No spam, unsubscribe anytime.");
 });

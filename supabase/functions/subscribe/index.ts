@@ -55,7 +55,7 @@ Deno.serve(async (req) => {
           <a href="${confirmUrl}" style="background:#6366f1;color:#fff;padding:.8rem 1.4rem;
              border-radius:10px;text-decoration:none;font-weight:600">Confirm subscription</a>
         </p>
-        <p style="color:#888;font-size:.85rem">If you didn't request this, just ignore this email —
+        <p style="color:#888;font-size:.85rem">If you didn't request this, just ignore this email &mdash;
         you won't be added.</p>
         <p style="color:#888;font-size:.8rem">${SITE_URL.replace("https://", "")}</p>
       </div>`,
