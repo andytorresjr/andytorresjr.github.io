@@ -247,6 +247,7 @@
           <span class="badge ${p.published ? 'live' : 'draft'}">${p.published ? 'Live' : 'Draft'}</span>
           <button class="btn-sm" data-act="toggle" data-id="${p.id}">${p.published ? 'Unpublish' : 'Publish'}</button>
           <button class="btn-sm" data-act="edit" data-id="${p.id}">Edit</button>
+          ${p.published ? `<button class="btn-sm" data-act="send" data-id="${p.id}" data-title="${esc(p.title)}">✉ Send</button>` : ''}
         </div>`).join('')
     }
 
@@ -261,6 +262,21 @@
         const { error } = await sb.from('blog_posts').update(patch).eq('id', id)
         if (error) alert('Error: ' + error.message)
         loadPosts()
+      }
+      if (btn.dataset.act === 'send') {
+        const title = btn.dataset.title || 'this post'
+        if (!confirm(`Email “${title}” to all confirmed subscribers? This can't be undone.`)) return
+        const orig = btn.textContent; btn.textContent = 'Sending…'; btn.disabled = true
+        const { data, error } = await sb.functions.invoke('send-newsletter', { body: { postId: id } })
+        let serverMsg = ''
+        try { serverMsg = (await error?.context?.json())?.error } catch {}
+        if (error || !data?.ok) {
+          alert('Could not send: ' + (serverMsg || data?.error || 'unknown error'))
+        } else {
+          alert(`Sent to ${data.sent} of ${data.total} subscriber${data.total === 1 ? '' : 's'}.` +
+            (data.errors?.length ? `\n\nSome batches failed:\n${data.errors.join('\n')}` : ''))
+        }
+        btn.textContent = orig; btn.disabled = false
       }
     })
 
