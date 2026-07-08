@@ -35,8 +35,16 @@ const config: Config = {
         'infinite-scroll-reverse': 'infinite-scroll 30s linear infinite reverse',
         border: 'border-rotate 4s linear infinite',
         spin: 'spin 1s linear infinite',
+        spotlight: 'spotlight 2s ease .75s 1 forwards',
       },
       keyframes: {
+        spotlight: {
+          '0%': { opacity: '0', transform: 'translate(-72%, -62%) scale(0.5)' },
+          '100%': {
+            opacity: '1',
+            transform: 'translate(-50%,-40%) scale(1)',
+          },
+        },
         marquee: {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(calc(-100% - var(--gap)))' },

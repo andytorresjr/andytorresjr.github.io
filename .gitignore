@@ -4,3 +4,9 @@
 out/
 node_modules/
 next-env.d.ts
+
+# IDE
+.idea/
+
+# TypeScript incremental build info
+tsconfig.tsbuildinfo

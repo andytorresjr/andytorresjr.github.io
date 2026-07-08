@@ -1,18 +1,10 @@
 'use client'
 import { motion, useReducedMotion } from 'framer-motion'
-import ImageMouseTrail from '@/components/ui/mousetrail'
 import { RandomizedTextEffect } from '@/components/ui/text-randomized'
 import { ArrowDown } from 'lucide-react'
 import ScrollBaseAnimation from '@/components/ui/scroll-text-marque'
-
-// Project thumbnails trail the cursor — replace with actual paths under public/attachments/
-const trailImages = [
-  '/attachments/319k-final-project-thumbnail.jpg',
-  '/attachments/proj2-thumbnail.png',
-  '/attachments/319k-final-project-thumbnail.jpg',
-  '/attachments/proj2-thumbnail.png',
-  '/attachments/319k-final-project-thumbnail.jpg',
-]
+import { SplineScene } from '@/components/ui/splite'
+import { Spotlight } from '@/components/ui/spotlight-aceternity'
 
 const stats = [
   { label: 'Focus', value: 'Embedded Systems' },
@@ -25,14 +17,13 @@ export default function HeroSection() {
 
   return (
     <section id="home" aria-label="Introduction">
-      <ImageMouseTrail
-        items={trailImages}
-        className="min-h-dvh w-full bg-bg block overflow-hidden"
-        imgClass="w-44 h-56 object-cover rounded-md opacity-40 shadow-xl"
-        fadeAnimation
-        distance={18}
-        maxNumberOfImages={5}
-      >
+      <div className="relative min-h-dvh w-full bg-bg overflow-hidden">
+        {/* Spotlight sweep — same animation as the Spline demo */}
+        <Spotlight
+          className="-top-40 left-0 md:-top-20 md:left-1/2"
+          fill="white"
+        />
+
         {/* Subtle radial gradient centered on page */}
         <div
           className="pointer-events-none absolute inset-0 z-0"
@@ -42,6 +33,14 @@ export default function HeroSection() {
               'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(99,102,241,0.08) 0%, transparent 70%)',
           }}
         />
+
+        {/* Interactive 3D robot — right half on large screens */}
+        <div className="hidden lg:block absolute inset-y-0 right-0 w-1/2 z-[5]">
+          <SplineScene
+            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+            className="w-full h-full"
+          />
+        </div>
 
         {/* Grid lines overlay */}
         <div
@@ -68,7 +67,9 @@ export default function HeroSection() {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-10 flex flex-col justify-center min-h-dvh px-6 md:px-12 lg:px-24 max-w-7xl mx-auto py-24">
+        {/* pointer-events-none lets mousemove reach the Spline canvas underneath
+            (robot head tracking); interactive children re-enable pointer events */}
+        <div className="pointer-events-none relative z-10 flex flex-col justify-center min-h-dvh px-6 md:px-12 lg:px-24 max-w-7xl mx-auto py-24 lg:pr-[45%]">
           {/* Eyebrow badge */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -115,7 +116,7 @@ export default function HeroSection() {
               href="/attachments/RESUME-FALL2025.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative inline-flex h-11 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg"
+              className="pointer-events-auto relative inline-flex h-11 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg"
               aria-label="View Resume (opens in new tab)"
             >
               <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#a2aeff_0%,#3749be_50%,#a2aeff_100%)]" />
@@ -125,7 +126,7 @@ export default function HeroSection() {
             </a>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 font-space-grotesk font-semibold text-sm border border-border hover:border-text-muted text-text-muted hover:text-text-primary px-6 py-3 rounded transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+              className="pointer-events-auto inline-flex items-center gap-2 font-space-grotesk font-semibold text-sm border border-border hover:border-text-muted text-text-muted hover:text-text-primary px-6 py-3 rounded transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
               Browse Projects
             </a>
@@ -152,7 +153,7 @@ export default function HeroSection() {
         </div>
 
         {/* Velocity scroll marquee — from UILayouts ScrollBaseAnimation */}
-        <div className="absolute bottom-20 left-0 right-0 overflow-hidden" aria-hidden="true">
+        <div className="pointer-events-none absolute bottom-20 left-0 right-0 overflow-hidden" aria-hidden="true">
           <ScrollBaseAnimation
             baseVelocity={-1.5}
             clasname="font-mono text-[11px] text-text-muted/20 uppercase tracking-[0.2em]"
@@ -166,7 +167,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+          className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
           aria-hidden="true"
         >
           <span className="font-mono text-[10px] text-text-muted/50 uppercase tracking-widest">
@@ -174,7 +175,7 @@ export default function HeroSection() {
           </span>
           <ArrowDown size={14} className="text-text-muted/50 animate-bounce" />
         </motion.div>
-      </ImageMouseTrail>
+      </div>
     </section>
   )
 }

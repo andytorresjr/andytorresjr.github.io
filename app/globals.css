@@ -59,6 +59,16 @@
 }
 
 @layer utilities {
+  /* Fallback spinner for Suspense while the Spline scene loads (splite.tsx) */
+  .loader {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
   .font-syne {
     font-family: var(--font-syne), sans-serif;
   }
