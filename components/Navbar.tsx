@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/#about', label: 'About' },
   { href: '/#experience', label: 'Experience' },
   { href: '/#contact', label: 'Contact' },
+  { href: '/clients/', label: 'Clients' },
 ]
 
 export default function Navbar() {
@@ -64,12 +65,10 @@ export default function Navbar() {
 
         {/* Desktop CTA */}
         <a
-          href="/attachments/RESUME_2026.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/resume/"
           className="hidden md:inline-flex items-center gap-2 font-mono text-xs text-accent border border-accent/40 hover:border-accent hover:bg-accent/10 px-4 py-2 rounded transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
-          resume.pdf
+          resume
         </a>
 
         {/* Mobile toggle */}
@@ -109,13 +108,11 @@ export default function Navbar() {
               ))}
               <li className="pt-3">
                 <a
-                  href="/attachments/RESUME_2026.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/resume/"
                   onClick={handleLinkClick}
                   className="font-mono text-sm text-accent"
                 >
-                  resume.pdf ↗
+                  resume →
                 </a>
               </li>
             </ul>
