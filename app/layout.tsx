@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     'ARM Cortex-M',
   ],
   authors: [{ name: 'Andres Torres Jr.' }],
+  icons: { icon: '/favicon.svg' },
   openGraph: {
     title: 'Andres Torres Jr. — ECE Student & Engineer',
     description:

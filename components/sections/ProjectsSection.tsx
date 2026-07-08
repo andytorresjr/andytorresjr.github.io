@@ -12,7 +12,10 @@ interface Project {
   description: string
   tags: string[]
   image: string
+  /** Mono text shown in the media area when there is no image (like prod's card placeholders) */
+  placeholder?: string
   href: string
+  linkLabel?: string
   status: 'live' | 'coming-soon'
 }
 
@@ -38,14 +41,169 @@ const projects: Project[] = [
     status: 'live',
   },
   {
-    id: 'robotics-pcb',
-    title: 'Robotics PCB Control Hub',
+    id: 'cafe-client',
+    title: 'Café Brand Site & Online Ordering',
     description:
-      'Engineering a modular PCB platform that unifies motor control, sensor fusion, and power delivery for autonomous marine robotics builds. Designed from scratch in KiCad.',
-    tags: ['PCB Design', 'KiCad', 'Motor Control', 'Embedded Systems'],
+      'Freelance build for a local specialty café — a responsive brand site plus a full ordering flow: menu, a build-your-own-drink customizer, cart, and checkout. Hand-coded from scratch with a custom design system, no framework.',
+    tags: ['Web Design', 'HTML / CSS / JS', 'Online Ordering', 'Responsive UI'],
+    image: '/attachments/cafe-1.jpg',
+    href: '/work/cafe-demo/',
+    linkLabel: 'View live demo',
+    status: 'live',
+  },
+  {
+    id: 'pychain',
+    title: 'PyChain — Blockchain from Scratch',
+    description:
+      'A proof-of-work blockchain built in Python with Merkle trees, REST API, tamper detection, and distributed consensus across nodes.',
+    tags: ['Python', 'Distributed Systems', 'Cryptography'],
     image: '',
-    href: '#',
-    status: 'coming-soon',
+    placeholder: '{ blockchain }',
+    href: 'https://github.com/andytorresjr/pychain',
+    status: 'live',
+  },
+  {
+    id: 'pychip8',
+    title: 'PyChip8 — CHIP-8 Emulator',
+    description:
+      'A complete CHIP-8 emulator implementing all 35 opcodes, 64×32 display, two timers, hex keypad, and a disassembler.',
+    tags: ['Python', 'Emulation', 'Computer Architecture'],
+    image: '',
+    placeholder: 'CHIP-8',
+    href: 'https://github.com/andytorresjr/pychip8',
+    status: 'live',
+  },
+  {
+    id: 'pymalloc',
+    title: 'PyMalloc — Memory Allocator',
+    description:
+      'A malloc/free/realloc replacement in C with explicit free lists, boundary tags, immediate coalescing, and a heap checker.',
+    tags: ['C', 'Memory Management', 'Systems'],
+    image: '',
+    placeholder: 'malloc()',
+    href: 'https://github.com/andytorresjr/pymalloc',
+    status: 'live',
+  },
+  {
+    id: 'pygit',
+    title: 'PyGit — Git from Scratch',
+    description:
+      'A Git subset built from scratch — blob/tree/commit objects, SHA-1 content addressing, index, log, and checkout.',
+    tags: ['Python', 'Version Control', 'File Systems'],
+    image: '',
+    placeholder: 'git commit',
+    href: 'https://github.com/andytorresjr/pygit',
+    status: 'live',
+  },
+  {
+    id: 'pysh',
+    title: 'PySh — Unix Shell',
+    description:
+      'A fully functional Unix shell built from scratch — pipes, I/O redirection, glob expansion, history, and 10 built-ins.',
+    tags: ['Python', 'OS / Processes', 'Unix'],
+    image: '',
+    placeholder: '$ shell',
+    href: 'https://github.com/andytorresjr/pysh',
+    status: 'live',
+  },
+  {
+    id: 'pyserve',
+    title: 'PyServe — HTTP Web Server',
+    description:
+      'An HTTP/1.1 web server built from raw TCP sockets — multi-threaded, request parsing, router, and static file serving.',
+    tags: ['Python', 'Networking', 'Concurrency'],
+    image: '',
+    placeholder: 'HTTP/1.1',
+    href: 'https://github.com/andytorresjr/pyserve',
+    status: 'live',
+  },
+  {
+    id: 'pyregex',
+    title: 'PyRegex — NFA Regex Engine',
+    description:
+      "An NFA-based regex engine using Thompson's construction — match, search, findall, sub, and compile.",
+    tags: ['Python', 'Automata Theory', 'Parsing'],
+    image: '',
+    placeholder: '/regex/',
+    href: 'https://github.com/andytorresjr/pyregex',
+    status: 'live',
+  },
+  {
+    id: 'pysearch',
+    title: 'PySearch — Full-Text Search Engine',
+    description:
+      'A full-text search engine with inverted index, BM25/TF-IDF scoring, Porter stemmer, and boolean/phrase/wildcard queries.',
+    tags: ['Python', 'Information Retrieval', 'NLP'],
+    image: '',
+    placeholder: 'BM25 search',
+    href: 'https://github.com/andytorresjr/pysearch',
+    status: 'live',
+  },
+  {
+    id: 'pynet',
+    title: 'PyNet — Neural Network from Scratch',
+    description:
+      'A fully-connected MLP built using only NumPy — backpropagation, Adam optimizer, dropout, and L2 regularization.',
+    tags: ['Python', 'Machine Learning', 'NumPy'],
+    image: '',
+    placeholder: 'neural net',
+    href: 'https://github.com/andytorresjr/pynet',
+    status: 'live',
+  },
+  {
+    id: 'pytpl',
+    title: 'PyTpl — Template Engine',
+    description:
+      'A Jinja2-inspired template engine with a lexer, recursive descent parser, template inheritance, filters, and auto-escaping.',
+    tags: ['Python', 'Compilers', 'Parsing'],
+    image: '',
+    placeholder: '{{ template }}',
+    href: 'https://github.com/andytorresjr/pytpl',
+    status: 'live',
+  },
+  {
+    id: 'pyvdom',
+    title: 'PyVDOM — Virtual DOM',
+    description:
+      'A React-inspired Virtual DOM — h(), diff(), patch(), typed patch records, and a stateful Component class.',
+    tags: ['JavaScript', 'React Internals', 'DOM'],
+    image: '',
+    placeholder: '<vdom />',
+    href: 'https://github.com/andytorresjr/pyvdom',
+    status: 'live',
+  },
+  {
+    id: 'pytask',
+    title: 'PyTask — CLI Task Manager',
+    description:
+      'A feature-rich task manager CLI with a custom arg parser, ANSI table renderer, 9 subcommands, and JSON persistence.',
+    tags: ['JavaScript', 'CLI', 'Developer Tools'],
+    image: '',
+    placeholder: 'task add',
+    href: 'https://github.com/andytorresjr/pytask',
+    status: 'live',
+  },
+  {
+    id: 'realeyez',
+    title: 'RealEyez — Anti-Deepfake Social App',
+    description:
+      'A social media concept that prevents prerecorded media uploads to combat AI-generated and fake content in real-time feeds.',
+    tags: ['TypeScript', 'AI Safety', 'Social Media'],
+    image: '',
+    placeholder: 'realeyez',
+    href: 'https://github.com/andytorresjr/realeyez',
+    status: 'live',
+  },
+  {
+    id: 'laredo-lifeline',
+    title: 'Laredo Lifeline',
+    description:
+      'A TypeScript web application serving the Laredo community — built to connect local resources and services.',
+    tags: ['TypeScript', 'Web App', 'Community'],
+    image: '',
+    placeholder: 'laredo lifeline',
+    href: 'https://github.com/andytorresjr/laredo-lifeline',
+    status: 'live',
   },
 ]
 
@@ -63,13 +221,20 @@ function ProjectCard({ project }: { project: Project }) {
     >
       {/* Image */}
       <div className="relative h-48 bg-surface-2 shrink-0 overflow-hidden">
-        {project.status === 'coming-soon' || !project.image ? (
+        {project.status === 'coming-soon' ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
             <span className="font-mono text-[10px] text-accent border border-accent/30 px-2 py-1 rounded uppercase tracking-widest">
               Coming Soon
             </span>
             <span className="font-space-grotesk text-sm font-semibold text-text-muted/60 text-center px-4">
               {project.title}
+            </span>
+          </div>
+        ) : !project.image ? (
+          // Text placeholder media — mirrors prod's card__media--placeholder
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="font-mono text-lg text-accent/70 tracking-tight">
+              {project.placeholder ?? project.title}
             </span>
           </div>
         ) : (
@@ -110,9 +275,9 @@ function ProjectCard({ project }: { project: Project }) {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 font-space-grotesk text-xs font-semibold text-accent hover:text-accent-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
-            aria-label={`View ${project.title} on LinkedIn`}
+            aria-label={`View ${project.title}`}
           >
-            See project <ExternalLink size={11} />
+            {project.linkLabel ?? 'See project'} <ExternalLink size={11} />
           </a>
         ) : (
           <span className="font-space-grotesk text-xs text-text-muted/40 cursor-not-allowed">

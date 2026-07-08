@@ -7,8 +7,8 @@ import { Mail, Linkedin, Github } from 'lucide-react'
 const contactLinks = [
   {
     label: 'Email',
-    value: 'andytorresjr@utexas.edu',
-    href: 'mailto:andytorresjr@utexas.edu',
+    value: 'andrestorresjr@utexas.edu',
+    href: 'mailto:andrestorresjr@utexas.edu',
     icon: Mail,
     description: 'Best for opportunities and collaborations',
   },

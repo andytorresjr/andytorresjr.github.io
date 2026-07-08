@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Verde Matcha Café — Riverside's Matcha Home · Small-Batch</title>
+<meta name="description" content="Ceremonial-grade matcha, hand-whisked daily in Riverside, TX. Cold foams, ube swirls, matcha conchas, and kawaii vibes. Small-batch." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Sage walls + cream wainscoting + warm wood + soft pink accent */
+    --sage-900: #2f4530;
+    --sage-800: #3f5a3f;
+    --sage-700: #5d7a52;
+    --sage-600: #7a9466;
+    --sage-500: #8fa876;
+    --sage-300: #b8c89c;
+    --sage-100: #dbe4c4;
+    --cream:    #f5efe1;
+    --cream-2:  #ebe3d1;
+    --wood:     #d4b896;
+    --wood-dk:  #a88a5f;
+    --pink:     #f4cdd4;
+    --pink-dk:  #e09baa;
+    --ube:      #b8a4d4;
+    --rose:     #d4859a;
+    --gold:     #c9a35a;
+    --ink:      #2a2a26;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: 'Fraunces', Georgia, serif; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── NAV ─────────────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    backdrop-filter: blur(14px);
+    background: rgba(245, 239, 225, 0.88);
+    border-bottom: 1px solid rgba(47, 69, 48, 0.08);
+  }
+  .nav-inner {
+    max-width: 1240px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; color: var(--sage-900);
+    text-decoration: none;
+  }
+  .brand-mark {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--sage-800);
+    box-shadow: 0 2px 6px rgba(47,69,48,0.08);
+  }
+  .brand-mark svg { width: 24px; height: 24px; }
+  .brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .brand-text .b1 { font-weight: 600; font-size: 18px; }
+  .brand-text .b2 { font-family: 'Inter', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--sage-600); margin-top: 4px; }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a {
+    color: var(--sage-900); text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--sage-600); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; text-decoration: none;
+    cursor: pointer; border: none; transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary {
+    background: var(--sage-800); color: var(--cream);
+  }
+  .btn-primary:hover { background: var(--sage-900); transform: translateY(-1px); }
+  .btn-pink {
+    background: var(--pink); color: var(--sage-900);
+  }
+  .btn-pink:hover { background: var(--pink-dk); color: var(--cream); }
+  .btn-ghost {
+    background: transparent; color: var(--sage-900);
+    border: 1.5px solid var(--sage-800);
+  }
+  .btn-ghost:hover { background: var(--sage-800); color: var(--cream); }
+  .btn-arrow { transition: transform 0.2s; }
+  .btn:hover .btn-arrow { transform: translateX(4px); }
+
+  @media (max-width: 880px) {
+    .nav-links a:not(.btn) { display: none; }
+  }
+
+  /* ── HERO ────────────────────────────────────────────────────────── */
+  .hero {
+    padding: 140px 0 80px;
+    background:
+      radial-gradient(ellipse at top right, rgba(143, 168, 118, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(244, 205, 212, 0.35) 0%, transparent 50%),
+      var(--cream);
+    position: relative; overflow: hidden;
+  }
+  .hero-inner {
+    display: grid; grid-template-columns: 1.05fr 1fr;
+    gap: 64px; align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--sage-700);
+    margin-bottom: 24px;
+  }
+  .eyebrow::before {
+    content: ''; width: 28px; height: 1.5px; background: var(--sage-700);
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 7.5vw, 92px);
+    line-height: 0.96; font-weight: 600;
+    color: var(--sage-900);
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  h1 em { font-style: italic; color: var(--sage-600); font-weight: 500; }
+  h1 .pink-underline { position: relative; display: inline-block; }
+  h1 .pink-underline::after {
+    content: ''; position: absolute; left: -4px; right: -4px; bottom: 4px;
+    height: 14px; background: var(--pink); z-index: -1; border-radius: 4px;
+  }
+  .hero p.lead {
+    font-size: 18px; color: rgba(42,42,38,0.75);
+    max-width: 480px; margin-bottom: 36px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 36px; }
+  .hero-trust {
+    display: flex; gap: 28px; flex-wrap: wrap;
+    padding-top: 28px; border-top: 1px solid rgba(47,69,48,0.12);
+  }
+  .hero-trust .t-item .num { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: var(--sage-800); line-height: 1; }
+  .hero-trust .t-item .lbl { font-size: 11px; color: rgba(42,42,38,0.6); text-transform: uppercase; letter-spacing: 1.2px; margin-top: 6px; }
+
+  .hero-visual {
+    position: relative; aspect-ratio: 4/5;
+    border-radius: 32px;
+    background:
+      radial-gradient(circle at 30% 30%, var(--sage-500) 0%, var(--sage-800) 85%);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -20px rgba(47, 69, 48, 0.4);
+  }
+  .hero-visual::before {
+    content: ''; position: absolute; inset: -20%;
+    background:
+      radial-gradient(circle at 70% 80%, rgba(184, 164, 212, 0.35) 0%, transparent 28%),
+      radial-gradient(circle at 20% 20%, rgba(245, 239, 225, 0.18) 0%, transparent 35%);
+  }
+  .hero-cups {
+    position: relative; z-index: 2;
+    display: flex; gap: 16px; align-items: flex-end;
+  }
+  .cup {
+    width: 120px; height: 180px;
+    border-radius: 16px 16px 28px 28px / 12px 12px 22px 22px;
+    border: 3px solid rgba(255,255,255,0.95);
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .cup.purple {
+    background: linear-gradient(180deg, var(--ube) 0%, var(--ube) 38%, var(--sage-500) 38%, var(--sage-400, #95b07a) 100%);
+  }
+  .cup.green {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream) 28%, var(--sage-500) 28%, var(--sage-700) 100%);
+  }
+  .cup.large { width: 140px; height: 210px; }
+  .cup .sticker {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--cream);
+    border: 2px solid var(--sage-800);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: 600; color: var(--sage-900);
+    flex-direction: column;
+    z-index: 2;
+  }
+  .cup .sticker svg { width: 22px; height: 22px; margin-bottom: 2px; }
+  .cup .sticker .stx { font-size: 6px; letter-spacing: 1px; }
+  .cup .foam {
+    position: absolute; top: -8px; left: -3px; right: -3px;
+    height: 24px; background: var(--cream); border-radius: 50%;
+    z-index: 1;
+  }
+  .cup.purple .foam-toppings {
+    position: absolute; top: -10px; left: 10px; right: 10px; height: 14px;
+    background: radial-gradient(circle, var(--sage-500) 2px, transparent 2px) 0 0 / 12px 12px;
+  }
+  .cup.green .foam-toppings {
+    position: absolute; top: -6px; left: 12px; right: 12px; height: 12px;
+    background: radial-gradient(circle, var(--rose) 3px, transparent 3px) 0 0 / 14px 14px;
+  }
+
+  .hero-badge {
+    position: absolute; top: 24px; left: 24px; z-index: 3;
+    background: var(--cream); border-radius: 999px;
+    padding: 8px 16px; font-size: 12px; font-weight: 600;
+    color: var(--sage-900); letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+  .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.25); }
+
+  .hero-rating {
+    position: absolute; top: 24px; right: 24px; z-index: 3;
+    background: rgba(245, 239, 225, 0.96);
+    border-radius: 16px; padding: 12px 16px;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+  .hero-rating .stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; line-height: 1; }
+  .hero-rating .rating-num { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--sage-900); margin-top: 4px; }
+  .hero-rating .rating-src { font-size: 10px; color: rgba(42,42,38,0.6); letter-spacing: 0.5px; }
+
+  .hero-tag-bottom {
+    position: absolute; bottom: 24px; right: 24px; z-index: 3;
+    background: rgba(245, 239, 225, 0.96);
+    border-radius: 16px; padding: 14px 18px;
+    text-align: right;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+  .hero-tag-bottom .price { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--sage-900); }
+  .hero-tag-bottom .label { font-size: 10px; color: rgba(42,42,38,0.6); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero { padding: 110px 0 60px; }
+    .hero-visual { max-width: 420px; margin: 0 auto; }
+  }
+
+  /* ── MARQUEE / RIBBON ────────────────────────────────────────────── */
+  .ribbon {
+    background: var(--sage-800); color: var(--cream);
+    padding: 20px 0; overflow: hidden; white-space: nowrap;
+    border-top: 1px solid rgba(245,239,225,0.1);
+  }
+  .ribbon-track {
+    display: inline-block; animation: scroll 35s linear infinite;
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 500; font-style: italic;
+  }
+  .ribbon-track span { padding: 0 28px; }
+  .ribbon-track .star { color: var(--gold); }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTION HEAD ────────────────────────────────────────────────── */
+  section { padding: 100px 0; }
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 600; color: var(--sage-900);
+    letter-spacing: -0.02em; line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  h2 em { font-style: italic; color: var(--sage-600); }
+  h2 .pink-underline { position: relative; display: inline-block; }
+  h2 .pink-underline::after {
+    content: ''; position: absolute; left: -4px; right: -4px; bottom: 6px;
+    height: 12px; background: var(--pink); z-index: -1; border-radius: 4px;
+  }
+  .section-head p { font-size: 17px; color: rgba(42,42,38,0.7); }
+
+  /* ── SIGNATURES STRIP ────────────────────────────────────────────── */
+  #signatures {
+    background: var(--cream);
+    padding: 100px 0;
+  }
+  .sig-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  }
+  .sig-card {
+    position: relative; aspect-ratio: 3/4;
+    border-radius: 24px; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 24px;
+    color: var(--cream); cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .sig-card:hover { transform: translateY(-6px); }
+  .sig-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(47,69,48,0.85) 100%);
+  }
+  .sig-card > * { position: relative; z-index: 2; }
+  .sig-1 { background: linear-gradient(135deg, var(--rose), var(--ube)); }
+  .sig-2 { background: linear-gradient(135deg, var(--pink), var(--sage-500)); }
+  .sig-3 { background: linear-gradient(135deg, var(--ube), var(--sage-700)); }
+  .sig-4 { background: linear-gradient(135deg, var(--sage-500), var(--wood)); }
+  .sig-badge {
+    position: absolute; top: 16px; left: 16px; z-index: 3;
+    background: var(--cream); color: var(--sage-900);
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    padding: 6px 12px; border-radius: 999px; text-transform: uppercase;
+  }
+  .sig-badge.new { background: var(--pink); }
+  .sig-badge.fav { background: var(--gold); color: var(--cream); }
+  .sig-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; line-height: 1.1; margin-bottom: 6px; }
+  .sig-sub { font-size: 13px; opacity: 0.9; }
+  @media (max-width: 900px) { .sig-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ── COLD FOAM BUILDER ───────────────────────────────────────────── */
+  #builder {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+  }
+  .builder-card {
+    background: var(--cream);
+    border-radius: 32px;
+    padding: 56px;
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px;
+    align-items: center;
+    border: 1px solid rgba(47,69,48,0.08);
+    box-shadow: 0 30px 80px -30px rgba(47,69,48,0.18);
+  }
+  .builder-preview {
+    aspect-ratio: 1; border-radius: 24px;
+    background: radial-gradient(circle at 30% 30%, var(--sage-500), var(--sage-800));
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  #previewCup {
+    width: 160px; height: 240px;
+    border-radius: 16px 16px 32px 32px / 12px 12px 26px 26px;
+    border: 4px solid rgba(255,255,255,0.95);
+    position: relative; overflow: hidden;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.35);
+  }
+  #previewBase {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 65%;
+    background: var(--sage-500); transition: background 0.3s;
+  }
+  #previewFoam {
+    position: absolute; top: 0; left: 0; right: 0; height: 38%;
+    background: var(--pink); transition: background 0.3s;
+  }
+  #previewCup .sticker {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 70px; height: 70px; border-radius: 50%;
+    background: var(--cream);
+    border: 2px solid var(--sage-800);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 3;
+  }
+  #previewCup .sticker svg { width: 28px; height: 28px; }
+  #previewCup .sticker .stx { font-size: 7px; letter-spacing: 1px; color: var(--sage-900); margin-top: 2px; }
+
+  .builder-text h2 { text-align: left; }
+  .builder-text > p { font-size: 16px; color: rgba(42,42,38,0.7); margin-bottom: 28px; }
+  .builder-step { margin-bottom: 24px; }
+  .builder-step .step-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sage-700); margin-bottom: 10px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    padding: 9px 16px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    background: transparent; color: var(--sage-900);
+    border: 1.5px solid rgba(47,69,48,0.18);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .chip:hover { border-color: var(--sage-700); }
+  .chip.active { background: var(--sage-800); color: var(--cream); border-color: var(--sage-800); }
+  .chip .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .builder-out {
+    margin-top: 28px; padding: 18px 22px;
+    background: var(--sage-100); border-radius: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .builder-out .order-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--sage-900); }
+  .builder-out .order-price { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: var(--sage-800); }
+  @media (max-width: 900px) {
+    .builder-card { grid-template-columns: 1fr; padding: 36px 24px; gap: 32px; }
+  }
+
+  /* ── MENU ────────────────────────────────────────────────────────── */
+  #menu { background: var(--cream); }
+  .menu-tabs {
+    display: flex; justify-content: center; gap: 8px;
+    margin-bottom: 48px; flex-wrap: wrap;
+  }
+  .tab {
+    padding: 10px 20px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    background: transparent; color: var(--sage-900);
+    border: 1.5px solid rgba(47,69,48,0.15);
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .tab.active { background: var(--sage-800); color: var(--cream); border-color: var(--sage-800); }
+  .tab:hover:not(.active) { border-color: var(--sage-700); }
+
+  .menu-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; max-width: 980px; margin: 0 auto; }
+  .menu-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 18px 0; border-bottom: 1px dashed rgba(47,69,48,0.15);
+    gap: 16px;
+  }
+  .mi-left { flex: 1; }
+  .mi-name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--sage-900); }
+  .mi-name .tag {
+    display: inline-block; font-family: 'Inter', sans-serif;
+    font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    background: var(--pink); color: var(--sage-900);
+    padding: 2px 8px; border-radius: 999px; margin-left: 8px;
+    vertical-align: middle;
+  }
+  .mi-name .tag.fav { background: var(--gold); color: var(--cream); }
+  .mi-name .tag.house { background: var(--ube); color: var(--cream); }
+  .mi-desc { font-size: 13px; color: rgba(42,42,38,0.6); margin-top: 4px; }
+  .mi-price { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; color: var(--sage-700); white-space: nowrap; }
+  .menu-cat-head {
+    grid-column: 1 / -1;
+    font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600;
+    color: var(--sage-700); text-transform: uppercase; letter-spacing: 3px;
+    margin: 36px 0 8px; padding-bottom: 8px;
+    text-align: center;
+    position: relative;
+  }
+  .menu-cat-head::before, .menu-cat-head::after {
+    content: ''; display: inline-block; width: 24px; height: 1px;
+    background: var(--sage-500); vertical-align: middle; margin: 0 12px;
+  }
+  .menu-foot-note {
+    text-align: center; margin-top: 40px;
+    font-size: 13px; color: rgba(42,42,38,0.6);
+  }
+  .menu-foot-note strong { color: var(--sage-800); }
+  @media (max-width: 800px) { .menu-list { grid-template-columns: 1fr; gap: 0 24px; } }
+
+  /* ── STORY ──────────────────────────────────────────────────────── */
+  #story {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+  }
+  .story-grid {
+    display: grid; grid-template-columns: 1fr 1.05fr; gap: 72px; align-items: center;
+  }
+  .story-visual {
+    aspect-ratio: 4/5; border-radius: 24px;
+    background: linear-gradient(160deg, var(--sage-600) 0%, var(--sage-900) 100%);
+    position: relative; overflow: hidden;
+  }
+  .story-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(244, 205, 212, 0.4) 0%, transparent 35%),
+      radial-gradient(circle at 20% 80%, rgba(184, 164, 212, 0.3) 0%, transparent 40%);
+  }
+  .story-visual .frame {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 70%; aspect-ratio: 3/4;
+    background: var(--cream); border-radius: 8px;
+    padding: 28px 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    text-align: center;
+  }
+  .story-visual .frame .qmark { font-family: 'Fraunces', serif; font-size: 80px; font-style: italic; color: var(--sage-500); line-height: 0.5; }
+  .story-visual .frame .quote { font-family: 'Fraunces', serif; font-size: 18px; font-style: italic; color: var(--sage-900); line-height: 1.35; padding: 0 8px; }
+  .story-visual .frame .footer-mark {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .story-visual .frame .footer-mark svg { width: 28px; height: 28px; }
+  .story-visual .frame .footer-mark span { font-size: 9px; letter-spacing: 2px; color: var(--sage-700); }
+
+  .story-text h2 { text-align: left; }
+  .story-text p { font-size: 16px; color: rgba(42,42,38,0.78); margin-bottom: 18px; }
+  .story-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; padding-top: 32px; border-top: 1px solid rgba(47,69,48,0.12); }
+  .stat .num { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 600; color: var(--sage-800); line-height: 1; }
+  .stat .lbl { font-size: 11px; color: rgba(42,42,38,0.6); text-transform: uppercase; letter-spacing: 1.2px; margin-top: 8px; }
+  @media (max-width: 900px) { .story-grid { grid-template-columns: 1fr; gap: 40px; } .story-visual { max-width: 420px; margin: 0 auto; } }
+
+  /* ── EDITORIAL BAND ──────────────────────────────────────────────── */
+  .editorial {
+    background: var(--sage-800); color: var(--cream);
+    padding: 100px 0; position: relative; overflow: hidden;
+  }
+  .editorial-bg {
+    position: absolute; inset: 0; opacity: 0.07;
+    background-image: radial-gradient(circle, var(--cream) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .editorial-inner { position: relative; text-align: center; }
+  .editorial .word {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: clamp(80px, 17vw, 200px);
+    line-height: 0.85; letter-spacing: -0.04em;
+    color: var(--cream);
+  }
+  .editorial .word em { font-style: italic; color: var(--sage-300); font-weight: 500; }
+  .editorial p {
+    font-size: 18px; max-width: 620px; margin: 32px auto 0;
+    color: rgba(245,239,225,0.8);
+  }
+
+  /* ── REVIEWS ─────────────────────────────────────────────────────── */
+  #reviews { background: var(--cream); }
+  .review-meta {
+    text-align: center; margin-bottom: 48px;
+  }
+  .review-meta .big-rating {
+    font-family: 'Fraunces', serif; font-size: 64px; font-weight: 600; color: var(--sage-800); line-height: 1;
+  }
+  .review-meta .stars-big { color: var(--gold); font-size: 20px; letter-spacing: 3px; margin: 12px 0 8px; }
+  .review-meta .meta-sub { font-size: 13px; color: rgba(42,42,38,0.6); letter-spacing: 1px; text-transform: uppercase; }
+
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 22px;
+  }
+  .review {
+    background: var(--cream-2); border-radius: 22px; padding: 32px;
+    position: relative;
+    border: 1px solid rgba(47,69,48,0.06);
+  }
+  .review.featured { background: var(--sage-800); color: var(--cream); }
+  .review.pink { background: var(--pink); }
+  .stars { color: var(--gold); font-size: 15px; letter-spacing: 2px; margin-bottom: 16px; }
+  .review-text { font-family: 'Fraunces', serif; font-size: 18px; line-height: 1.5; margin-bottom: 24px; font-weight: 500; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--sage-600); color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 14px;
+  }
+  .review.featured .avatar { background: var(--cream); color: var(--sage-800); }
+  .review.pink .avatar { background: var(--sage-800); color: var(--cream); }
+  .author-name { font-weight: 600; font-size: 14px; }
+  .author-source { font-size: 11px; opacity: 0.65; letter-spacing: 0.5px; }
+
+  /* ── MERCH ──────────────────────────────────────────────────────── */
+  #merch { background: var(--cream-2); }
+  .merch-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 20px;
+  }
+  .merch-card {
+    border-radius: 24px; padding: 36px; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    aspect-ratio: 1;
+  }
+  .merch-large { aspect-ratio: 0.85; grid-row: 1 / span 2; }
+  .merch-1 { background: var(--pink); color: var(--sage-900); }
+  .merch-2 { background: var(--sage-800); color: var(--cream); }
+  .merch-3 { background: var(--wood); color: var(--sage-900); }
+  .merch-4 { background: var(--ube); color: var(--cream); }
+  .merch-5 { background: var(--sage-100); color: var(--sage-900); }
+  .merch-emoji { font-size: 100px; line-height: 1; margin-bottom: 16px; }
+  .merch-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; line-height: 1.1; margin-bottom: 6px; }
+  .merch-sub { font-size: 13px; opacity: 0.8; }
+  .merch-large .merch-emoji { font-size: 140px; }
+  .merch-large .merch-title { font-size: 32px; }
+  @media (max-width: 900px) {
+    .merch-grid { grid-template-columns: 1fr 1fr; }
+    .merch-large { grid-row: auto; aspect-ratio: 1; }
+  }
+
+  /* ── ORDER CTA ───────────────────────────────────────────────────── */
+  #order {
+    background: var(--cream-2);
+    padding: 60px 0 100px;
+  }
+  .order-card {
+    background: linear-gradient(135deg, var(--sage-700), var(--sage-900));
+    border-radius: 32px; padding: 72px 56px;
+    color: var(--cream); position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center;
+  }
+  .order-card::before {
+    content: ''; position: absolute;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: var(--sage-500); opacity: 0.3;
+    top: -150px; right: -100px; filter: blur(30px);
+  }
+  .order-card::after {
+    content: ''; position: absolute;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: var(--pink); opacity: 0.25;
+    bottom: -120px; left: 20%; filter: blur(30px);
+  }
+  .order-card h2 { color: var(--cream); text-align: left; margin-bottom: 18px; position: relative; z-index: 2; }
+  .order-card h2 em { color: var(--sage-300); }
+  .order-card > div > p { color: rgba(245,239,225,0.8); margin-bottom: 32px; font-size: 17px; position: relative; z-index: 2; }
+  .order-card .btn-primary { background: var(--cream); color: var(--sage-900); }
+  .order-card .btn-primary:hover { background: white; }
+  .order-card .btn-ghost { color: var(--cream); border-color: var(--cream); }
+  .order-card .btn-ghost:hover { background: var(--cream); color: var(--sage-900); }
+  .order-cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; position: relative; z-index: 2; }
+  .order-visual {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 180px;
+  }
+  @media (max-width: 800px) {
+    .order-card { grid-template-columns: 1fr; padding: 48px 28px; }
+    .order-visual { font-size: 110px; }
+  }
+
+  /* ── VISIT ───────────────────────────────────────────────────────── */
+  #visit { background: var(--cream); }
+  .visit-grid {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: stretch;
+  }
+  .visit-info h2 { text-align: left; }
+  .info-row { display: flex; gap: 16px; margin: 22px 0; align-items: flex-start; }
+  .info-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--sage-100); color: var(--sage-800);
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .info-row .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(42,42,38,0.55); margin-bottom: 4px; }
+  .info-row .value { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; color: var(--sage-900); line-height: 1.4; }
+  .info-row .value .closed { color: var(--pink-dk); font-weight: 600; font-size: 13px; }
+  .visit-amenities {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; padding-top: 24px;
+    border-top: 1px solid rgba(47,69,48,0.12);
+  }
+  .amenity-chip {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--cream-2); color: var(--sage-800);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .map-placeholder {
+    border-radius: 24px; min-height: 520px;
+    background:
+      linear-gradient(135deg, rgba(143, 168, 118, 0.45), rgba(47, 69, 48, 0.7)),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='400' height='400' fill='%237a9466'/><path d='M0 200 L400 200 M200 0 L200 400 M0 100 L400 100 M0 300 L400 300 M100 0 L100 400 M300 0 L300 400' stroke='%23b8c89c' stroke-width='2' opacity='0.4'/></svg>");
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    color: var(--cream); position: relative; padding: 24px;
+  }
+  .pin {
+    width: 60px; height: 60px; border-radius: 50% 50% 50% 0;
+    background: var(--cream); border: 4px solid var(--sage-800);
+    transform: rotate(-45deg); display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.3);
+  }
+  .pin svg { width: 22px; height: 22px; transform: rotate(45deg); }
+  .map-placeholder .map-label {
+    margin-top: 24px; font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; text-align: center;
+  }
+  .map-placeholder .map-sub {
+    margin-top: 6px; font-size: 13px; opacity: 0.85; letter-spacing: 0.5px;
+  }
+  .map-placeholder .map-cta {
+    margin-top: 18px;
+  }
+  @media (max-width: 900px) { .visit-grid { grid-template-columns: 1fr; } .map-placeholder { min-height: 360px; } }
+
+  /* ── FOOTER ──────────────────────────────────────────────────────── */
+  footer {
+    background: var(--sage-900); color: var(--cream);
+    padding: 64px 0 32px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  footer .brand { color: var(--cream); margin-bottom: 16px; }
+  footer .brand-mark { background: var(--sage-700); border-color: var(--cream); }
+  footer .brand-mark svg path { stroke: var(--cream) !important; }
+  footer .brand-text .b2 { color: var(--sage-300); }
+  footer p.tag { color: rgba(245,239,225,0.65); max-width: 320px; font-size: 14px; margin-top: 12px; }
+  .foot-col h4 { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; margin-bottom: 16px; color: var(--cream); }
+  .foot-col a { display: block; color: rgba(245,239,225,0.7); text-decoration: none; font-size: 14px; padding: 6px 0; transition: color 0.2s; }
+  .foot-col a:hover { color: var(--sage-300); }
+  .copyright {
+    border-top: 1px solid rgba(245,239,225,0.1); padding-top: 24px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    font-size: 13px; color: rgba(245,239,225,0.5);
+  }
+  .copyright span { display: inline-flex; align-items: center; gap: 6px; }
+  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<a href="/projects.html" style="position:fixed;left:14px;bottom:14px;z-index:99999;background:rgba(47,69,48,.94);color:#f5efe1;font:600 11.5px/1 Inter,system-ui,sans-serif;padding:9px 13px;border-radius:999px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.28);letter-spacing:.01em;">← Portfolio demo · A. Torres Jr.</a>
+
+<!-- BAMBOO WHISK SVG (reusable inline) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="chasen" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+        <path d="M12 2v6"/>
+        <path d="M7 8h10l-1.2 4.5a3.6 3.6 0 0 1-7.2 0L7 8z"/>
+        <path d="M9 8v4.5M11 8v4.5M13 8v4.5M15 8v4.5"/>
+        <path d="M9.5 16.5h5"/>
+        <path d="M10.5 19h3"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-mark" style="color: var(--sage-800);">
+        <svg><use href="#chasen"/></svg>
+      </span>
+      <span class="brand-text">
+        <span class="b1">Verde Matcha</span>
+        <span class="b2">Café · Riverside</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#menu">Menu</a>
+      <a href="#builder">Build a Drink</a>
+      <a href="#story">Our Story</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit</a>
+      <a href="order.html" class="btn btn-primary">Order Now
+        <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="eyebrow">Small-Batch · Riverside, TX</div>
+      <h1>The <span class="pink-underline">best matcha</span><br/>in <em>Riverside</em>.</h1>
+      <p class="lead">Ceremonial-grade matcha, hand-whisked daily. Layered ube swirls, cold foam in five flavors, and the matcha concha you can't get anywhere else.</p>
+      <div class="hero-ctas">
+        <a href="order.html" class="btn btn-primary">Order Online
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#menu" class="btn btn-ghost">View Menu</a>
+      </div>
+      <div class="hero-trust">
+        <div class="t-item"><div class="num">4.8★</div><div class="lbl">104 Google reviews</div></div>
+        <div class="t-item"><div class="num">30+</div><div class="lbl">Drinks on menu</div></div>
+        <div class="t-item"><div class="num">5</div><div class="lbl">Cold foam flavors</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-badge"><span class="dot"></span>Open · Thu 8am–6pm</div>
+      <div class="hero-rating">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <div class="rating-num">4.8</div>
+        <div class="rating-src">Google</div>
+      </div>
+      <div class="hero-cups">
+        <div class="cup purple">
+          <div class="foam"></div>
+          <div class="foam-toppings"></div>
+          <div class="sticker" style="color: var(--sage-800);">
+            <svg><use href="#chasen"/></svg>
+            <span class="stx">VERDE MATCHA</span>
+          </div>
+        </div>
+        <div class="cup green large">
+          <div class="foam"></div>
+          <div class="foam-toppings"></div>
+          <div class="sticker" style="color: var(--sage-800);">
+            <svg><use href="#chasen"/></svg>
+            <span class="stx">VERDE MATCHA</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-tag-bottom">
+        <div class="label">Signature</div>
+        <div class="price">Strawberry Ube Swirl</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RIBBON -->
+<div class="ribbon">
+  <div class="ribbon-track">
+    <span>Small-Batch</span><span class="star">✦</span>
+    <span>Hand-Whisked Daily</span><span class="star">✦</span>
+    <span>Cold Foam Bar</span><span class="star">✦</span>
+    <span>Matcha Conchas</span><span class="star">✦</span>
+    <span>Made in Riverside, TX</span><span class="star">✦</span>
+    <span>Small-Batch</span><span class="star">✦</span>
+    <span>Hand-Whisked Daily</span><span class="star">✦</span>
+    <span>Cold Foam Bar</span><span class="star">✦</span>
+    <span>Matcha Conchas</span><span class="star">✦</span>
+    <span>Made in Riverside, TX</span><span class="star">✦</span>
+  </div>
+</div>
+
+<!-- SIGNATURES -->
+<section id="signatures">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="display: inline-flex; margin-bottom: 16px;">House Favorites</div>
+      <h2>The drinks <em>people drive across town for</em>.</h2>
+    </div>
+    <div class="sig-grid">
+      <article class="sig-card sig-1">
+        <span class="sig-badge fav">★ #1</span>
+        <div>
+          <div class="sig-title">Strawberry Ube Swirl</div>
+          <div class="sig-sub">Three layers · pink + purple + green</div>
+        </div>
+      </article>
+      <article class="sig-card sig-2">
+        <span class="sig-badge">House</span>
+        <div>
+          <div class="sig-title">Blush Matcha</div>
+          <div class="sig-sub">Strawberry foam on iced matcha</div>
+        </div>
+      </article>
+      <article class="sig-card sig-3">
+        <span class="sig-badge new">New</span>
+        <div>
+          <div class="sig-title">Lavender Coldfoam Latte</div>
+          <div class="sig-sub">Floral, cold, calm</div>
+        </div>
+      </article>
+      <article class="sig-card sig-4">
+        <span class="sig-badge">Local</span>
+        <div>
+          <div class="sig-title">Matcha Concha</div>
+          <div class="sig-sub">Tex-Mex meets Uji · only here</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- COLD FOAM BUILDER -->
+<section id="builder">
+  <div class="container">
+    <div class="builder-card">
+      <div class="builder-preview">
+        <div id="previewCup">
+          <div id="previewBase"></div>
+          <div id="previewFoam"></div>
+          <div class="sticker" style="color: var(--sage-800);">
+            <svg><use href="#chasen"/></svg>
+            <span class="stx">VERDE MATCHA</span>
+          </div>
+        </div>
+      </div>
+      <div class="builder-text">
+        <div class="eyebrow">Build Your Drink</div>
+        <h2>Pick a <em>base</em>.<br/>Top it with <em>foam</em>.</h2>
+        <p>Our signature cold foams come in five flavors. Mix them with any matcha base for a layered, photo-worthy build.</p>
+
+        <div class="builder-step">
+          <div class="step-label">1 · Base</div>
+          <div class="chips" id="baseChips">
+            <button class="chip active" data-base="Iced Matcha Latte" data-color="#8fa876" data-price="6.50">Iced Matcha Latte</button>
+            <button class="chip" data-base="Ube Matcha Latte" data-color="#b8a4d4" data-price="7.25">Ube Matcha Latte</button>
+            <button class="chip" data-base="Matcha Lemonade" data-color="#dbe4c4" data-price="6.75">Matcha Lemonade</button>
+            <button class="chip" data-base="Matcha Frappe" data-color="#a8c08a" data-price="7.50">Matcha Frappe</button>
+          </div>
+        </div>
+
+        <div class="builder-step">
+          <div class="step-label">2 · Cold Foam</div>
+          <div class="chips" id="foamChips">
+            <button class="chip active" data-foam="Strawberry" data-color="#f4cdd4"><span class="swatch" style="background: #f4cdd4;"></span>Strawberry</button>
+            <button class="chip" data-foam="Ube" data-color="#b8a4d4"><span class="swatch" style="background: #b8a4d4;"></span>Ube</button>
+            <button class="chip" data-foam="Banana" data-color="#f5e3a0"><span class="swatch" style="background: #f5e3a0;"></span>Banana</button>
+            <button class="chip" data-foam="Lavender" data-color="#cdb6e0"><span class="swatch" style="background: #cdb6e0;"></span>Lavender</button>
+            <button class="chip" data-foam="Rose" data-color="#e8a4b3"><span class="swatch" style="background: #e8a4b3;"></span>Rose</button>
+          </div>
+        </div>
+
+        <div class="builder-step">
+          <div class="step-label">3 · Milk</div>
+          <div class="chips" id="milkChips">
+            <button class="chip active" data-milk="Whole" data-add="0">Whole Milk</button>
+            <button class="chip" data-milk="Oat" data-add="0.75">Oat Milk · +$0.75</button>
+          </div>
+        </div>
+
+        <div class="builder-out">
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage-700); margin-bottom: 4px;">Your build</div>
+            <div class="order-name" id="orderName">Strawberry Cold Foam · Iced Matcha Latte</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div class="order-price" id="orderPrice">$6.50</div>
+            <a href="order.html" class="btn btn-pink">Add to Order</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="display: inline-flex; margin-bottom: 16px;">Full Menu</div>
+      <h2>Every drink, <em>every day</em>.</h2>
+      <p>Most drinks $6.25–$8.25 · 16oz or 24oz · Extra matcha shot +$0.75</p>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="tab active" data-cat="all">All</button>
+      <button class="tab" data-cat="signature">Signatures</button>
+      <button class="tab" data-cat="latte">Lattes</button>
+      <button class="tab" data-cat="frappe">Frappes</button>
+      <button class="tab" data-cat="soft">Soft Serve</button>
+      <button class="tab" data-cat="hot">Hot</button>
+      <button class="tab" data-cat="refresher">Refreshers</button>
+      <button class="tab" data-cat="float">Floats</button>
+      <button class="tab" data-cat="food">Sweets</button>
+    </div>
+
+    <div class="menu-list" id="menuList">
+      <!-- Signatures -->
+      <div class="menu-cat-head" data-cat="signature">Signature Iced Drinks</div>
+      <div class="menu-item" data-cat="signature"><div class="mi-left"><div class="mi-name">Strawberry Ube Swirl <span class="tag fav">★ #1</span></div><div class="mi-desc">Layered ube + matcha + strawberry — three colors, one cup.</div></div><div class="mi-price">$7.50</div></div>
+      <div class="menu-item" data-cat="signature"><div class="mi-left"><div class="mi-name">Blush Matcha <span class="tag house">House</span></div><div class="mi-desc">Iced matcha with strawberry cold foam.</div></div><div class="mi-price">$7.00</div></div>
+      <div class="menu-item" data-cat="signature"><div class="mi-left"><div class="mi-name">Iced Matcha</div><div class="mi-desc">Pure, lightly sweetened. The original.</div></div><div class="mi-price">$6.00</div></div>
+      <div class="menu-item" data-cat="signature"><div class="mi-left"><div class="mi-name">Iced Matcha Latte</div><div class="mi-desc">Hand-whisked matcha + whole milk.</div></div><div class="mi-price">$6.50</div></div>
+      <div class="menu-item" data-cat="signature"><div class="mi-left"><div class="mi-name">Matcha Frappe</div><div class="mi-desc">Blended frozen matcha topped with whipped cream.</div></div><div class="mi-price">$7.50</div></div>
+      <div class="menu-item" data-cat="signature"><div class="mi-left"><div class="mi-name">Matcha Latte Float</div><div class="mi-desc">Matcha latte topped with matcha soft serve.</div></div><div class="mi-price">$8.00</div></div>
+
+      <!-- Lattes -->
+      <div class="menu-cat-head" data-cat="latte">Lattes</div>
+      <div class="menu-item" data-cat="latte"><div class="mi-left"><div class="mi-name">Matcha Latte</div><div class="mi-desc">The classic — whole milk or oat.</div></div><div class="mi-price">$6.50</div></div>
+      <div class="menu-item" data-cat="latte"><div class="mi-left"><div class="mi-name">Ube Latte</div><div class="mi-desc">Purple yam, milk, no matcha — sweet and creamy.</div></div><div class="mi-price">$6.75</div></div>
+      <div class="menu-item" data-cat="latte"><div class="mi-left"><div class="mi-name">Ube Matcha Latte <span class="tag fav">Fan Favorite</span></div><div class="mi-desc">Ube base, matcha float — visually layered.</div></div><div class="mi-price">$7.25</div></div>
+      <div class="menu-item" data-cat="latte"><div class="mi-left"><div class="mi-name">Strawberry Matcha Latte</div><div class="mi-desc">Strawberry syrup, matcha, milk.</div></div><div class="mi-price">$7.00</div></div>
+      <div class="menu-item" data-cat="latte"><div class="mi-left"><div class="mi-name">Lavender Matcha Latte</div><div class="mi-desc">Floral, calm, slightly sweet.</div></div><div class="mi-price">$7.00</div></div>
+      <div class="menu-item" data-cat="latte"><div class="mi-left"><div class="mi-name">Raspberry Matcha Latte</div><div class="mi-desc">Bright berry, deep green.</div></div><div class="mi-price">$7.00</div></div>
+
+      <!-- Frappes -->
+      <div class="menu-cat-head" data-cat="frappe">Frappes</div>
+      <div class="menu-item" data-cat="frappe"><div class="mi-left"><div class="mi-name">Matcha Frappe</div><div class="mi-desc">Frozen, blended, topped with whipped cream.</div></div><div class="mi-price">$7.50</div></div>
+      <div class="menu-item" data-cat="frappe"><div class="mi-left"><div class="mi-name">Ube Frappe</div><div class="mi-desc">Purple yam, frozen and creamy.</div></div><div class="mi-price">$7.50</div></div>
+
+      <!-- Soft Serve -->
+      <div class="menu-cat-head" data-cat="soft">Soft Serve</div>
+      <div class="menu-item" data-cat="soft"><div class="mi-left"><div class="mi-name">Matcha Soft Serve</div><div class="mi-desc">House-spun matcha ice cream.</div></div><div class="mi-price">$5.00</div></div>
+      <div class="menu-item" data-cat="soft"><div class="mi-left"><div class="mi-name">Ube Soft Serve</div><div class="mi-desc">Purple, sweet, photogenic.</div></div><div class="mi-price">$5.00</div></div>
+      <div class="menu-item" data-cat="soft"><div class="mi-left"><div class="mi-name">Matcha & Ube Mix <span class="tag">Half & Half</span></div><div class="mi-desc">The best of both, swirled.</div></div><div class="mi-price">$5.50</div></div>
+
+      <!-- Hot -->
+      <div class="menu-cat-head" data-cat="hot">Hot Drinks</div>
+      <div class="menu-item" data-cat="hot"><div class="mi-left"><div class="mi-name">Hot Matcha Latte</div><div class="mi-desc">Steamed milk, whisked matcha.</div></div><div class="mi-price">$6.50</div></div>
+      <div class="menu-item" data-cat="hot"><div class="mi-left"><div class="mi-name">Usucha (Traditional) <span class="tag house">Ceremonial</span></div><div class="mi-desc">Bowl-served, bamboo-whisked, no milk, no sugar.</div></div><div class="mi-price">$8.00</div></div>
+
+      <!-- Refreshers -->
+      <div class="menu-cat-head" data-cat="refresher">Refreshers</div>
+      <div class="menu-item" data-cat="refresher"><div class="mi-left"><div class="mi-name">Matcha Lemonade</div><div class="mi-desc">Bright, tart, deeply green.</div></div><div class="mi-price">$6.75</div></div>
+      <div class="menu-item" data-cat="refresher"><div class="mi-left"><div class="mi-name">Strawberry Matcha Lemonade</div><div class="mi-desc">Strawberry purée added to our lemonade.</div></div><div class="mi-price">$7.25</div></div>
+      <div class="menu-item" data-cat="refresher"><div class="mi-left"><div class="mi-name">Lychee Green Tea</div><div class="mi-desc">Loose-leaf green tea + lychee syrup, iced.</div></div><div class="mi-price">$6.50</div></div>
+
+      <!-- Floats -->
+      <div class="menu-cat-head" data-cat="float">Floats</div>
+      <div class="menu-item" data-cat="float"><div class="mi-left"><div class="mi-name">Matcha Latte Float</div><div class="mi-desc">Latte topped with matcha soft serve.</div></div><div class="mi-price">$8.00</div></div>
+      <div class="menu-item" data-cat="float"><div class="mi-left"><div class="mi-name">Ube Latte Float</div><div class="mi-desc">Ube latte topped with ube soft serve.</div></div><div class="mi-price">$8.00</div></div>
+
+      <!-- Sweets -->
+      <div class="menu-cat-head" data-cat="food">Sweets & Bakery</div>
+      <div class="menu-item" data-cat="food"><div class="mi-left"><div class="mi-name">Matcha Concha <span class="tag fav">★ 10/10</span></div><div class="mi-desc">Mexican sweet bread, reimagined in matcha. Only here.</div></div><div class="mi-price">$4.50</div></div>
+      <div class="menu-item" data-cat="food"><div class="mi-left"><div class="mi-name">Daily Pastries</div><div class="mi-desc">Ask the counter — display case rotates.</div></div><div class="mi-price">market</div></div>
+    </div>
+
+    <div class="menu-foot-note">
+      <strong>Add a cold foam to any drink:</strong> Strawberry · Ube · Banana · Lavender · Rose &nbsp;·&nbsp; <strong>Syrups:</strong> Strawberry · Ube · Lavender · Vanilla · Rose · Raspberry · Black Raspberry
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story" class="story">
+  <div class="container story-grid">
+    <div class="story-visual">
+      <div class="frame">
+        <div class="qmark">"</div>
+        <div class="quote">Don't let yesterday<br/>take up too much<br/>of today.</div>
+        <div class="footer-mark" style="color: var(--sage-800);">
+          <svg><use href="#chasen"/></svg>
+          <span>VERDE MATCHA</span>
+        </div>
+      </div>
+    </div>
+    <div class="story-text">
+      <div class="eyebrow">Our Story</div>
+      <h2>Small café.<br/><em>Big leaf energy.</em></h2>
+      <p>Verde Matcha Café is a small-batch tea bar in Riverside, Texas — built around one stubborn idea: that good matcha shouldn't be a luxury reserved for tasting menus and ceremonies.</p>
+      <p>We import ceremonial-grade matcha and whisk every cup by hand with a bamboo chasen. We pair it with Tex-Mex traditions like the concha, kawaii merch from Miffy to Totoro, and the kind of cozy, quiet room you want to spend a Saturday morning in.</p>
+      <p>Tradition. Trend. Tex-Mex. All in one cup.</p>
+      <div class="story-stats">
+        <div class="stat"><div class="num">100%</div><div class="lbl">Ceremonial Grade</div></div>
+        <div class="stat"><div class="num">Hand-</div><div class="lbl">Whisked Daily</div></div>
+        <div class="stat"><div class="num">Made</div><div class="lbl">In Riverside, TX</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL BAND -->
+<section class="editorial">
+  <div class="editorial-bg"></div>
+  <div class="container editorial-inner">
+    <div class="word">M<em>a</em>TCHA</div>
+    <p>Not all green is created equal. Ours is hand-whisked with a bamboo chasen, layered with care, and finished with cold foam in five flavors.</p>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="display: inline-flex; margin-bottom: 16px;">Reviews</div>
+      <h2>"Best matcha <em>in Riverside</em>."</h2>
+    </div>
+
+    <div class="review-meta">
+      <div class="big-rating">4.8</div>
+      <div class="stars-big">★ ★ ★ ★ ★</div>
+      <div class="meta-sub">104 reviews on Google · A "Local Guide" favorite</div>
+    </div>
+
+    <div class="reviews-grid">
+      <article class="review featured">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"Hands down the best matcha. I travel for work and try matcha everywhere — the cute wall art outside, the cool aesthetic inside, the vibes are immaculate."</p>
+        <div class="review-author">
+          <div class="avatar">MM</div>
+          <div>
+            <div class="author-name">Marissa M.</div>
+            <div class="author-source">Google Reviews</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"Best matcha I've ever had — and I'm from Houston. Worth the drive to Riverside, honestly."</p>
+        <div class="review-author">
+          <div class="avatar">AK</div>
+          <div>
+            <div class="author-name">Aneeka K.</div>
+            <div class="author-source">Google · Houston, TX</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review pink">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"The matcha concha is 10/10. Matcha frappe is excellent. Staff is so kind — Jessica walked me through the whole menu."</p>
+        <div class="review-author">
+          <div class="avatar">YZ</div>
+          <div>
+            <div class="author-name">YAZZ</div>
+            <div class="author-source">Google Reviews</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"Perfectly crafted drinks. My favorite is iced matcha with banana or strawberry cold foam. The Miffy merch is a bonus!"</p>
+        <div class="review-author">
+          <div class="avatar">CA</div>
+          <div>
+            <div class="author-name">Connie A.</div>
+            <div class="author-source">Google Reviews</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"One of the best matchas in town. I always get the iced matcha with oat milk and vanilla syrup — never disappoints."</p>
+        <div class="review-author">
+          <div class="avatar">LC</div>
+          <div>
+            <div class="author-name">Liz C.</div>
+            <div class="author-source">Google Reviews</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <p class="review-text">"Predictable, consistent hours and quality matcha. Plus items for my non-matcha friends too. Wish they were open 7 days a week!"</p>
+        <div class="review-author">
+          <div class="avatar">LL</div>
+          <div>
+            <div class="author-name">Lizette L.</div>
+            <div class="author-source">Google Reviews</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MERCH -->
+<section id="merch">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="display: inline-flex; margin-bottom: 16px;">More Than a Café</div>
+      <h2>Part tea bar, <em>part kawaii shop</em>.</h2>
+      <p>Drop in for a drink, leave with a Miffy. Our shelves carry Japanese character collectibles, embroidered caps, and Verde Matcha merch.</p>
+    </div>
+    <div class="merch-grid">
+      <article class="merch-card merch-1 merch-large">
+        <div class="merch-emoji">🐰</div>
+        <div>
+          <div class="merch-title">Miffy Plush Collection</div>
+          <div class="merch-sub">White · Pink · Gray — the originals.</div>
+        </div>
+      </article>
+      <article class="merch-card merch-2">
+        <div class="merch-emoji">🎀</div>
+        <div>
+          <div class="merch-title">Hello Kitty</div>
+          <div class="merch-sub">Plush bags & figurines</div>
+        </div>
+      </article>
+      <article class="merch-card merch-3">
+        <div class="merch-emoji">🌳</div>
+        <div>
+          <div class="merch-title">Totoro Goods</div>
+          <div class="merch-sub">Studio Ghibli classics</div>
+        </div>
+      </article>
+      <article class="merch-card merch-4">
+        <div class="merch-emoji">🧢</div>
+        <div>
+          <div class="merch-title">Embroidered Caps</div>
+          <div class="merch-sub">Pink · Cream · Green</div>
+        </div>
+      </article>
+      <article class="merch-card merch-5">
+        <div class="merch-emoji">🍵</div>
+        <div>
+          <div class="merch-title">Verde Matcha Mugs</div>
+          <div class="merch-sub">Take the café home</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER CTA -->
+<section id="order">
+  <div class="container">
+    <div class="order-card">
+      <div>
+        <div class="eyebrow" style="color: var(--sage-300);">Now Online · Skip the Line</div>
+        <h2>Order ahead.<br/>Pick up <em>warm</em>.</h2>
+        <p>Order from your phone, walk in, walk out. Dine-in and takeout — we don't deliver (yet), but we keep the line moving.</p>
+        <div class="order-cta-buttons">
+          <a href="order.html" class="btn btn-primary">Start an Order
+            <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#menu" class="btn btn-ghost">Browse Menu</a>
+        </div>
+      </div>
+      <div class="order-visual">🥤</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="container visit-grid">
+    <div class="visit-info">
+      <div class="eyebrow">Visit Us</div>
+      <h2>Come <em>say hi</em>.</h2>
+
+      <div class="info-row">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="label">Address</div>
+          <div class="value">120 Garden Walk, Suite 4<br/>Riverside, TX</div>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">🕐</div>
+        <div>
+          <div class="label">Hours</div>
+          <div class="value">
+            Wed – Sun · 8am – 6pm<br/>
+            <span class="closed">Closed Mon & Tue</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">📱</div>
+        <div>
+          <div class="label">Contact</div>
+          <div class="value">(555) 010-0199<br/>@verdematchacafe</div>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-icon">🚗</div>
+        <div>
+          <div class="label">Getting Here</div>
+          <div class="value">Free parking lot & street parking<br/>Wheelchair-accessible entrance</div>
+        </div>
+      </div>
+
+      <div class="visit-amenities">
+        <span class="amenity-chip">♿ Wheelchair accessible</span>
+        <span class="amenity-chip">🐕 Dog-friendly patio</span>
+        <span class="amenity-chip">💳 NFC payments</span>
+        <span class="amenity-chip">👶 Good for kids</span>
+        <span class="amenity-chip">🚻 Gender-neutral restroom</span>
+        <span class="amenity-chip">💻 Wifi · quick meetings</span>
+      </div>
+    </div>
+
+    <div class="map-placeholder">
+      <div class="pin">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3f5a3f" stroke-width="2.5"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      </div>
+      <div class="map-label">Suite 4 · Garden Walk</div>
+      <div class="map-sub">Open Wed-Sun, 8am-6pm</div>
+      <a href="https://maps.google.com/" target="_blank" rel="noopener" class="btn btn-pink map-cta">Get Directions
+        <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="brand">
+          <span class="brand-mark" style="color: var(--cream);">
+            <svg><use href="#chasen"/></svg>
+          </span>
+          <span class="brand-text">
+            <span class="b1">Verde Matcha Café</span>
+            <span class="b2">Riverside, TX · Small-Batch</span>
+          </span>
+        </a>
+        <p class="tag">Ceremonial-grade matcha, hand-whisked daily. A small-batch café in Riverside with one big idea: matcha for everyone.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Menu</h4>
+        <a href="#menu">Signatures</a>
+        <a href="#menu">Lattes</a>
+        <a href="#menu">Frappes</a>
+        <a href="#menu">Soft Serve</a>
+        <a href="#menu">Sweets</a>
+      </div>
+      <div class="foot-col">
+        <h4>Café</h4>
+        <a href="#story">Our Story</a>
+        <a href="#visit">Visit Us</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#builder">Build a Drink</a>
+        <a href="order.html">Order Online</a>
+      </div>
+      <div class="foot-col">
+        <h4>Find Us</h4>
+        <a href="https://maps.google.com/" target="_blank" rel="noopener">Google Maps</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="tel:5550100199">(555) 010-0199</a>
+      </div>
+    </div>
+    <div class="copyright">
+      <div>© 2026 Verde Matcha Café · 120 Garden Walk, Suite 4, Riverside, TX</div>
+      <div><span>Made with 🍵 in Riverside</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menu tab filter
+  const tabs = document.querySelectorAll('.tab');
+  const items = document.querySelectorAll('#menuList .menu-item, #menuList .menu-cat-head');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.cat;
+      items.forEach(it => {
+        if (cat === 'all') {
+          it.style.display = '';
+        } else {
+          it.style.display = (it.dataset.cat === cat) ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  // Drink Builder
+  const state = {
+    base: { name: 'Iced Matcha Latte', color: '#8fa876', price: 6.50 },
+    foam: { name: 'Strawberry', color: '#f4cdd4' },
+    milk: { name: 'Whole', add: 0 }
+  };
+
+  function paint() {
+    document.getElementById('previewBase').style.background = state.base.color;
+    document.getElementById('previewFoam').style.background = state.foam.color;
+    document.getElementById('orderName').textContent = `${state.foam.name} Cold Foam · ${state.base.name}${state.milk.name === 'Oat' ? ' · Oat' : ''}`;
+    const total = state.base.price + state.milk.add;
+    document.getElementById('orderPrice').textContent = `$${total.toFixed(2)}`;
+  }
+
+  function bindChips(containerId, applyFn) {
+    const chips = document.querySelectorAll(`#${containerId} .chip`);
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        applyFn(chip);
+        paint();
+      });
+    });
+  }
+
+  bindChips('baseChips', chip => {
+    state.base = {
+      name: chip.dataset.base,
+      color: chip.dataset.color,
+      price: parseFloat(chip.dataset.price)
+    };
+  });
+  bindChips('foamChips', chip => {
+    state.foam = { name: chip.dataset.foam, color: chip.dataset.color };
+  });
+  bindChips('milkChips', chip => {
+    state.milk = { name: chip.dataset.milk, add: parseFloat(chip.dataset.add) };
+  });
+
+  paint();
+</script>
+
+</body>
+</html>

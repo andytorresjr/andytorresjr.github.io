@@ -62,7 +62,7 @@ export default function Navbar() {
 
         {/* Desktop CTA */}
         <a
-          href="/attachments/RESUME-FALL2025.pdf"
+          href="/attachments/RESUME_2026.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:inline-flex items-center gap-2 font-mono text-xs text-accent border border-accent/40 hover:border-accent hover:bg-accent/10 px-4 py-2 rounded transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
@@ -107,7 +107,7 @@ export default function Navbar() {
               ))}
               <li className="pt-3">
                 <a
-                  href="/attachments/RESUME-FALL2025.pdf"
+                  href="/attachments/RESUME_2026.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={handleLinkClick}

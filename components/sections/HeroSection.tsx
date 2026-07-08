@@ -113,7 +113,7 @@ export default function HeroSection() {
           >
             {/* Rotating gradient button — from UILayouts ButtonRotatingGradient */}
             <a
-              href="/attachments/RESUME-FALL2025.pdf"
+              href="/attachments/RESUME_2026.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="pointer-events-auto relative inline-flex h-11 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg"
