@@ -1,87 +1,76 @@
-// POST { email, source } — public. Adds a pending subscriber and emails a
-// double opt-in confirmation link. Uses the service role to bypass RLS.
-import { createClient } from "npm:@supabase/supabase-js@2";
-import { Resend } from "npm:resend@4";
-import { corsHeaders } from "../_shared/cors.ts";
-
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY")!;
-const NEWSLETTER_FROM = Deno.env.get("NEWSLETTER_FROM")!; // e.g. "Andy Torres <newsletter@andrestorresjr.com>"
-
-const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-
-function json(body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
-  });
-}
+// POST { email, source? } -> creates/updates a subscriber and emails a
+// confirmation link (double opt-in). Public; no auth required.
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  corsHeaders, json, EMAIL_RE, sendOne,
+  NEWSLETTER_FROM, NEWSLETTER_REPLY_TO, FUNCTIONS_BASE, SITE_URL,
+} from "../_shared/util.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
-  if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
+  if (req.method !== "POST") return json({ error: "method not allowed" }, 405);
 
-  let email = "";
-  let source = "blog";
+  let email = "", source = "blog";
   try {
     const body = await req.json();
     email = String(body.email ?? "").trim().toLowerCase();
-    if (body.source) source = String(body.source).slice(0, 40);
+    if (body.source) source = String(body.source);
   } catch {
-    return json({ error: "Invalid request." }, 400);
+    return json({ error: "invalid body" }, 400);
   }
-  if (!email || email.length > 254 || !EMAIL_RE.test(email)) {
-    return json({ error: "Enter a valid email address." }, 400);
-  }
+  if (!EMAIL_RE.test(email)) return json({ error: "invalid email" }, 400);
 
-  const sb = createClient(SUPABASE_URL, SERVICE_ROLE);
+  const admin = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+  );
 
-  // Look for an existing subscriber.
-  const { data: existing } = await sb
+  // Upsert. Re-subscribing clears a prior unsubscribe; confirmed stays as-is.
+  const { data: row, error } = await admin
     .from("blog_subscribers")
-    .select("id, token, confirmed, unsubscribed_at")
-    .eq("email", email)
-    .maybeSingle();
+    .upsert({ email, source, unsubscribed_at: null }, { onConflict: "email" })
+    .select("confirm_token, confirmed")
+    .single();
 
-  let token: string;
-  if (existing) {
-    if (existing.confirmed && !existing.unsubscribed_at) {
-      return json({ ok: true, status: "already_confirmed" });
-    }
-    // Re-subscribing or never confirmed: clear any prior unsubscribe and reuse token.
-    token = existing.token;
-    await sb
-      .from("blog_subscribers")
-      .update({ unsubscribed_at: null, source })
-      .eq("id", existing.id);
-  } else {
-    const { data: inserted, error } = await sb
-      .from("blog_subscribers")
-      .insert({ email, source })
-      .select("token")
-      .single();
-    if (error) return json({ error: "Could not subscribe. Try again later." }, 500);
-    token = inserted.token;
+  if (error || !row) {
+    console.error("subscribe upsert failed", error);
+    return json({ error: "could not subscribe" }, 500);
   }
 
-  // Send the confirmation email.
-  const confirmUrl = `${SUPABASE_URL}/functions/v1/confirm-subscription?token=${token}`;
-  const resend = new Resend(RESEND_API_KEY);
-  const { error: sendErr } = await resend.emails.send({
+  if (row.confirmed) {
+    return json({ ok: true, status: "already_confirmed" });
+  }
+
+  const confirmUrl = `${FUNCTIONS_BASE}/confirm?token=${row.confirm_token}`;
+  const res = await sendOne({
     from: NEWSLETTER_FROM,
-    to: email,
+    to: [email],
+    ...(NEWSLETTER_REPLY_TO ? { reply_to: NEWSLETTER_REPLY_TO } : {}),
     subject: "Confirm your subscription",
-    html: `<div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;color:#1a1a1a">
-      <h2 style="font-size:1.25rem">Almost there 👋</h2>
-      <p style="color:#444;line-height:1.6">Tap the button below to confirm you'd like occasional newsletters and updates from Andres Torres Jr. If you didn't request this, you can ignore this email.</p>
-      <p style="margin:1.5rem 0"><a href="${confirmUrl}" style="background:#6366f1;color:#fff;text-decoration:none;padding:.7rem 1.4rem;border-radius:10px;font-weight:600;display:inline-block">Confirm subscription</a></p>
-      <p style="color:#888;font-size:.8rem">Or paste this link into your browser:<br>${confirmUrl}</p>
-    </div>`,
+    text:
+      `One more step\n\n` +
+      `Thanks for subscribing to Andres Torres Jr.'s newsletter. ` +
+      `Please confirm your email so I know it's really you:\n\n${confirmUrl}\n\n` +
+      `If you didn't request this, just ignore this email — you won't be added.\n` +
+      `${SITE_URL.replace("https://", "")}`,
+    html: `
+      <div style="font-family:system-ui,Segoe UI,Roboto,sans-serif;max-width:480px;margin:auto;color:#1a1a22">
+        <h2 style="font-size:1.3rem">One more step</h2>
+        <p style="color:#444;line-height:1.6">Thanks for subscribing to Andres Torres Jr.'s newsletter.
+        Please confirm your email so I know it's really you:</p>
+        <p style="margin:1.6rem 0">
+          <a href="${confirmUrl}" style="background:#6366f1;color:#fff;padding:.8rem 1.4rem;
+             border-radius:10px;text-decoration:none;font-weight:600">Confirm subscription</a>
+        </p>
+        <p style="color:#888;font-size:.85rem">If you didn't request this, just ignore this email &mdash;
+        you won't be added.</p>
+        <p style="color:#888;font-size:.8rem">${SITE_URL.replace("https://", "")}</p>
+      </div>`,
   });
-  if (sendErr) {
-    console.error("Resend error:", sendErr);
-    return json({ error: "Could not send confirmation email." }, 502);
+
+  if (!res.ok) {
+    console.error("resend confirmation failed", await res.text());
+    return json({ error: "could not send confirmation email" }, 502);
   }
 
   return json({ ok: true, status: "confirmation_sent" });

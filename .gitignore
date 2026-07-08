@@ -10,3 +10,6 @@ next-env.d.ts
 
 # TypeScript incremental build info
 tsconfig.tsbuildinfo
+
+# Supabase CLI
+supabase/.temp

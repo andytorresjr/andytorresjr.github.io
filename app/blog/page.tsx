@@ -126,22 +126,15 @@ function SubscribeBox() {
       body: { email: email.trim(), source: 'blog' },
     })
     if (error || !data?.ok) {
-      let serverMsg = ''
-      try {
-        serverMsg = (await (error as { context?: Response })?.context?.json())?.error
-      } catch {}
-      setMsg({
-        kind: 'err',
-        text: serverMsg || data?.error || 'Something went wrong. Try again later.',
-      })
+      setMsg({ kind: 'err', text: 'Something went wrong. Try again later.' })
       return
     }
     setMsg({
       kind: 'ok',
       text:
         data.status === 'already_confirmed'
-          ? "You're already subscribed — thank you!"
-          : 'Almost there — check your inbox to confirm your subscription.',
+          ? "You're already on the list — thank you!"
+          : "Almost there — check your inbox to confirm your subscription. (Don't forget to check your spam if you can't find it)",
     })
     setEmail('')
   }
@@ -188,6 +181,66 @@ function SubscribeBox() {
           {msg.text}
         </p>
       )}
+    </div>
+  )
+}
+
+// ── Confirm / unsubscribe status banner (?sub= from email redirects) ─────────
+const SUB_MSGS: Record<string, { tone: 'ok' | 'info' | 'err'; text: string }> = {
+  confirmed: {
+    tone: 'ok',
+    text: "You're confirmed! ✓ You'll get new posts in your inbox. Thanks for subscribing.",
+  },
+  unsubscribed: {
+    tone: 'info',
+    text: "You've been unsubscribed. Sorry to see you go — you can resubscribe anytime below.",
+  },
+  invalid: {
+    tone: 'err',
+    text: 'That link is invalid or was already used. Try subscribing again below.',
+  },
+  error: {
+    tone: 'err',
+    text: 'Something went wrong — please try the link again in a moment.',
+  },
+}
+
+const BANNER_TONES: Record<string, string> = {
+  ok: 'border-l-emerald-400',
+  info: 'border-l-accent',
+  err: 'border-l-red-400',
+}
+
+function SubStatusBanner({ sub }: { sub: string }) {
+  const [dismissed, setDismissed] = useState(false)
+  const status = SUB_MSGS[sub]
+
+  useEffect(() => {
+    // Drop the param so a refresh doesn't show the banner again.
+    if (!status) return
+    const params = new URLSearchParams(window.location.search)
+    params.delete('sub')
+    const qs = params.toString()
+    window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''))
+  }, [status])
+
+  if (!status || dismissed) return null
+  return (
+    <div
+      role="status"
+      className={`flex items-center gap-3 mb-10 px-5 py-4 rounded-lg bg-surface border border-border/60 border-l-4 ${BANNER_TONES[status.tone]}`}
+    >
+      <span className="flex-1 font-inter text-sm text-text-primary leading-relaxed">
+        {status.text}
+      </span>
+      <button
+        type="button"
+        aria-label="Dismiss"
+        onClick={() => setDismissed(true)}
+        className="text-text-muted/60 hover:text-text-primary text-xl leading-none px-1 transition-colors"
+      >
+        ×
+      </button>
     </div>
   )
 }
@@ -314,8 +367,20 @@ function ListView() {
 
 // ── Page ─────────────────────────────────────────────────────────────────────
 function BlogContent() {
-  const slug = useSearchParams().get('slug')
-  return slug ? <PostView slug={slug} /> : <ListView />
+  const params = useSearchParams()
+  const slug = params.get('slug')
+  const sub = params.get('sub')
+  if (slug) return <PostView slug={slug} />
+  return (
+    <>
+      {sub && (
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <SubStatusBanner sub={sub} />
+        </div>
+      )}
+      <ListView />
+    </>
+  )
 }
 
 export default function BlogPage() {

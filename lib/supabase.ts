@@ -17,6 +17,8 @@ export interface BlogPost {
   body_md: string | null
   published: boolean
   published_at: string | null
+  newsletter_sent_at: string | null
+  newsletter_scheduled_at: string | null
   created_at: string
   updated_at: string
 }

@@ -17,7 +17,8 @@ import {
 
 const ADMIN_DOMAIN = 'admin.local'
 const ADMIN_UID = '0a9d5f1c-7b3e-4c2a-9e6d-1f2a3b4c5d6e'
-const toEmail = (u: string) => (u.includes('@') ? u : `${u}@${ADMIN_DOMAIN}`)
+const toEmail = (u: string) =>
+  u.includes('@') ? u.toLowerCase() : `${u.toLowerCase()}@${ADMIN_DOMAIN}`
 const slugify = (s: string) =>
   s
     .toLowerCase()
@@ -32,6 +33,13 @@ const btnClass =
   'font-space-grotesk font-semibold text-sm px-4 py-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
 const btnSmClass =
   'font-mono text-[11px] px-2.5 py-1.5 rounded border border-border/60 text-text-muted hover:text-text-primary hover:border-accent/50 transition-colors disabled:opacity-50'
+
+// An ISO/UTC timestamp -> the "YYYY-MM-DDTHH:MM" string a datetime-local wants, in LOCAL time.
+const toLocalInput = (iso: string) => {
+  const d = new Date(iso)
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
+  return d.toISOString().slice(0, 16)
+}
 
 // ── Login ────────────────────────────────────────────────────────────────────
 function Login({ onSignedIn, notice }: { onSignedIn: () => void; notice: string }) {
@@ -266,6 +274,10 @@ function PostList({
   const [posts, setPosts] = useState<BlogPost[] | null>(null)
   const [error, setError] = useState('')
   const [sendingId, setSendingId] = useState<string | null>(null)
+  // Schedule dialog state
+  const [sched, setSched] = useState<{ id: string; existing: boolean } | null>(null)
+  const [schedWhen, setSchedWhen] = useState('')
+  const [schedMsg, setSchedMsg] = useState('')
 
   const load = useCallback(async () => {
     const { data, error } = await supabase
@@ -290,24 +302,61 @@ function PostList({
   }
 
   async function sendNewsletter(p: BlogPost) {
-    if (!confirm(`Email “${p.title}” to all confirmed subscribers? This can't be undone.`)) return
+    const already = !!p.newsletter_sent_at
+    if (
+      !confirm(
+        already
+          ? 'This post was already emailed. Send it to all confirmed subscribers AGAIN?'
+          : 'Email this post to all confirmed subscribers now?'
+      )
+    )
+      return
     setSendingId(p.id)
     const { data, error } = await supabase.functions.invoke('send-newsletter', {
-      body: { postId: p.id },
+      body: { postId: p.id, force: already },
     })
-    let serverMsg = ''
-    try {
-      serverMsg = (await (error as { context?: Response })?.context?.json())?.error
-    } catch {}
-    if (error || !data?.ok) {
-      alert('Could not send: ' + (serverMsg || data?.error || 'unknown error'))
-    } else {
-      alert(
-        `Sent to ${data.sent} of ${data.total} subscriber${data.total === 1 ? '' : 's'}.` +
-          (data.errors?.length ? `\n\nSome batches failed:\n${data.errors.join('\n')}` : '')
-      )
-    }
     setSendingId(null)
+    if (error || !data?.ok) {
+      alert('Send failed: ' + (data?.error || (error as Error)?.message || 'unknown error'))
+      return
+    }
+    alert(`Sent to ${data.sent} of ${data.total} subscriber(s).`)
+    load()
+  }
+
+  function onSchedule(p: BlogPost, existingIso: string) {
+    setSchedMsg('')
+    setSchedWhen(
+      existingIso
+        ? toLocalInput(existingIso)
+        : toLocalInput(new Date(Date.now() + 3600000).toISOString())
+    )
+    setSched({ id: p.id, existing: !!existingIso })
+  }
+
+  async function saveSchedule() {
+    if (!sched) return
+    if (!schedWhen) return setSchedMsg('Pick a date and time.')
+    const when = new Date(schedWhen)
+    if (isNaN(when.getTime()) || when.getTime() < Date.now())
+      return setSchedMsg('Pick a time in the future.')
+    const { error } = await supabase
+      .from('blog_posts')
+      .update({ newsletter_scheduled_at: when.toISOString() })
+      .eq('id', sched.id)
+    if (error) return setSchedMsg('Error: ' + error.message)
+    setSched(null)
+    load()
+  }
+
+  async function cancelSchedule(p: BlogPost) {
+    if (!confirm('Cancel the scheduled send for this post?')) return
+    const { error } = await supabase
+      .from('blog_posts')
+      .update({ newsletter_scheduled_at: null })
+      .eq('id', p.id)
+    if (error) alert('Error: ' + error.message)
+    load()
   }
 
   return (
@@ -370,24 +419,106 @@ function PostList({
             >
               {p.published ? 'Live' : 'Draft'}
             </span>
+            {/* Newsletter controls — depend on published / scheduled / sent state */}
+            {p.published &&
+              (p.newsletter_sent_at ? (
+                <button
+                  className={`${btnSmClass} inline-flex items-center gap-1`}
+                  disabled={sendingId === p.id}
+                  title={`Sent ${new Date(p.newsletter_sent_at).toLocaleString()}`}
+                  onClick={() => sendNewsletter(p)}
+                >
+                  {sendingId === p.id ? 'Sending…' : '✓ Re-send'}
+                </button>
+              ) : p.newsletter_scheduled_at ? (
+                <>
+                  <span
+                    className="font-mono text-[10px] font-bold px-2.5 py-1 rounded-full border bg-amber-400/15 text-amber-400 border-amber-400/30"
+                    title={`Scheduled for ${new Date(p.newsletter_scheduled_at).toLocaleString()}`}
+                  >
+                    🕒 {new Date(p.newsletter_scheduled_at).toLocaleString()}
+                  </span>
+                  <button
+                    className={btnSmClass}
+                    onClick={() => onSchedule(p, p.newsletter_scheduled_at!)}
+                  >
+                    Reschedule
+                  </button>
+                  <button
+                    className={`${btnSmClass} hover:!text-red-400 hover:!border-red-400/50`}
+                    onClick={() => cancelSchedule(p)}
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    className={`${btnSmClass} inline-flex items-center gap-1`}
+                    disabled={sendingId === p.id}
+                    title="Email this post to subscribers now"
+                    onClick={() => sendNewsletter(p)}
+                  >
+                    <Send size={11} /> {sendingId === p.id ? 'Sending…' : 'Send email'}
+                  </button>
+                  <button className={btnSmClass} onClick={() => onSchedule(p, '')}>
+                    Schedule
+                  </button>
+                </>
+              ))}
             <button className={btnSmClass} onClick={() => togglePublish(p)}>
               {p.published ? 'Unpublish' : 'Publish'}
             </button>
             <button className={btnSmClass} onClick={() => onEdit(p)}>
               Edit
             </button>
-            {p.published && (
-              <button
-                className={`${btnSmClass} inline-flex items-center gap-1`}
-                disabled={sendingId === p.id}
-                onClick={() => sendNewsletter(p)}
-              >
-                <Send size={11} /> {sendingId === p.id ? 'Sending…' : 'Send'}
-              </button>
-            )}
           </div>
         ))}
       </div>
+
+      {/* Schedule dialog */}
+      {sched && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSched(null)
+          }}
+        >
+          <div className="w-full max-w-md rounded-xl bg-surface border border-border/60 p-7">
+            <h2 className="font-syne font-bold text-lg text-text-primary mb-1">
+              {sched.existing ? 'Reschedule send' : 'Schedule send'}
+            </h2>
+            <p className="font-inter text-sm text-text-muted mb-5">
+              Pick when this post should be emailed to all confirmed subscribers.
+              Times are in your local timezone.
+            </p>
+            <label className="font-mono text-[10px] text-text-muted/60 uppercase tracking-widest block mb-1.5">
+              Send at
+            </label>
+            <input
+              type="datetime-local"
+              className={inputClass}
+              min={toLocalInput(new Date(Date.now() + 60000).toISOString())}
+              value={schedWhen}
+              onChange={(e) => setSchedWhen(e.target.value)}
+            />
+            {schedMsg && (
+              <p className="mt-2 font-inter text-sm text-red-400">{schedMsg}</p>
+            )}
+            <div className="flex justify-end gap-3 mt-5">
+              <button className={btnSmClass} onClick={() => setSched(null)}>
+                Cancel
+              </button>
+              <button
+                onClick={saveSchedule}
+                className={`${btnClass} bg-accent hover:bg-accent/85 text-white`}
+              >
+                {sched.existing ? 'Reschedule' : 'Schedule'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
