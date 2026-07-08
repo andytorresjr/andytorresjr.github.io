@@ -4,12 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+// Root-relative so anchors also work from subpages like /blog/
 const navLinks = [
-  { href: '#home', label: 'Home' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#about', label: 'About' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#home', label: 'Home' },
+  { href: '/#projects', label: 'Projects' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/#about', label: 'About' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/#contact', label: 'Contact' },
 ]
 
 export default function Navbar() {
@@ -39,7 +41,7 @@ export default function Navbar() {
       >
         {/* Logo */}
         <a
-          href="#home"
+          href="/#home"
           className="font-syne font-black text-xl text-text-primary tracking-tight hover:text-accent transition-colors"
           aria-label="Andres Torres Jr. — home"
         >
